@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :posts
   has_many :dogs, :foreign_key => :owner_id
+
+  has_one :address, :as => :addressable
   
   attr_protected :password
 
@@ -8,4 +10,5 @@ class User < ActiveRecord::Base
   validates_length_of :email, :in => 1..100
   validates_inclusion_of :age, :in => 1..100
   validates_acceptance_of :eula
+  validates_uniqueness_of :email, :scope => :name
 end

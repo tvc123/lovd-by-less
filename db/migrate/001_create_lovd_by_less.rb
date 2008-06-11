@@ -111,23 +111,25 @@ class CreateLovdByLess < ActiveRecord::Migration
     add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
     create_table "users", :force => true do |t|
-      t.string   "login"
-      t.string   "crypted_password",          :limit => 40
-      t.string   "salt",                      :limit => 40
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.string   "remember_token"
-      t.datetime "remember_token_expires_at"
-      t.boolean  "is_admin"
-      t.boolean  "can_send_messages",                       :default => true
-      t.string   "time_zone",                               :default => "UTC"
-      t.string   "email_verification"
-      t.boolean  "email_verified"
+      t.string :login
+      t.string :email
+      t.string :crypted_password, :limit => 40
+      t.string :salt, :limit => 40
+      t.string :remember_token
+      t.datetime :remember_token_expires_at
+      t.string :activation_code, :limit => 40
+      t.datetime :activated_at
+      t.string :password_reset_code, :limit => 40
+      t.boolean :enabled, :default => true
+      t.boolean :terms_of_service, :default => false, :null => false
+      t.boolean :can_send_messages,                   :default => true
+      t.string :time_zone,                            :default => "UTC"
+      t.timestamps
+      
     end
 
     add_index "users", ["login"], :name => "index_users_on_login"
-    
-    
+        
   end
 
   def self.down

@@ -1,144 +1,128 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class UserTest < Test::Unit::TestCase
 
-  VALID_USER = {:password=>'123456', :password_confirmation=>'123456', :login=>'valid_user', :email=>'valid_user@example.com', :terms_of_service => '1'}
+    load_all_fixtures
+
+    should_require_unique_attributes :login, :email
+
+    should_ensure_length_in_range :password, (4..40)
+    should_ensure_length_in_range :login, (3..40)
+    should_ensure_length_in_range :email, (0..100)
+
+    should_have_many :permissions
+    should_have_many :roles, :through => :permissions
 
 
-
-  context 'A User instance' do
-    should_require_attributes :login, :password, :password_confirmation
-    should_require_unique_attributes :login
-
-    should_ensure_length_in_range :login, 3..40
-    should_ensure_length_in_range :password, 4..40
-    should_protect_attributes :is_admin, :can_send_messages
-
-    should 'be able to change their password' do
-      assert p = users(:user).crypted_password
-      assert u2 = User.find(users(:user).id)
-      assert u2.change_password('test', 'asdfg', 'asdfg')
-      assert u2.valid?
-      assert_not_equal(p, u2.crypted_password)
-    end
-
-    should 'require the correct current password in order to change password' do
-      assert p = users(:user).crypted_password
-      assert u2 = User.find(users(:user).id)
-      assert !u2.change_password('tedst', 'asdfg', 'asdfg')
-      assert u2.valid?
-      assert_equal(p, u2.crypted_password)
-    end
-
-    should 'require a matching password confirmation to change password' do
-      assert p = users(:user).crypted_password
-      assert u2 = User.find(users(:user).id)
-      assert !u2.change_password('test', 'asdfg', 'asdfgd')
-      assert u2.valid?
-      assert_equal(p, u2.crypted_password)
-    end
-
-    should 'reset password if forgotten' do
-      p1 = users(:user).crypted_password
-      assert users(:user).forgot_password
-      assert_not_equal p1, users(:user).reload.crypted_password
-    end
-
-    should 'leave profile intact after a destroy' do
-      u = users(:user)
-      assert_no_difference "Profile.count" do
-        assert_difference "User.count", -1 do
-          u.destroy
+    should "Create a new user" do
+        assert_difference 'User.count' do
+            user = create_user
+            assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
         end
-      end
-    end
-  end
-
-
-  context 'A new User instance' do
-    should 'be valid if the password and password confirmation matches' do
-      assert u = User.new(VALID_USER)
-      assert u.valid?
     end
 
-    should 'be invalid if password confirmation does not match the password' do
-      assert u = User.new(VALID_USER.merge(:password => '12345'))
-      assert !u.valid?
+    should "Fail to create a new user because they didn't agree to terms of service" do
+        assert_no_difference 'User.count' do
+            user = create_user(:terms_of_service => false)
+            assert user.new_record?, "#{user.errors.full_messages.to_sentence}"
+        end
+    end
+    
+    should "initialize activation code upon creation" do
+        user = create_user
+        assert_not_nil user.activation_code
     end
 
-    should 'not be created without terms' do
-      assert_no_difference "User.count" do
-        User.create({
-          :login => 'lquire',
-          :email => 'lquire@example.com',
-          :password => 'lquire',
-          :password_confirmation => 'lquire',
-          :terms_of_service => '0'
-          })
-      end
+    should "require login" do
+        assert_no_difference 'User.count' do
+            u = create_user(:login => nil)
+            assert u.errors.on(:login)
+        end
     end
 
-    should 'be created when given valid options' do
-      assert_difference "User.count" do
-        assert u = User.create(VALID_USER)
-        assert !u.new_record?, u.errors.full_messages.to_sentence
-        assert u.profile
-        assert u.profile.is_active
-      end
-    end
-  end
-
-  context 'users(:user)' do
-    should 'be able to reset their password' do
-      users(:user).update_attributes(:password => 'new password', :password_confirmation => 'new password')
-      assert_equal users(:user), User.authenticate('user', 'new password')
+    should "require password" do
+        assert_no_difference 'User.count' do
+            u = create_user(:password => nil)
+            assert u.errors.on(:password)
+        end
     end
 
-    should 'not rehash their password' do
-      users(:user).update_attributes(:login => 'user8')
-      assert_equal users(:user), User.authenticate('user8', 'test')
+    should "require password confirmation" do
+        assert_no_difference 'User.count' do
+            u = create_user(:password_confirmation => nil)
+            assert u.errors.on(:password_confirmation)
+        end
     end
 
-    should 'be able to authenticate' do
-      assert_equal users(:user), User.authenticate('user', 'test')
+    should "require require email" do
+        assert_no_difference 'User.count' do
+            u = create_user(:email => nil)
+            assert u.errors.on(:email)
+        end
     end
 
-    should 'be remembered' do
-      users(:user).remember_me
-      assert users(:user).remember_token?
-      assert_not_nil users(:user).remember_token
-      assert_not_nil users(:user).remember_token_expires_at
+    should "require reset password email" do
+        users(:quentin).update_attributes(:password => 'new password', :password_confirmation => 'new password')
+        assert_equal users(:quentin), User.authenticate('quentin', 'new password')
     end
-  end
-  #
-  #   def test_should_not_authenticate_user_inactive
-  #     assert !User.authenticate('inactive', 'test')
-  #   end
-  #
-  #
-  #
-  #
-  #   def test_full_name
-  #     assert u = users(:system)
-  #     assert_equal "system", u.full_name
-  #
-  #     assert u2 = users(:second)
-  #     assert_equal 'hello', u2.full_name
-  #
-  #     assert u3 = users(:quentin)
-  #     assert_equal "quentin", u3.full_name
-  #   end
-  #
-  #
-  #
-    should "not be able to mail" do
-      assert !users(:inactive).can_mail?( users(:user))
-      assert users(:user).can_mail?( users(:inactive))
-      assert !users(:cant_message).can_mail?( users(:user))
-      assert users(:user).can_mail?( users(:cant_message))
+
+    should "not rehash password" do
+        users(:quentin).update_attributes(:login => 'quentin2')
+        assert_equal users(:quentin), User.authenticate('quentin2', 'test')
     end
-  #
-  #   def test_associations
-  #     _test_associations
-  #   end
+
+    should "should authenticate user" do
+        assert_equal users(:quentin), User.authenticate('quentin', 'test')
+    end
+
+    should "set remember token" do
+        users(:quentin).remember_me
+        assert_not_nil users(:quentin).remember_token
+        assert_not_nil users(:quentin).remember_token_expires_at
+    end
+
+    should "unset remember token" do
+        users(:quentin).remember_me
+        assert_not_nil users(:quentin).remember_token
+        users(:quentin).forget_me
+        assert_nil users(:quentin).remember_token
+    end
+
+    should "remember me for one week" do
+        before = 1.week.from_now.utc
+        users(:quentin).remember_me_for 1.week
+        after = 1.week.from_now.utc
+        assert_not_nil users(:quentin).remember_token
+        assert_not_nil users(:quentin).remember_token_expires_at
+        assert users(:quentin).remember_token_expires_at.between?(before, after)
+    end
+
+    should "remember me until one week" do
+        time = 1.week.from_now.utc
+        users(:quentin).remember_me_until time
+        assert_not_nil users(:quentin).remember_token
+        assert_not_nil users(:quentin).remember_token_expires_at
+        assert_equal users(:quentin).remember_token_expires_at, time
+    end
+
+    should "remember me default two weeks" do
+        before = 2.weeks.from_now.utc
+        users(:quentin).remember_me
+        after = 2.weeks.from_now.utc
+        assert_not_nil users(:quentin).remember_token
+        assert_not_nil users(:quentin).remember_token_expires_at
+        assert users(:quentin).remember_token_expires_at.between?(before, after)
+    end
+
+    protected
+    def create_user(options = {})
+        User.create({ :login => 'quire', 
+                      :email => 'quire@example.com', 
+                      :password => 'quire', 
+                      :password_confirmation => 'quire', 
+                      :newsletter => true, 
+                      :notify_of_events => true, 
+                      :terms_of_service => true }.merge(options))
+    end
+    
 end

@@ -2,8 +2,6 @@ var SLIDE_SPEED = 500
 
 
 function jeval(str){return eval('(' +  str + ');'); }
-
-
   
 //tog
 function tog(clicker, toggler, callback, speed){
@@ -23,13 +21,6 @@ function togger(j, callback, speed){
   jq(j).slideToggle(speed); 
 }
 //tog
-
-
-
-
-
-
-
 
 
 
@@ -61,10 +52,6 @@ function thickbox(id, title, height, width){
     return false;
 }
 
-
-
-
-
 function truncate(str, len){
     if (len == undefined){len = 9}
     
@@ -73,22 +60,9 @@ function truncate(str, len){
     return str.substring(0, len) + '...'
 }
 
-
-
-
-
-
-
-
-
-
-
-
 function tog_login_element() {
 	jq('.login_element, .checkout_element').toggle();
 }
-
-
 
 //start up
 jq(function(){
@@ -111,11 +85,6 @@ jq(function(){
 	
 });
 //start up
-
-
-
-
-
 
 function toggleComments(comment_id)
 {

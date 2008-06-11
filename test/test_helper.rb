@@ -4,6 +4,8 @@ require 'test_help'
 require 'redgreen' unless ENV['TM_MODE']
 require 'ostruct'
 require 'mocha'
+require 'test/spec'
+require 'test/spec/rails'
 
 # for testing uploaded files
 # place any "already uploaded" files in a subdirectory within /test/ instead of overwriting production files.
@@ -33,8 +35,6 @@ class Test::Unit::TestCase
   
   fixtures :all
   
-  include LessAuthenticationTestHelper
-
   # Add more helper methods to be used by all tests here...
   
   @@association_test_exclusions = %w{LocalizationTest RequestLoggingTest UserPhotosTest
@@ -49,9 +49,7 @@ class Test::Unit::TestCase
       @@association_test_exclusions.include?(self.class.to_s)
     check_associations(self.class.to_s.gsub('Test', '').constantize)
   end
-  
-  
-  
+
   def check_associations(m, ignore = [])
     @m = m.new
     ig = [ignore].flatten
@@ -63,12 +61,6 @@ class Test::Unit::TestCase
     end
     true
   end
-  
-  
-  
-  
-  
-  
   
   # 
   #   
@@ -122,4 +114,11 @@ class Test::Unit::TestCase
   # Teardown and setup - for quick recycling of env. within a single test
   def recycle; teardown; setup; end
 
+end
+
+include AuthenticatedTestHelper
+
+# Add more helper methods to be used by all tests here...
+def login_using_basic_auth
+    @request.env['HTTP_AUTHENTICATION'] = ActionController::HttpAuthentication::Basic.encode_credntials("", "")
 end

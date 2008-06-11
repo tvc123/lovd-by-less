@@ -6,7 +6,11 @@
 <% end%>
 
 <div>
-  <img src="/images/main_graphic.jpg" class="left" title="main graphic" alt="main graphic" />
+	<div id="home-tag">
+		<h1>Teachers Without Borders</h1>
+		<span>Global Colleagues Local Solutions</span>
+	</div>
+	
   <div class="front_right_column right" style="margin-top: 0px;">
     <%= render :partial => 'profiles/featured', :locals => {:profile => Profile.featured_profile[:profile]} %>
     <div class="clear"></div>   

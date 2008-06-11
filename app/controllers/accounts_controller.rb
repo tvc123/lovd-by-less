@@ -1,121 +1,59 @@
 class AccountsController < ApplicationController
-  skip_before_filter :login_required, :except => :logout
-  skip_after_filter :store_location
-  layout 'plain'
+ 
+    before_filter :login_required, :except => :show
+    before_filter :not_logged_in_required, :only => :show
 
-
-
-  def login
-    redirect_back_or_default(home_path) and return if @u
-    @user = User.new
-    return unless request.post?
-    
-    
-    #plays double duty login/forgot (due to the ajax nature of the login/forgot form)
-    if params[:user][:email] && params[:user][:email].size > 0
-      u = Profile.find_by_email(params[:user][:email]).user rescue nil
-      flash.now[:error] = "Could not find that email address. Try again." and return if u.nil?
-
-      @pass = u.forgot_password #must be @ variable for function tests
-      AccountMailer.deliver_forgot_password(u.profile.email, u.f, u.login, @pass)
-      flash.now[:notice] = "A new password has been mailed to you."
-    else
-      params[:login] ||= params[:user][:login] if params[:user]
-      params[:password] ||= params[:user][:password] if params[:user]
-      self.user = User.authenticate(params[:login], params[:password])
-      if @u
-        remember_me if params[:user][:remember_me] == "1"
-        flash[:notice] = "Hello #{@u.f}"
-        redirect_back_or_default profile_url(@u.profile)
-      else
-        flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
-      end
+    # Activate action
+    def show
+        # Uncomment and change paths to have user logged in after activation - not recommended
+        #self.current_user = User.find_and_activate!(params[:id])
+        User.find_and_activate!(params[:id])
+        flash[:notice] = "Your account has been activated! You can now login."
+        redirect_to login_path
+    rescue User::ArgumentError
+        flash[:notice] = 'Activation code not found. Please try creating a new account.'
+        redirect_to new_user_path 
+    rescue User::ActivationCodeNotFound
+        flash[:notice] = 'Activation code not found. Please try creating a new account.'
+        redirect_to new_user_path
+    rescue User::AlreadyActivated
+        flash[:notice] = 'Your account has already been activated. You can log in below.'
+        redirect_to login_path
     end
-  end
-  
-  
-  
-  
 
-  def logout
-    cookies[:auth_token] = {:expires => Time.now-1.day, :value => "" }
-    session[:user] = nil
-    session[:return_to] = nil
-    flash[:notice] = "You have been logged out."
-    redirect_to '/'
-  end
-  
-  
-  
-
-
-
-  def signup
-    redirect_back_or_default(home_path) and return if @u
-    @user = User.new
-    return unless request.post?
-    
-      
-    u = User.new
-    u.terms_of_service = params[:user][:terms_of_service]
-    u.login = params[:user][:login]
-    u.password = params[:user][:password]
-    u.password_confirmation = params[:user][:password_confirmation]
-    u.email = params[:user][:email]
-    u.captcha = params[:user][:captcha] unless ENV['RAILS_ENV'] == 'test'
-    u.captcha_answer = params[:user][:captcha_answer] unless ENV['RAILS_ENV'] == 'test'
-    
-    @u = u
-    if u.save
-      self.user = u
-    
-      
-      remember_me if params[:remember_me] == "1"
-      flash[:notice] = "Thanks for signing up!"
-      AuthMailer.deliver_registration(:subject=>"new #{SITE_NAME} registration", :body => "username = '#{@u.login}', email = '#{@u.profile.email}'", :recipients=>REGISTRATION_RECIPIENTS)
-      redirect_to profile_url(@u.profile)
-    else  
-      @user = @u
-      params[:user][:password] = params[:user][:password_confirmation] = ''
-      flash.now[:error] = @u.errors
-      self.user = u# if RAILS_ENV == 'test'
+    def edit
     end
-  end
-  
-  
-  
-  
-  
-  
-  
-  
 
-protected
-
-  def remember_me
-    self.user.remember_me
-    cookies[:auth_token] = {
-      :value => self.user.remember_token ,
-      :expires => self.user.remember_token_expires_at
-    }
-  end
-  
-  
-  def allow_to 
-    super :all, :all=>true
-  end
-  
+    # Change password action  
+    def update
+        return unless request.post?
+        if User.authenticate(current_user.login, params[:old_password])
+            if ((params[:password] == params[:password_confirmation]) && !params[:password_confirmation].blank?)
+                current_user.password_confirmation = params[:password_confirmation]
+                current_user.password = params[:password]        
+                if current_user.save
+                    flash[:notice] = "Password successfully updated."
+                    redirect_to root_path #profile_url(current_user.login)
+                else
+                    flash[:error] = "An error occured, your password was not changed."
+                    render :action => 'edit'
+                end
+            else
+                flash[:error] = "New password does not match the password confirmation."
+                @old_password = params[:old_password]
+                render :action => 'edit'      
+            end
+        else
+            flash[:error] = "Your old password is incorrect."
+            render :action => 'edit'
+        end 
+    end
+    
+    private
+    def allow_to
+      super :owner, :all => true
+      super :all, :only => [:show]
+    end
+    
 end
 
-
-
-
-
-
-
-
-class AuthMailer < ActionMailer::Base
-  def registration(options)
-    self.generic_mailer(options)
-  end
-end

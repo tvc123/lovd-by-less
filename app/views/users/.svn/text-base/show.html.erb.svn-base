@@ -1,0 +1,26 @@
+<div id="introGroup" class="alt">
+	<h1>My Genlighten</h1>
+	<h2>Your dashboard and homebase within Genlighten</h2>
+	<p>This page will serve as your primary starting point at Genlighten.com, allowing you to access the site&#146;s key features, whether 
+		you&#146;re a lookup client, a provider, or both. If you need help using our site, feel free to visit our <a href="<%=help_user_url(@user)%>">help page</a>.</p>
+	</div>
+
+	<div class="dbColumn">
+		<h1>Find Documents</h1>
+		<ul>
+			<li><%=dashboard_link(new_lookup_url, 'BeginNewSearch', 'Begin a New Document Search', 'db_newSearch.jpg', 'db_newSearchHover.jpg')%></li>
+			<li><%=dashboard_link('/lookup/lookups', 'CheckStatusFind', 'Check the status of your requests', 'db_checkStatus.jpg', 'db_checkStatusHover.jpg')%></li>
+			<li><%=dashboard_link('/wish/new_wish', 'MakeWish', 'Make a New Document Wish', 'db_makeWish.jpg', 'db_makeWishHover.jpg')%></li>		
+		</ul>
+	</div>
+	<img src="/images/db_divide.gif" alt=" " class="dbDivide" />
+	<div class="dbColumn">
+		<h1 class="alt">Provide Documents</h1>
+		<ul>
+			<li class="alt"><%=dashboard_link('/provider_lookups_offered/add_lookup', 'OfferNew', 'Create a new document offering', 'db_offerNew.jpg', 'db_offerNewHover.jpg')%></li>
+			<li class="alt"><%=dashboard_link('/provider_lookup/lookups', 'ProvideCheckStatus', 'Check the Status of clients requests', 'db_checkRequests.jpg', 'db_checkRequestsHover.jpg')%></li>
+			<li class="alt"><%=dashboard_link('/wish/find_a_wish_list', 'ViewWishlist', 'View document wishes', 'db_viewWishlist.jpg', 'db_viewWishlistHover.jpg')%></li>
+			<li class="alt"><%=dashboard_link('/provider_lookups_offered/add_lookup', 'manage', 'Manage document offerings', 'db_manage.jpg', 'db_manageHover.jpg')%></li>
+		</ul>
+	</div>
+</div>

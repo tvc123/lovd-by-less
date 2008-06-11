@@ -1,0 +1,51 @@
+<div id="introGroup"> 
+<h1>User Preferences</h1>
+<p>Update your user profile and preferences here.</p>
+</div>
+
+<% form_for :user, :url => user_url(@user), :html => { :method => :put, :name => "frmPreferences" } do |f| %>
+	<input type="hidden" name="data[Action][key]" id="data[Action][key]" value="" />
+	
+	<div id="form_frame" style="width: 440px; margin-left: 20px;">
+		
+		<%= error_messages_for :user %>
+
+
+		<table width="100%" border="0" cellspacing="0" cellpadding="3">
+			<tr>
+				<td class="form_label">
+					<label for="email">Email</label>
+				</td>
+				<td>
+					<%= f.text_field :email, :size => 60 %>
+				</td>
+			</tr>
+			<tr>
+				<td class="lined" colspan="2">
+				</td>
+			</tr>
+			<tr>
+				<td class="space note" colspan="2">
+					Leave the following fields blank to retain the current password.
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<label for="password">Password</label>
+				</td>
+				<td>
+					<%=link_to 'Change Password', change_password_url %>
+				</td>
+			</tr>
+			<tr>
+				<td class="lined" colspan="2">
+				</td>
+			</tr>
+		
+			
+		</table>
+
+			
+			
+	</div>
+<% end -%>

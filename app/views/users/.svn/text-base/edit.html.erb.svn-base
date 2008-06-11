@@ -1,0 +1,310 @@
+<div id="introGroup"> 
+<h1>User Preferences</h1>
+<p>Update your user profile and preferences here.</p>
+</div>
+
+<% form_for :user, :url => user_url(@user), :html => { :method => :put, :name => "frmPreferences" } do |f| %>
+	<input type="hidden" name="data[Action][key]" id="data[Action][key]" value="" />
+	
+	<div id="form_frame" style="width: 440px; margin-left: 20px;">
+		
+		<%= render :partial => 'layouts/shared/global_messages' %>
+		<%= error_messages_for :user %>
+				
+		<script type="text/javascript">
+			onload = function() {
+				togglePaymentMethod($('BillingInfoMethod'));
+				if($('UserPreferredStateId') != null && $('UserPreferredStateId').value != '') {
+					updateCounties();
+				}
+			};
+			function updateCounties() {
+				$('PreferredCountyIdBlock').innerHTML = '';
+				new Ajax.Updater('PreferredCountyIdBlock', '<?php echo $html->url('/choose_lookup/update_preferred_county_select'); ?>/' + $('UserPreferredStateId').value + '/<?php echo($preferredCountyId); ?>');
+			}
+		</script>
+
+		<table width="100%" border="0" cellspacing="0" cellpadding="3">
+			<tr>
+				<td class="form_label">
+					<label for="email">Email</label>
+				</td>
+				<td>
+					<%= f.text_field :email, :size => 60 %>
+				</td>
+			</tr>
+			<tr>
+				<td class="lined" colspan="2">
+				</td>
+			</tr>
+			<tr>
+				<td class="space note" colspan="2">
+					Leave the following fields blank to retain the current password.
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<label for="password">Password</label>
+				</td>
+				<td>
+					<%=link_to 'Change Password', change_password_url %>
+				</td>
+			</tr>
+			<tr>
+				<td class="lined" colspan="2">
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label space">
+					<label>Receive the Genlighten newsletter</label>
+				</td>
+				<td class="space">
+					<%=f.radio_button(:newsletter, true, { :class=>"radioField prefRadio" })%><label for="">Yes</label>
+					<%=f.radio_button(:newsletter, false, { :class=>"radioField prefRadio" })%><label>No</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('User/notify', 'Notified of system events?')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('User/notify', 'Please enter a response.')); ?>		
+		        	<?php echo($html->radio("User/notify", Array("1"=>"Yes", "0"=>"No"), null, Array("class"=>"radioField prefRadio"))); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label space">
+					<?php echo($form->labelTag('User/preferred_state_id', 'Preferred state')); ?>
+				</td>
+				<td class="space">
+					<?php echo($html->tagErrorMsg('User/preferred_state_id', 'Please enter your preferred state.')); ?>		
+					<?php echo $html->selectTag('User/preferred_state_id', $preferredstatelist, null, array('onchange'=>'updateCounties();')); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('User/preferred_county_id', 'Preferred county')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('User/preferred_county_id', 'Please enter your preferred county.')); ?>
+					<span id="PreferredCountyIdBlock">	
+					<?php echo $html->selectTag('User/preferred_county_id', $preferredcountylist, null, array()); ?>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label space">
+					<?php echo($form->labelTag('', 'Provider account balance')); ?>
+				</td>
+				<td class="space">
+					<strong class="payout">$<?php echo($number->precision($userBalance, 2)); ?></strong> 
+					<a href="#" onclick="$('data[Action][key]').value='payout'; document.forms['frmPreferences'].submit(); return false;">
+						<img src="/images/payout.jpg" alt="Payout" border="0" id="imgPayout" class="swapImage {src: '/images/payoutHover.gif'}" /></a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			<tr>														
+				<td class="form_label space">
+					<label for="first_name">First Name <em>*</em>'</label>			
+				</td>
+				<td class="space">
+					<?= f.text_field :first_name -?>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/last_name', 'Last Name <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/last_name', 'Please enter your last name.')); ?>		
+					<?php echo($html->input('BillingInfo/last_name', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/address1', 'Address 1 <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/address1', 'Please enter your address.')); ?>		
+					<?php echo($html->input('BillingInfo/address1', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/address2', 'Address 2')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/address2', 'Please enter your address.')); ?>		
+					<?php echo($html->input('BillingInfo/address2', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/city', 'City <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/city', 'Please enter your city.')); ?>		
+					<?php echo($html->input('BillingInfo/city', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/state', 'State <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/state', 'Please enter your state.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/state', $statelist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/zip', 'Zipcode <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/zip', 'Please enter your zipcode.')); ?>		
+					<?php echo($html->input('BillingInfo/zip', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/country', 'Country <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/country', 'Please enter your country.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/country', $countrylist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/telephone', 'Telephone <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/telephone', 'Please enter your telephone.')); ?>		
+					<?php echo($html->input('BillingInfo/telephone', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label space">
+					<?php echo($form->labelTag('BillingInfo/method', 'Payment Method <em>*</em>')); ?>
+				</td>
+				<td class="space">
+					<?php echo($html->tagErrorMsg('BillingInfo/method', 'Please choose a payment method.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/method', $methodlist, null, array('onchange'=>"togglePaymentMethod(this);")); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="3" style="display:none;" id="tblCC">
+			<tr>
+				<td class="form_label space">
+					<?php echo($form->labelTag('BillingInfo/cctype', 'Credit Card Type <em>*</em>')); ?>
+				</td>
+				<td class="space">
+					<?php echo($html->tagErrorMsg('BillingInfo/cctype', 'Please enter your credit card type.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/cctype', $cctypelist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/ccnumber', 'Credit Card Number <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/ccnumber', 'Please enter your credit card number.')); ?>		
+					<?php echo($html->input('BillingInfo/ccnumber', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/ccmonth', 'Credit Card Expiration Month <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/ccmonth', 'Please enter your credit card expiration month.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/ccmonth', $ccmonthlist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/ccyear', 'Credit Card Expiration Year <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/ccyear', 'Please enter your credit card expiration year.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/ccyear', $ccyearlist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="lined">
+				</td>
+			</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="3" style="display:none;" id="tblACH">
+			<tr>
+				<td class="form_label space">
+					<?php echo($form->labelTag('BillingInfo/achname', 'Check Name <em>*</em>')); ?>
+				</td>
+				<td class="space">
+					<?php echo($html->tagErrorMsg('BillingInfo/achname', 'Please enter the name on the check.')); ?>		
+					<?php echo($html->input('BillingInfo/achname', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/achrouting', 'Routing Number <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/achrouting', 'Please enter the routing number on the check.')); ?>		
+					<?php echo($html->input('BillingInfo/achrouting', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/achnumber', 'Account Number <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/achnumber', 'Please enter the account number on the check.')); ?>		
+					<?php echo($html->input('BillingInfo/achnumber', Array())); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/achholder', 'Account Holder <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/achholder', 'Please select the holder type.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/achholder', $achholderlist, null, array()); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">
+					<?php echo($form->labelTag('BillingInfo/achtype', 'Type of Account <em>*</em>')); ?>
+				</td>
+				<td>
+					<?php echo($html->tagErrorMsg('BillingInfo/achtype', 'Please select the type of account.')); ?>		
+					<?php echo $html->selectTag('BillingInfo/achtype', $achtypelist, null, array()); ?>
+				</td>
+			</tr>		
+		</table>
+		<br />
+		<div>
+			<a href="#" onclick="$('data[Action][key]').value='info'; document.forms['frmPreferences'].submit(); return false;">
+				<img src="/images/save2.jpg" alt="Save" name="Save" border="0" id="Save" swapImage {src: '/images/save2Hover.gif'}/></a>
+		</div>
+			
+	</div>
+<% end -%>

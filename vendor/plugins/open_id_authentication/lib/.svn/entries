@@ -1,0 +1,43 @@
+8
+
+dir
+386
+https://svn.ggugg.com/svn/projects/genlighten/vendor/plugins/open_id_authentication/lib
+https://svn.ggugg.com/svn/projects
+
+
+
+2008-05-06T04:57:33.377750Z
+361
+justin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+bd77dae7-77b2-694a-b990-b8e4a36c7a21
+
+open_id_authentication
+dir
+
+open_id_authentication.rb
+file
+
+
+
+
+2008-06-11T18:00:05.000000Z
+e2d428ab02bf9df37a426ddb292355fe
+2008-05-06T04:57:33.377750Z
+361
+justin
+

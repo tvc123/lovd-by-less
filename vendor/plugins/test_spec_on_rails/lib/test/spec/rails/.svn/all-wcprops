@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails
+END
+should_select.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/should_select.rb
+END
+test_unit_ext.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_unit_ext.rb
+END
+should_redirect.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/should_redirect.rb
+END
+should_validate_presence_of.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/should_validate_presence_of.rb
+END
+use_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/use_controller.rb
+END
+test_url.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_url.rb
+END
+test_status.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_status.rb
+END
+should_validate.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/should_validate.rb
+END
+dummy_response.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/dummy_response.rb
+END
+test_spec_ext.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_spec_ext.rb
+END
+test_dummy.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_dummy.rb
+END
+test_template.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_template.rb
+END
+should_route.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/should_route.rb
+END
+test_layout.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec/rails/test_layout.rb
+END

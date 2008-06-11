@@ -1,0 +1,48 @@
+<% form_tag session_path, :id => "login", :name => "frmLogin", :class => "alt" do -%>
+
+	<div id="login_form">
+	  <h1>Log-in your Account</h1>
+
+	  <div class="instruction">
+	    <%= link_to "Register for an account", signup_url  %>
+	  </div>
+
+		<div class="row">
+			<label for="login" class="desc">Username <em>*</em></label>
+			<%= text_field_tag :login, params[:login], :class => 'focus_first', :onfocus => "" -%>
+		</div>
+		
+		<div class="row">
+	  	<label for="password" class="desc">Password <em>*</em></label>
+			<%= password_field_tag :password, params[:password], :onfocus => "" -%>
+	  	<span class="instruction"><%= link_to 'Forgot your password?', forgot_password_path %></span>
+		</div>
+		
+		<div class="row">
+			<label for="remember_me">Remember me</label> 
+			<%= check_box_tag :remember_me, "1", params[:remember_me] || nil %>	
+		</div>
+		
+	  <div class="button">
+	    <%= submit_tag 'Log-in Now', :class=>'button' %>
+	  </div>
+
+	</div>
+	
+<% end %>
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+jQuery(function(){
+  tog("#forgot_password_clicker", "#login_form");
+  tog("#forgot_password_clicker", "#forgot_form", forgot_text);
+
+});
+function forgot_text(){
+  if (jQuery("#forgot_text").html() == "forgot")
+  jQuery("#forgot_text").html("remember");
+  else
+  jQuery("#forgot_text").html("forgot");
+
+}
+//]]>
+</script>

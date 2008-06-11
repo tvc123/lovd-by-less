@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/projects/!svn/ver/381/genlighten/app/views/users
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/381/genlighten/app/views/users/edit.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/360/genlighten/app/views/users/index.html.erb
+END
+help.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/361/genlighten/app/views/users/help.html.erb
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/projects/!svn/ver/381/genlighten/app/views/users/new.html.erb
+END
+welcome.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/projects/!svn/ver/366/genlighten/app/views/users/welcome.html.erb
+END
+_user.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/360/genlighten/app/views/users/_user.html.erb
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/369/genlighten/app/views/users/show.html.erb
+END

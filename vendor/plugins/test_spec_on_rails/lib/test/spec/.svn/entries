@@ -1,0 +1,43 @@
+8
+
+dir
+386
+https://svn.ggugg.com/svn/projects/genlighten/vendor/plugins/test_spec_on_rails/lib/test/spec
+https://svn.ggugg.com/svn/projects
+
+
+
+2008-05-06T04:57:33.377750Z
+361
+justin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+bd77dae7-77b2-694a-b990-b8e4a36c7a21
+
+rails
+dir
+
+rails.rb
+file
+
+
+
+
+2008-06-11T17:59:40.000000Z
+a6f166dcf46ed53f725d4b9e1cfdb964
+2008-05-06T04:57:33.377750Z
+361
+justin
+

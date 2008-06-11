@@ -1,0 +1,18 @@
+<div id="introGroup">
+	<h1>Thank you for registering!</h1>
+	<p>You will be receiving an email shortly at <%=@user.email%>, confirming your account.</p>
+</div>
+
+<div class="regConfirm">
+	<p>
+		<strong>Username:</strong> <%=@user.login%><br />
+		<strong>Password:</strong> ***** (password sent via email)<br />
+		<strong>Email Address:</strong> <%=@user.email%><br />
+		<strong>Date Registered:</strong> <%=@user.created_at.to_date.to_s(:long) %><br />
+	</p>
+
+	<h3>Thank you for registering <%=@user.login%>!</h3>
+	<p>We're glad to have you as a member of Teachers Without Borders.</p>
+	
+
+</div>

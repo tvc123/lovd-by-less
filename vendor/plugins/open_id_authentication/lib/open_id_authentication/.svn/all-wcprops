@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/lib/open_id_authentication
+END
+db_store.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/lib/open_id_authentication/db_store.rb
+END
+nonce.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/lib/open_id_authentication/nonce.rb
+END
+association.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/lib/open_id_authentication/association.rb
+END

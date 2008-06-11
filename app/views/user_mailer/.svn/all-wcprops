@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/projects/!svn/ver/369/genlighten/app/views/user_mailer
+END
+signup_notification.erb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/369/genlighten/app/views/user_mailer/signup_notification.erb
+END
+activation.erb
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/369/genlighten/app/views/user_mailer/activation.erb
+END
+forgot_password.erb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/projects/!svn/ver/369/genlighten/app/views/user_mailer/forgot_password.erb
+END
+reset_password.erb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/369/genlighten/app/views/user_mailer/reset_password.erb
+END

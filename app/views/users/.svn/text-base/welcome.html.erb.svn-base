@@ -1,0 +1,36 @@
+<div id="introGroup">
+	<h1>Thank you for registering!</h1>
+	<p>You will be receiving an email shortly at <%=@user.email%>, confirming your account.</p>
+</div>
+
+<div class="regConfirm">
+	<p>
+		<strong>Username:</strong> <%=@user.login%><br />
+		<strong>Password:</strong> ***** (password sent via email)<br />
+		<strong>Email Address:</strong> <%=@user.email%><br />
+		<strong>Date Registered:</strong> <%=@user.created_at.to_date.to_s(:long) %><br />
+	</p>
+
+	<h3>Thank you for registering <%=@user.login%>!</h3>
+	<p>We're glad to have you as a member of the Genlighten community and wish you continued success in your genealogical research.</p>
+
+	<h3>What can you do next?</h3>
+	<ul>
+		<li>Customize your site <a href="<%=edit_user_url(@user)%>">preferences</a> to fit your research needs.</li>
+		<li><a href="">Browse</a> the lookups our providers offer in the localities that interest you.</li>
+		<li><a href="">Create</a> a lookup offering to provide to other Genlighten members.</li>
+		<li>View the <a href="">My Genlighten</a> dashboard that will act as your 'Home Base' while using the site.</li>
+		<li>Take a brief <a href="">Tour</a> of Genlighten's features and benefits.</li>
+	</ul>
+<!--
+	<?php if($session->check("sampleStateId") && $session->check("sampleCountyId") && $session->check("sampleLookupId")) { ?>
+	<br />
+  <br />
+  <p>
+	  Prior to registration, you requested a lookup be placed in your shopping cart. Click <a href="<?php echo($html->url('/choose_lookup/lookup_requested/' . $session->read("sampleLookupId") . '/' . $session->read("sampleCountyId") . '/' . $session->read("sampleStateId"))); ?>">here</a> if you wish to proceed with that process.
+  </p>
+  <br />
+  <?php } ?>
+-->
+	<p><strong>- The Genlighten Team</strong></p>
+</div>

@@ -1,0 +1,61 @@
+<div class="mod">
+	
+	<h1>Sign In to Genlighten</h1>
+	
+	<p>Enter your current username and password below.</p>
+	
+	<% form_tag session_path, :id => "login", :name => "frmLogin", :class => "alt" do -%>
+
+		<% if flash.length > 0 -%>
+			<div id="loginhelp1" style="float:right;">
+	   		<%= render :partial => 'layouts/shared/global_messages' %>
+				<p>Have you already <a href="signup_url">registered as a Genlighten member?</a><p>
+	      <p><a href="forgot_password_url">If you can't remember your password we'd be happy to email it to you.</a></p>
+	   	</div>
+  	<% end -%>
+
+ 		<fieldset>
+   		<div id="login1">
+   			<label for="login" class="desc">Username <em>*</em></label>
+				<%= text_field_tag :login, params[:login], :class => 'docSearch_input', :onfocus => "" -%>
+   		</div>			
+		</fieldset>
+       
+  	<fieldset>
+			<div id="login2">
+   			<label for="password" class="desc">Password <em>*</em></label>
+				<%= password_field_tag :password, params[:password], :class => 'docSearch_input', :onfocus => "" -%>
+				<p class="forget">
+					<%= link_to 'Forgot your password?', forgot_password_path %>
+				</p>
+   		</div>   				
+		</fieldset>
+		
+		<fieldset>
+			<div id="remember-me">				
+				<label for="remember_me">Remember me</label> 
+				<%= check_box_tag :remember_me, "1", params[:remember_me] || nil %>	
+			</div>
+		</fieldset>
+			
+	<% end -%>
+		
+	<div class="submits">
+		<a href="#" onclick="document.forms['frmLogin'].submit(); ">
+			<img id="signin" src="/images/signin.jpg" alt="Sign In" name="signIn" width="81" height="43" border="0" id="signIn" class="alt"/>
+		</a> 
+	</div>
+	
+</div>
+<script type="">
+jSwap('img#signin', 'signin', 'signinHover.jpg');
+</script>
+
+function jSwap(id, image, swap)
+{
+	$(id).hover(function() {
+		$(this).attr("src","/images/" + swap);
+			}, function() {
+		$(this).attr("src","/images/" + image);
+	});
+}

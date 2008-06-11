@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/generators/upgrade_open_id_authentication_tables
+END
+upgrade_open_id_authentication_tables_generator.rb
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/projects/!svn/ver/361/genlighten/vendor/plugins/open_id_authentication/generators/upgrade_open_id_authentication_tables/upgrade_open_id_authentication_tables_generator.rb
+END

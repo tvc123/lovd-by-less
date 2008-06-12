@@ -16,7 +16,7 @@ class Photo < ActiveRecord::Base
   
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => 'created_at ASC'
   
-  belongs_to :profile
+  belongs_to :user
   
   validates_presence_of :image, :profile_id
   

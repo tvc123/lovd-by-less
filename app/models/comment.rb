@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :comment, :profile
   
   belongs_to :commentable, :polymorphic => true
-  belongs_to :profile
+  belongs_to :user
 
   def after_create
     feed_item = FeedItem.create(:item => self)

@@ -1,19 +1,6 @@
-# == Schema Information
-# Schema version: 1
-#
-# Table name: blogs
-#
-#  id         :integer(11)   not null, primary key
-#  title      :string(255)   
-#  body       :text          
-#  profile_id :integer(11)   
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class Blog < ActiveRecord::Base
   has_many :comments, :as => :commentable, :order => "created_at asc"
-  belongs_to :profile
+  belongs_to :user
   validates_presence_of :title, :body
   
   def after_create

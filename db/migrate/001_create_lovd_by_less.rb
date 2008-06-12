@@ -3,27 +3,27 @@ class CreateLovdByLess < ActiveRecord::Migration
     create_table "blogs", :force => true do |t|
       t.string   "title"
       t.text     "body"
-      t.integer  "profile_id"
+      t.integer  "user_id"
       t.datetime "created_at"
       t.datetime "updated_at"
     end
     
     
-    add_index "blogs", "profile_id"
+    add_index "blogs", "user_id"
     
 
     create_table "comments", :force => true do |t|
       t.text     "comment"
       t.datetime "created_at",                          :null => false
       t.datetime "updated_at",                          :null => false
-      t.integer  "profile_id"
+      t.integer  "user_id"
       t.string   "commentable_type", :default => "",    :null => false
       t.integer  "commentable_id",                      :null => false
       t.integer  "is_denied",        :default => 0,     :null => false
       t.boolean  "is_reviewed",      :default => false
     end
 
-    add_index "comments", "profile_id"
+    add_index "comments", "user_id"
     add_index "comments", ["commentable_id", 'commentable_type']
 
     create_table "feed_items", :force => true do |t|
@@ -38,11 +38,11 @@ class CreateLovdByLess < ActiveRecord::Migration
     add_index 'feed_items', ['item_id', 'item_type']
 
     create_table "feeds", :force => true do |t|
-      t.integer "profile_id"
+      t.integer "user_id"
       t.integer "feed_item_id"
     end
     
-    add_index 'feeds', ['profile_id', 'feed_item_id']
+    add_index 'feeds', ['user_id', 'feed_item_id']
 
     create_table "friends", :force => true do |t|
       t.integer  "inviter_id"
@@ -72,11 +72,11 @@ class CreateLovdByLess < ActiveRecord::Migration
       t.string   "caption",    :limit => 1000
       t.datetime "created_at"
       t.datetime "updated_at"
-      t.integer  "profile_id"
+      t.integer  "user_id"
       t.string   "image"
     end
     
-    add_index 'photos', 'profile_id'
+    add_index 'photos', 'user_id'
 
     
 

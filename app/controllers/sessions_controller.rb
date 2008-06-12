@@ -104,6 +104,15 @@ class SessionsController < ApplicationController
             redirect_to return_to
         end
     end
+
+    protected 
     
+    def permission_denied      
+        respond_to do |format|
+            format.html do
+                redirect_to user_path(current_user)
+            end
+        end
+    end    
 end
 

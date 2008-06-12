@@ -1,9 +1,9 @@
 <%
-photos_empty = @p.photos.empty?
-friends_empty = (@p.followings + @p.friends).empty?
-messages_empty = @p.sent_messages.empty?
-profile_empty = @p.no_data?
-blog_empty = @p.blogs.empty?
+photos_empty = current_user.photos.empty?
+friends_empty = (current_user.followings + current_user.friends).empty?
+messages_empty = current_user.sent_messages.empty?
+profile_empty = current_user.no_data?
+blog_empty = current_user.blogs.empty?
 return unless photos_empty && friends_empty && messages_empty && profile_empty && blog_empty
 %>
 
@@ -25,7 +25,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if photos_empty -%>
 		<div class="blurp">
 			<img src="/images/blurp_photos.png" class="png left" title="Share Icon"  alt="Share Icon" />
-			<strong><%= link_to 'Share Photos', profile_photos_path(@p) %></strong>
+			<strong><%= link_to 'Share Photos', profile_photos_path(current_user) %></strong>
 			<%= SITE_NAME %> allows users to upload images with captions on to their profile.  
 			We love someone to build albums, tagging and commenting on photos for this open source project!
 			<div class="clear"></div>
@@ -68,7 +68,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if blog_empty -%>
 		<div class="blurp">
 			<img src="/images/blurp_comment.png" class="left png" title="Comment Icon" alt="Comment Icon" />
-			<strong><%= link_to 'Start Blogging!', profile_blogs_path(@p) %></strong>
+			<strong><%= link_to 'Start Blogging!', profile_blogs_path(current_user) %></strong>
 			Your public profile is the way your friends will learn about you and keep up-to-date on your life. 
 			Upload a profile photo, add an "about me" connect with new and old friends.  
 			<div class="clear"></div>

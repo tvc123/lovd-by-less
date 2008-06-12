@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     # Show the user's home page.  This is their 'dash board'
     def show
-        unless @profile.youtube_username.blank?
+        unless current_user.youtube_username.blank?
             begin
                 client = YouTubeG::Client.new
                 @video = client.videos_by(:user => current_user.profile.youtube_username).videos.first
@@ -22,19 +22,19 @@ class UsersController < ApplicationController
         end
 
         begin
-            @flickr = @profile.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(current_user.profile.flickr_username))
+            @flickr = current_user.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(current_user.profile.flickr_username))
         rescue Exception, OpenURI::HTTPError
             @flickr = []
         end    
 
-        @comments = current_user.profile.comments.paginate(:page => @page, :per_page => @per_page)
+        @comments = current_user.comments.paginate(:page => @page, :per_page => @per_page)
 
         respond_to do |format|
             format.html do
-                @feed_items = @profile.feed_items
+                @feed_items = current_user.feed_items
             end
             format.rss do 
-                @feed_items = @profile.feed_items
+                @feed_items = current_user.feed_items
                 render :layout => false
             end
         end

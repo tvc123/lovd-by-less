@@ -8,5 +8,5 @@ photo ||= @photo
 	<div>
 	<a href="<%= image_path(photo, nil) %>" title="<%= photo.caption %>" alt="<%= photo.caption %>" class="thickbox" rel="user_gallery"><%= image photo, :small %></a>
 	</div>
-	<%= link_to '(delete)', user_photo_path(photo.user, photo), :method => :delete if is_user_me?(photo.user) %>
+	<%= link_to '(delete)', user_photo_path(photo.user, photo), :method => :delete if is_me?(photo.user) %>
 </div>

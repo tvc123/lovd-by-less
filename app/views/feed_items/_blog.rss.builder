@@ -5,6 +5,6 @@ xml.item do
   xml.description sanitize(textilize(b.body))
   xml.author "#{b.profile.email} (#{b.profile.f})"
   xml.pubDate b.updated_at
-  xml.link profile_blog_url(b.profile, b)
-  xml.guid profile_blog_url(b.profile, b)
+  xml.link user_blog_url(b.profile, b)
+  xml.guid user_blog_url(b.profile, b)
 end

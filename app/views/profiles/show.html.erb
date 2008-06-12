@@ -9,7 +9,7 @@
 can_send = !@user.blank?
 %>
 <div id="sub_nav">
-	<%= link_to( 'Edit this page', edit_user_path(@user)) if is_user_me?(@user) %>
+	<%= link_to( 'Edit this page', edit_user_path(@user)) if is_me?(@user) %>
 </div>
 <div class="left" id="column_l">
   
@@ -53,7 +53,7 @@ can_send = !@user.blank?
 
 <div class="right" id="column_r">
   <ul>
-    <%- unless is_user_me?(@user) -%>
+    <%- unless is_me?(@user) -%>
 	    <li><%= get_friend_link current_user, @user %></li>
 	    <%- if can_send -%>
 	    <li><%= inline_tb_link 'Direct Message', "new_direct_message", {:title => "New Message To #{h @user.f}"}, {:height => 380} %></li>

@@ -13,26 +13,25 @@
 #  is_denied        :integer(11)   default(0), not null
 #  is_reviewed      :boolean(1)    
 #
-
 class Comment < ActiveRecord::Base
-  
-  validates_presence_of :comment, :profile
-  
-  belongs_to :commentable, :polymorphic => true
-  belongs_to :user
 
-  def after_create
-    feed_item = FeedItem.create(:item => self)
-    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
-  end
-  
-  
-  def self.between_profiles profile1, profile2
-    find(:all, {
-      :order => 'created_at desc',
-      :conditions => [
-        "(profile_id=? and commentable_id=?) or (profile_id=? and commentable_id=?) and commentable_type='Profile'",
-        profile1.id, profile2.id, profile2.id, profile1.id]
-    })
-  end
+    validates_presence_of :comment, :profile
+
+    belongs_to :commentable, :polymorphic => true
+    belongs_to :user
+
+    def after_create
+        feed_item = FeedItem.create(:item => self)
+        ([user] + user.friends + user.followers).each{ |u| u.feed_items << feed_item }
+    end
+
+    def self.between_users user1, user2
+        find(:all, {
+            :order => 'created_at desc',
+            :conditions => [
+                "(user_id=? and commentable_id=?) or (user_id=? and commentable_id=?) and commentable_type='User'",
+                user1.id, user2.id, user2.id, user1.id]
+        })
+    end
+
 end

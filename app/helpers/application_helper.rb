@@ -3,7 +3,7 @@ module ApplicationHelper
     require 'net/http'
     require 'uri'
 
-    def is_user_me?(user)
+    def is_me?(user)
         user == current_user
     end
     

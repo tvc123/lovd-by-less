@@ -3,7 +3,7 @@ module BlogsHelper
   def blogs_li blogs
     html = ''
     blogs.each do |b|
-      html += "<li>#{link_to b.title, user_blog_path(@profile, b)} written #{time_ago_in_words b.created_at} ago</li>"
+      html += "<li>#{link_to b.title, user_blog_path(@user, b)} written #{time_ago_in_words b.created_at} ago</li>"
     end
     html
   end

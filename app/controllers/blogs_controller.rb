@@ -6,7 +6,7 @@ class BlogsController < ApplicationController
     before_filter :setup
 
     def index
-        if logged_in? && is_user_me?(@user) && @user.blogs.empty?
+        if logged_in? && is_me?(@user) && @user.blogs.empty?
             flash[:notice] = 'You have not create any blog posts.  Try creating one now.'
             redirect_to new_user_blog_path(@user) and return
         end

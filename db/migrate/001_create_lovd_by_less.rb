@@ -78,28 +78,7 @@ class CreateLovdByLess < ActiveRecord::Migration
     
     add_index 'photos', 'profile_id'
 
-    create_table "profiles", :force => true do |t|
-      t.integer  "user_id"
-      t.string   "first_name"
-      t.string   "last_name"
-      t.string   "website"
-      t.string   "blog"
-      t.string   "flickr"
-      t.text     "about_me"
-      t.string   "aim_name"
-      t.string   "gtalk_name"
-      t.string   "ichat_name"
-      t.string   "icon"
-      t.string   "location"
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.string   "email"
-      t.boolean  "is_active",  :default => false
-      t.string 'youtube_username'
-      t.string 'flickr_username'
-    end
-
-    add_index "profiles", "user_id"
+    
 
     create_table "sessions", :force => true do |t|
       t.string   "session_id"
@@ -124,6 +103,23 @@ class CreateLovdByLess < ActiveRecord::Migration
       t.boolean :terms_of_service, :default => false, :null => false
       t.boolean :can_send_messages,                   :default => true
       t.string :time_zone,                            :default => "UTC"
+      t.string   "first_name"
+      t.string   "last_name"
+      t.string   "website"
+      t.string   "blog"
+      t.string   "flickr"
+      t.text     "about_me"
+      t.string   "aim_name"
+      t.string   "gtalk_name"
+      t.string   "ichat_name"
+      t.string   "icon"
+      t.string   "location"
+      t.datetime "created_at"
+      t.datetime "updated_at"
+      t.string   "email"
+      t.boolean  "is_active",  :default => false
+      t.string 'youtube_username'
+      t.string 'flickr_username'
       t.timestamps
       
     end

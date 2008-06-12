@@ -1,8 +1,8 @@
 class TwbProfile < ActiveRecord::Migration
   def self.up
-    add_column :profiles, :organization, :string
-    add_column :profiles, :grade_experience, :integer
-    add_column :profiles, :first_lagnuage, :integer
+    add_column :users, :organization, :string
+    add_column :users, :grade_experience, :integer
+    add_column :users, :first_lagnuage, :integer
     
     create_table "languages", :force => true do |t|
       t.string  "name"
@@ -166,9 +166,9 @@ class TwbProfile < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :profiles, :organization
-    remove_column :profiles, :grade_experience
-    remove_column :profiles, :first_lagnuage
+    remove_column :users, :organization
+    remove_column :users, :grade_experience
+    remove_column :users, :first_lagnuage
     drop_table "languages"
     drop_table "profiles_languages"
     

@@ -78,7 +78,7 @@ a.big_link{display:block;font-size:12px;}
 .bio_stuff h1{margin-top:0px;}
 h2 a{text-transform:capitalize;font-weight:normal;font-size:11px;}
 .inside_box{margin:0 10px 0 10px;}
-#sub_nav a{margin:0 9px 0 0;padding:5px;background:#1a1a1a;border:1px solid #333;}
+#sub_nav a{margin:0 9px 0 0;padding:5px;background:#1a1a1a;border:1px solid #333;color:#fff;}
 #sub_nav{margin:0 0 20px 0;padding-top:10px;}
 .avatar{margin:0 15px 5px 5px;width:160px;}
 .avatar img{border:1px solid #666;}

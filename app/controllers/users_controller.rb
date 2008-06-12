@@ -16,13 +16,13 @@ class UsersController < ApplicationController
         unless current_user.youtube_username.blank?
             begin
                 client = YouTubeG::Client.new
-                @video = client.videos_by(:user => current_user.profile.youtube_username).videos.first
+                @video = client.videos_by(:user => current_user.youtube_username).videos.first
             rescue Exception, OpenURI::HTTPError
             end
         end
 
         begin
-            @flickr = current_user.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(current_user.profile.flickr_username))
+            @flickr = current_user.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(current_user.flickr_username))
         rescue Exception, OpenURI::HTTPError
             @flickr = []
         end    

@@ -13,8 +13,8 @@
 
 class Friend < ActiveRecord::Base
   
-  belongs_to :inviter, :class_name => 'Profile'
-  belongs_to :invited, :class_name => 'Profile'
+  belongs_to :inviter, :class_name => 'User'
+  belongs_to :invited, :class_name => 'User'
   
   after_create :create_feed_item
   after_update :create_feed_item

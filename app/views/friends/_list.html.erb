@@ -1,13 +1,9 @@
 <% 
-profile ||= @profile
 type ||= 'friends'
 size ||= 20
-list = profile.send(type).find(:all, :limit => size, :order => 'RAND()') rescue []
-total = profile.send(type).count
+list = current_user.send(type).find(:all, :limit => size, :order => 'RAND()') rescue []
+total = current_user.send(type).count
 with_friending ||= false
-
-
-
 title = type == 'followings' ? 'Following' : type
 %>
 

@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+    map.root :controller => 'home', :action => 'index'
+
     # home
     map.with_options(:controller => 'home') do |home|
         home.home '/', :action => 'index'

@@ -9,17 +9,13 @@ class ApplicationController < ActionController::Base
 
     filter_parameter_logging "password"
 
-    before_filter :allow_to, :set_profile, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
+    before_filter :allow_to, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
     after_filter :store_location
 
     def pagination_defaults
         @page = (params[:page] || 1).to_i
         @page = 1 if @page < 1
         @per_page = (params[:per_page] || (RAILS_ENV=='test' ? 1 : 40)).to_i
-    end
-
-    def set_profile
-        @p = @u.profile if @u && @u.profile
     end
 
     helper_method :flickr, :flickr_images
@@ -49,14 +45,16 @@ class ApplicationController < ActionController::Base
     end
 
     def check_permissions
+        return true
+        # TODO fix permissions
         logger.debug "IN check_permissions :: @level => #{@level.inspect}"
-        return failed_check_permissions if @p && !@p.is_active
-        return true if @u && @u.is_admin
+        return failed_check_permissions if current_user.profile && !current_user.is_active
+        return true if current_user && current_user.is_admin
         raise '@level is blank. Did you override the allow_to method in your controller?' if @level.blank?
         @level.each do |l|
             next unless (l[0] == :all) || 
-            (l[0] == :non_user && !@u) ||
-            (l[0] == :user && @u) ||
+            (l[0] == :non_user && !current_user) ||
+            (l[0] == :user && current_user) ||
             (l[0] == :owner && @p && @profile && @p == @profile)
             args = l[1]
             @level = [] and return true if args[:all] == true

@@ -11,14 +11,36 @@ class UsersController < ApplicationController
         end
     end
 
-    #This show action only allows users to view their own profile
+    # Show the user's home page.  This is their 'dash board'
     def show
-        @user = current_user
-        respond_to do |format|
-            format.html { render }
+        unless @profile.youtube_username.blank?
+            begin
+                client = YouTubeG::Client.new
+                @video = client.videos_by(:user => current_user.profile.youtube_username).videos.first
+            rescue Exception, OpenURI::HTTPError
+            end
         end
-    end
 
+        begin
+            @flickr = @profile.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(current_user.profile.flickr_username))
+        rescue Exception, OpenURI::HTTPError
+            @flickr = []
+        end    
+
+        @comments = current_user.profile.comments.paginate(:page => @page, :per_page => @per_page)
+
+        respond_to do |format|
+            format.html do
+                @feed_items = @profile.feed_items
+            end
+            format.rss do 
+                @feed_items = @profile.feed_items
+                render :layout => false
+            end
+        end
+    end   
+    
+    
     def new
         @user = User.new
         respond_to do |format|
@@ -110,6 +132,14 @@ class UsersController < ApplicationController
     def allow_to
         super :owner, :except => [:enable]
         super :all, :only => [:new, :create, :help, :is_login_available]
+    end
+    
+    def permission_denied      
+        respond_to do |format|
+            format.html do
+                redirect_to user_path(current_user)
+            end
+        end
     end
     
 end

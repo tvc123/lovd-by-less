@@ -6,17 +6,21 @@ class User < ActiveRecord::Base
     # prevents a user from submitting a crafted form that bypasses activation
     # anything else you want your user to change should be added here.
     attr_accessor :password
+    attr_protected :is_active
     attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :terms_of_service
-    
-    validates_presence_of     :login, :email
+
     validates_presence_of     :password,                   :if => :password_required?
     validates_presence_of     :password_confirmation,      :if => :password_required? && Proc.new { |u| !u.password.blank? }
     validates_length_of       :password, :within => 4..40, :if => :password_required? && Proc.new { |u| !u.password.blank? }
     validates_confirmation_of :password,                   :if => :password_required? && Proc.new { |u| !u.password.blank? }
+
+    validates_presence_of     :login, :email
     validates_length_of       :login,    :within => 3..40, :if => Proc.new { |u| !u.login.blank? }
-    validates_length_of       :email,    :within => 6..100,:if => Proc.new { |u| !u.email.blank? }
     validates_uniqueness_of   :login, :email, :case_sensitive => false
-    validates_format_of       :email, :with => /(^([^@\s]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$)|(^$)/i, :on => :create, :message=>"Invalid email address."
+
+    validates_length_of       :email,    :within => 6..100,:if => Proc.new { |u| !u.email.blank? }
+    validates_format_of       :email, :with => /(^([^@\s]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$)|(^$)/i, :on => :create, :message=>" does not look like a valid email address."
+    validates_uniqueness_of   :email, :case_sensitive => false
 
     #validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true
     #validates_acceptance_of :terms_of_service, :on => :create
@@ -25,11 +29,47 @@ class User < ActiveRecord::Base
 
     has_many :permissions
     has_many :roles, :through => :permissions
-    has_one :profile, :dependent => :nullify
+
+    # Feeds
+    has_many :feeds
+    has_many :feed_items, :through => :feeds, :order => 'created_at desc'
+    has_many :private_feed_items, :through => :feeds, :source => :feed_item, :conditions => {:is_public => false}, :order => 'created_at desc'
+    has_many :public_feed_items, :through => :feeds, :source => :feed_item, :conditions => {:is_public => true}, :order => 'created_at desc'
+
+    # Messages
+    has_many :sent_messages,     :class_name => 'Message', :order => 'created_at desc', :foreign_key => 'sender_id'
+    has_many :received_messages, :class_name => 'Message', :order => 'created_at desc', :foreign_key => 'receiver_id'
+    has_many :unread_messages,   :class_name => 'Message', :conditions => ["read=?",false] 
+
+    # Friends
+    has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"
+    has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}"
+    has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id", :conditions => "status = #{Friend::PENDING}"
+
+    has_many :friends,   :through => :friendships, :source => :invited
+    has_many :followers, :through => :follower_friends, :source => :inviter
+    has_many :followings, :through => :following_friends, :source => :invited
+
+    # Comments and Blogs
+    has_many :comments, :as => :commentable, :order => 'created_at desc'
+    has_many :blogs, :order => 'created_at desc'
+
+    # Photos
+    has_many :photos, :order => 'created_at DESC'
+
+    acts_as_ferret :fields => [ :location, :f, :about_me ], :remote=>true
+
+    file_column :icon, :magick => {
+        :versions => { 
+            :big => {:crop => "1:1", :size => "150x150", :name => "big"},
+            :medium => {:crop => "1:1", :size => "100x100", :name => "medium"},
+            :small => {:crop => "1:1", :size => "50x50", :name => "small"}
+        }
+    }
 
     before_save :encrypt_password
     before_create :make_activation_code
-    
+
     class ActivationCodeNotFound < StandardError; end
     class AlreadyActivated < StandardError
         attr_reader :user, :message;
@@ -44,37 +84,17 @@ class User < ActiveRecord::Base
         end
     end
 
-    def before_create
-      p = Profile.find_by_email @email
-      return true if p.blank?
-      errors.add(:email, 'address has already been taken.') and return false unless p.user.blank?
-    end
-    
-    def after_create
-      p = Profile.find_or_create_by_email @email
-      raise 'User found when should be nil' unless p.user.blank?
-      p.is_active=true
-      p.user_id = id
-      p.save
-    end
-
-    def after_destroy
-      profile.update_attributes :is_active=>false
-    end
-
-    def f
-      profile.f
-    end
-
     def can_mail? user
-      can_send_messages? && profile.is_active?
+        can_send_messages? && profile.is_active?
     end
-    
+
     def is_admin
-        return true if self.roles.contains('Administrator')
+        # TODO implement is admin functionality - better yet add in roles system
+        return false
+        return true if roles.contains('Administrator')
         return false
     end
-    
+
     # Finds the user with the corresponding activation code, activates their account and returns the user.
     #
     # Raises:
@@ -107,7 +127,7 @@ class User < ActiveRecord::Base
             true
         end
     end
-    
+
     # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     # Updated 2/20/08
     def self.authenticate(login, password)    
@@ -191,6 +211,84 @@ class User < ActiveRecord::Base
     def force_activate!
         @activated = true
         self.update_attribute(:activated_at, Time.now.utc)
+    end
+
+    def to_param
+        "#{self.id}-#{f.to_safe_uri}"
+    end
+
+    def has_network?
+        !Friend.find(:first, :conditions => ["invited_id = ? or inviter_id = ?", id, id]).blank?
+    end
+
+    def f
+        if self.first_name.blank? && self.last_name.blank?
+            user.login rescue 'Deleted user'
+        else
+            ((self.first_name || '') + ' ' + (self.last_name || '')).strip
+        end
+    end
+
+    def location
+        return Profile::NOWHERE if attributes['location'].blank?
+        attributes['location']
+    end
+
+    def full_name
+        f
+    end
+
+    def self.featured
+        find_options = {
+            :include => :user,
+            :conditions => ["is_active = ? and about_me IS NOT NULL and user_id is not null", true],
+        }
+        find(:first, find_options.merge(:offset => rand( count(find_options) - 1)))
+    end  
+
+    def no_data?
+        (created_at <=> updated_at) == 0
+    end
+
+    def has_wall_with profile
+        return false if profile.blank?
+        !Comment.between_profiles(self, profile).empty?
+    end
+
+    def website= val
+        write_attribute(:website, fix_http(val))
+    end
+    def blog= val
+        write_attribute(:blog, fix_http(val))
+    end
+    def flickr= val
+        write_attribute(:flickr, fix_http(val))
+    end
+
+    # Friend Methods
+    def friend_of? user
+        user.in? friends
+    end
+
+    def followed_by? user
+        user.in? followers
+    end
+
+    def following? user
+        user.in? followings
+    end
+
+    def can_send_messages
+        user.can_send_messages
+    end
+
+    def self.search query = '', options = {}
+        query ||= ''
+        q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
+        options.each {|key, value| q += " #{key}:#{value}"}
+        arr = find_by_contents q, :limit=>:all
+        logger.debug arr.inspect
+        arr
     end
 
     protected

@@ -13,12 +13,12 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     # users
-    map.resources :users, :member => { :enable => :put, :help => :get, :welcome => :get }, 
+    map.resources :users, :member => { :enable => :put, :help => :get, :welcome => :get, :delete_icon => :post }, 
                           :collection => { :is_login_available => :post }, 
-                          :has_many => :roles do |users|
+                          :has_many => [:friends, :blogs, :photos, :comments, :feed_items, :messages, :roles] do |users|
         users.resource :account
     end
-    
+        
     map.with_options(:controller => 'users') do |users|
         users.signup  "/signup",  :action => 'new'
     end
@@ -34,6 +34,8 @@ ActionController::Routing::Routes.draw do |map|
         passwords.reset_password "/reset_password/:id", :action => 'edit'
     end    
     
+    map.resources :profiles, :collection => { :search => :get }
+    
     # sessions
     map.resource :session
     map.with_options(:controller => 'sessions') do |sessions|
@@ -47,10 +49,6 @@ ActionController::Routing::Routes.draw do |map|
         a.resources :users, :collection => {:search => :post}
         a.resources :roles
     end
-
-    map.resources :profiles, 
-        :member=>{:delete_icon=>:post}, :collection=>{:search=>:get}, 
-        :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
     map.resources :messages, :collection => {:sent => :get}
     map.resources :blogs do |blog|

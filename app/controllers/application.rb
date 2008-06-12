@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         @page = 1 if @page < 1
         @per_page = (params[:per_page] || (RAILS_ENV=='test' ? 1 : 40)).to_i
     end
-
+    
     helper_method :flickr, :flickr_images
     # API objects that get built once per request
     def flickr(user_name = nil, tags = nil )

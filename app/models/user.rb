@@ -206,7 +206,7 @@ class User < ActiveRecord::Base
     end
 
     def to_param
-        "#{self.id}-#{f.to_safe_uri}"
+        "#{login.to_safe_uri}"
     end
 
     def has_network?
@@ -215,7 +215,7 @@ class User < ActiveRecord::Base
 
     def f
         if self.first_name.blank? && self.last_name.blank?
-            user.login rescue 'Deleted user'
+            self.login rescue 'Deleted user'
         else
             ((self.first_name || '') + ' ' + (self.last_name || '')).strip
         end

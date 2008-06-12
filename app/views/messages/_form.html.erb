@@ -3,7 +3,7 @@
 message ||= @message
 message ||= Message.new params[:message]
 to_list ||= @to_list
-to_list ||= [@profile] #used on someone's profile page
+to_list ||= [current_user] #used on someone's profile page
 hide_header ||= false
 
 unless message.new_record?

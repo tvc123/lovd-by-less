@@ -1,5 +1,5 @@
 <%-
-profile ||= @profile
+profile ||= current_user
 with_form ||= false
 with_wall_to_wall ||= false
 
@@ -7,7 +7,7 @@ comments ||= @comments
 @count = comments.total_entries
 
 parent ||= @parent
-parent = @blog || @profile || nil
+parent = @blog || current_user || nil
 -%>
   
 <div class="activity_box" id="comment">

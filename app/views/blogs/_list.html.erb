@@ -1,17 +1,13 @@
 <%-
-#locals
-profile ||= @profile
 size ||= 10
-blogs ||= profile.blogs.find :all, :limit => size
-
-
-total = profile.blogs.count
+blogs ||= current_user.blogs.find :all, :limit => size
+total = current_user.blogs.count
 -%>
 
 <% unless blogs.empty? %>
 <div class="activity_box">
 	<h2>Most Recent Blog Posts 
-	  <span>(latest <%= blogs.size %> of <%= total > size ? link_to( total, profile_blogs_path(profile)) : total%>)</span>
+	  <span>(latest <%= blogs.size %> of <%= total > size ? link_to( total, current_user_blogs_path(current_user)) : total%>)</span>
 	</h2>
 	<div class="inside_box">
 	<ul>       

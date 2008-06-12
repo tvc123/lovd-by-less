@@ -1,67 +1,52 @@
 class PhotosController < ApplicationController
-  skip_filter :login_required
-  prepend_before_filter :get_profile
-  before_filter :setup
-  
-  
-  
-  def index
-    respond_to do |wants|
-      wants.html {render}
-      wants.rss {render :layout=>false}
+
+    skip_filter :login_required
+    before_filter :setup
+
+    def index
+        respond_to do |format|
+            format.html { render }
+            format.rss { render :layout => false }
+        end
     end
-  end
-  
-  def show
-    redirect_to profile_photos_path(@profile)
-  end
-  
-  
-  def create
-    @photo = @p.photos.build params[:photo]
+
+    def show
+        redirect_to user_photos_path(@user)
+    end
+
+    def create
+        @photo = current_user.photos.build params[:photo]
+
+        respond_to do |format|
+            if @photo.save
+                format.html do
+                    flash[:notice] = 'Photo successfully uploaded.'
+                    redirect_to user_photos_path(current_user)
+                end
+            else
+                format.html do
+                    flash.now[:error] = 'Photo could not be uploaded.'
+                    render :action => :index
+                end
+            end
+        end
+    end
+
+    def destroy
+        Photo[params[:id]].destroy
+        respond_to do |format|
+            format.html do
+                flash[:notice] = 'Photo was deleted.'
+                redirect_to user_photos_path(current_user)
+            end
+        end
+    end
+
+    private
     
-    respond_to do |wants|
-      if @photo.save
-        wants.html do
-          flash[:notice] = 'Photo successfully uploaded.'
-          redirect_to profile_photos_path(@p)
-        end
-      else
-        wants.html do
-          flash.now[:error] = 'Photo could not be uploaded.'
-          render :action => :index
-        end
-      end
+    def setup
+        @user = User.find_by_login(params[:user_id])
+        @photos = @user.photos.paginate(:all, :page => @page, :per_page => @per_page)
+        @photo = Photo.new
     end
-  end
-  
-  
-  def destroy
-    Photo[params[:id]].destroy
-    respond_to do |wants|
-      wants.html do
-        flash[:notice] = 'Photo was deleted.'
-        redirect_to profile_photos_path(@p)
-      end
-    end
-  end
-  
-  
-  
-  private
-  
-  def allow_to
-    super :owner, :all => true
-    super :all, :only => [:index, :show]
-  end
-  
-  def get_profile
-    @profile = Profile[params[:profile_id] || params[:id]]
-  end
-  
-  def setup
-    @user = @profile.user
-    @photos = @profile.photos.paginate(:all, :page => @page, :per_page => @per_page)
-    @photo = Photo.new
-  end
 end

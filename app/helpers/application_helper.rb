@@ -3,6 +3,10 @@ module ApplicationHelper
     require 'net/http'
     require 'uri'
 
+    def is_user_me?(user)
+        user == current_user
+    end
+    
     def less_form_for name, *args, &block
         options = args.last.is_a?(Hash) ? args.pop : {}
         options = options.merge(:builder=>LessFormBuilder)

@@ -4,11 +4,19 @@ blog ||= @blog
 %>
 
 <div id="blog">
-  <% less_form_for [@profile, blog] do |f| %>
-    <%= f.text_field :title %>
-    <%= f.text_area :body %>
-    
-		To include a youtube video use: [youtube: address_of_video]
+	<!--<%= user_blogs_path(current_user) %>-->
+	
+  <% form_for [current_user, blog] do |f| %>
+		<div class="row">
+    	<label for="title">Title</label><%= f.text_field :title %>
+		</div>
+		
+		<div class="row">
+    	<label for="body">Content</label><%= f.text_area :body %>
+    </div>
+
+		<div class="instruction">To include a youtube video use: [youtube: address_of_video]</div>
+		
 	  <div class="row button">
     	<%= f.submit 'Save', :class=>'button' %>
   	</div>

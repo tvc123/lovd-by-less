@@ -1,21 +1,21 @@
 
 <% content_for :head do  -%>
 <%= auto_discovery_link_tag :rss, formatted_profile_url(current_user, :rss), :title=>"#{current_user.login}'s recent activity" %>
-<%= auto_discovery_link_tag :rss, formatted_profile_blogs_url(current_user, :rss), :title=>"#{current_user.login}'s Blogs" %>
-<%= auto_discovery_link_tag :rss, formatted_profile_photos_url(current_user, :rss), :title=>"#{current_user.login}'s Photos" %>
+<%= auto_discovery_link_tag :rss, formatted_user_blogs_url(current_user, :rss), :title=>"#{current_user.login}'s Blogs" %>
+<%= auto_discovery_link_tag :rss, formatted_user_photos_url(current_user, :rss), :title=>"#{current_user.login}'s Photos" %>
 <% end -%>
 
 <h1>Your Dashboard</h1>
 <div id="sub_nav">
-  <%= link_to 'View Public Profile', profile_path(current_user).add_param(:public_view => true) %>
+  <%= link_to 'View Public Profile',  profile_path(current_user)%>
   <%= link_to 'Messages', messages_path unless current_user.received_messages.empty? && !current_user.has_network? %>
-  <%= link_to 'Photos', profile_photos_path(current_user) %>
-  <%= link_to 'Friends', profile_friends_path(current_user) if current_user.has_network? %>
-  <%= link_to 'Blog', profile_blogs_path(current_user) %>
-  <%= link_to 'Account Settings', edit_profile_path(current_user) %>
+  <%= link_to 'Photos', user_photos_path(current_user) %>
+  <%= link_to 'Friends', user_friends_path(current_user) if current_user.has_network? %>
+  <%= link_to 'Blog', user_blogs_path(current_user) %>
+  <%= link_to 'Account Settings', edit_user_path(current_user) %>
 </div>
 
-<%= render :partial => 'profiles/getting_started' %>
+<%= render :partial => 'users/getting_started' %>
 
 <div class="half left">
   <%= render :partial => 'profiles/recent_activity' %>

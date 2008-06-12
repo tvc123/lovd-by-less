@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
- 
+
     before_filter :not_logged_in_required, :only => [:new, :create] 
     before_filter :login_required, :only => [:show, :edit, :update]
     before_filter :check_administrator_role, :only => [:index, :destroy, :enable]
@@ -39,8 +39,7 @@ class UsersController < ApplicationController
             end
         end
     end   
-    
-    
+
     def new
         @user = User.new
         respond_to do |format|
@@ -99,14 +98,28 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(current_user)
-        if @user.update_attributes(params[:user])
-            flash[:notice] = "Preferences Updated"
-            redirect_to user_url(@user)
+        case params[:switch]
+        when 'name','image'
+            if @user.update_attributes params[:profile]
+                flash[:notice] = "Settings have been saved."
+                redirect_to edit_user_url(@user)
+            else
+                flash.now[:error] = @user.errors
+                render :action => :edit
+            end
+        when 'password'
+            if @user.change_password(params[:verify_password], params[:new_password], params[:confirm_password])
+                flash[:notice] = "Password has been changed."
+                redirect_to edit_profile_url(@user)
+            else
+                flash.now[:error] = @user.errors
+                render :action=> :edit
+            end
         else
-            render :action => 'edit'
+            RAILS_ENV == 'test' ? render( :text=>'') : raise( 'Unsupported switch in action')
         end
-    end
-
+    end      
+      
     def destroy
         @user = User.find(params[:id])
         if @user.update_attribute(:enabled, false)
@@ -115,8 +128,22 @@ class UsersController < ApplicationController
             flash[:error] = "There was a problem disabling this user."
         end
         redirect_to :action => 'index'
-    end
 
+        #TODO figure out what to do here - should we really delete the account or just disable it?
+           # respond_to do |wants|
+           #               @user.destroy
+           #               cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
+           #               session[:user] = nil
+           #               wants.js do
+           #                   render :update do |page| 
+           #                       page.alert('Your user account, and all data, have been deleted.')
+           #                       page << 'location.href = "/";'
+           #                   end
+           #               end
+           #           end
+       end
+       
+       
     def enable
         @user = User.find(params[:id])
         if @user.update_attribute(:enabled, true)
@@ -128,8 +155,15 @@ class UsersController < ApplicationController
         redirect_to :action => 'index'
     end
 
+    def delete_icon
+        respond_to do |wants|
+        @p.update_attribute :icon, nil
+        wants.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
+        end      
+    end
+
     protected 
-    
+
     def permission_denied      
         respond_to do |format|
             format.html do
@@ -137,6 +171,6 @@ class UsersController < ApplicationController
             end
         end
     end
-    
+
 end
 

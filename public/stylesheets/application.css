@@ -70,7 +70,7 @@ h3{font-size:13px;margin-bottom:10px;}
 #column_r li a{font-size:20px;text-transform:capitalize;display:block;}
 #column_r li,
 #column_r ul{padding:14px 0;}
-.activity_box{border-top:4px solid #6a1534;clear:both;padding:5px 0 0 0;margin:15px 0 25px 0;}
+.activity_box{border-top:4px solid #4b7041;clear:both;padding:5px 0 0 0;margin:15px 0 25px 0;}
 .activity_box strong{color:white;}
 .learn{border-top:none;}
 a.big_link{display:block;font-size:12px;}
@@ -83,7 +83,7 @@ h2 a{text-transform:capitalize;font-weight:normal;font-size:11px;}
 .avatar{margin:0 15px 5px 5px;width:160px;}
 .avatar img{border:1px solid #666;}
 .box{padding:0 0 45px 0;clear:both;}
-.activity_box h2{border-bottom:1px dotted #971d4a;padding-bottom:5px;}
+.activity_box h2{border-bottom:1px dotted #4b7041;padding-bottom:5px;}
 .upload_form{margin:0 0 0 0;}
 .upload_form textarea{height:100px;width:100%;}
 .upload_form label{display:block;float:none;}
@@ -99,7 +99,7 @@ h2 a{text-transform:capitalize;font-weight:normal;font-size:11px;}
 .pagination{padding:10px 0;}
 #messages td,
 #messages th{padding:3px;}
-#messages th{background:#971d4a;font-size:10px;}
+#messages th{background:#4b7041;font-size:10px;}
 #messages{width:100%;}
 .blurp{padding:0 0 15px 0;}
 .blurp strong{display:block;color:#000;}

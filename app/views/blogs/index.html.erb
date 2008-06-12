@@ -1,26 +1,26 @@
 
 <% content_for :head do  -%>
-<%= auto_discovery_link_tag :rss, formatted_profile_blogs_url(@profile, :rss), :title=>"#{@profile.f}'s Blogs" %>
+<%= auto_discovery_link_tag :rss, formatted_user_blogs_url(@user, :rss), :title=>"#{@user.f}'s Blogs" %>
 <% end -%>
 
 
 <!-- BEGIN CURRENT POST -->
 <div class="left" id="column_l">
 
-  <h1><%= icon @profile %> <%= @profile.f %>'s Blog</h1>
+  <h1><%= icon @user %> <%= @user.f %>'s Blog</h1>
   <!-- BEGIN POST LINKS -->
   <div id="sub_nav">
     <%- if @p == @profile -%>
-    <%= link_to '&larr; Back to Dashboard', profile_path(@profile) %>
-    <%= link_to 'Write a new post', new_profile_blog_path(@profile) %>
+    <%= link_to '&larr; Back to Dashboard', user_path(@user) %>
+    <%= link_to 'Write a new post', new_user_blog_path(@user) %>
     <%- else -%>
-    <%= link_to "&larr; Back to #{h @profile.f}'s Profile", profile_path(@profile) %>
+    <%= link_to "&larr; Back to #{h @user.f}'s Profile", profile_path(@user) %>
     <%- end -%>
   </div>
   <!-- END POST LINKS -->
 
   <% if @blogs.empty? %>
-  <%= @profile.f %> has no blog posts.
+  <%= @user.f %> has no blog posts.
   <% else %>
   <%= render :partial => 'blogs/blog', :collection => @blogs %>
   <% end %>

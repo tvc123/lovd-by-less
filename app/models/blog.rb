@@ -5,7 +5,7 @@ class Blog < ActiveRecord::Base
   
   def after_create
     feed_item = FeedItem.create(:item => self)
-    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
+    ([user] + user.friends + user.followers).each{ |u| u.feed_items << feed_item }
   end
   
   

@@ -63,7 +63,7 @@ class BlogsController < ApplicationController
         respond_to do |format|
             format.html do
                 flash[:notice]='Blog post deleted.'
-                redirect_to profile_blogs_path(current_user)
+                redirect_to user_blogs_path(current_user)
             end
         end
     end

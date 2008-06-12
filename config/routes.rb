@@ -13,7 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     # users
-    map.resources :users, :member => { :enable => :put, :help => :get, :welcome => :get }, :has_many => :roles do |users|
+    map.resources :users, :member => { :enable => :put, :help => :get, :welcome => :get }, 
+                          :collection => { :is_login_available => :post }, 
+                          :has_many => :roles do |users|
         users.resource :account
     end
     

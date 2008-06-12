@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
     # prevents a user from submitting a crafted form that bypasses activation
     # anything else you want your user to change should be added here.
     attr_accessor :password
-    attr_protected :is_active
     attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :terms_of_service
 
     validates_presence_of     :password,                   :if => :password_required?
@@ -80,19 +79,12 @@ class User < ActiveRecord::Base
 
     def validate
         unless terms_of_service == true
-            errors.add(:terms_of_service, "you must accept the terms of service" )
+            errors.add(nil, "You must accept the terms of service" )
         end
     end
 
     def can_mail? user
         can_send_messages? && profile.is_active?
-    end
-
-    def is_admin
-        # TODO implement is admin functionality - better yet add in roles system
-        return false
-        return true if roles.contains('Administrator')
-        return false
     end
 
     # Finds the user with the corresponding activation code, activates their account and returns the user.
@@ -230,7 +222,7 @@ class User < ActiveRecord::Base
     end
 
     def location
-        return Profile::NOWHERE if attributes['location'].blank?
+        return 'No where' if attributes['location'].blank?
         attributes['location']
     end
 

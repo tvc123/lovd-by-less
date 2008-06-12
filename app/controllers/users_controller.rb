@@ -129,10 +129,6 @@ class UsersController < ApplicationController
     end
 
     protected 
-    def allow_to
-        super :owner, :except => [:enable]
-        super :all, :only => [:new, :create, :help, :is_login_available]
-    end
     
     def permission_denied      
         respond_to do |format|

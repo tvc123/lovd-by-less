@@ -1,20 +1,14 @@
-
-
 <% content_for :head do%>
 <%= auto_discovery_link_tag(:rss, "http://#{SITE}/latest_comments.rss", :title=>"Latest Comments") %>
 <%= auto_discovery_link_tag(:rss, "http://#{SITE}/newest_members.rss", :title=>"Newest Members") %>
 <% end%>
 
 <div>
+
 	<div id="home-tag">
 		<h1>Teachers Without Borders</h1>
 		<span>Global Colleagues Local Solutions</span>
 	</div>
-	
-  <div class="front_right_column right" style="margin-top: 0px;">
-    <%= render :partial => 'profiles/featured', :locals => {:profile => Profile.featured_profile[:profile]} %>
-    <div class="clear"></div>   
-  </div>
 
   <div>
     <div id="front_left_column" class="left"> 

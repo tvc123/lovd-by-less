@@ -104,11 +104,6 @@ class SessionsController < ApplicationController
             redirect_to return_to
         end
     end
-
-    protected 
-    def allow_to 
-        super :all, :all=>true
-    end
     
 end
 

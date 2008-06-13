@@ -79,7 +79,22 @@ $(document).ready(function()
 	 		<%= select_tag('grade_level_experiences[]', options_for_select(@grade_level_experiences),{:multiple => true, :size =>5} ) -%>
 		</div>
                 
-                
+                <div class="row">
+			<label for="user_phone">Phone </label>
+	 		<%= f.text_field :phone, {  :class => "text-field" } -%>
+		</div>
+                <div class="row">
+			<label for="user_phone2">Phone 2 </label>
+	 		<%= f.text_field :phone2, {  :class => "text-field" } -%>
+		</div>
+                <div class="row">
+			<label for="user_first_language">First Language </label>
+	 		<%= f.select :first_language, @languages %>
+		</div>
+                <div class="row">
+			<label for="user_language">Other Language(s)</label>
+	 		<%= select_tag('other_languages[]', options_for_select(@languages),{:multiple => true, :size =>5} ) -%>
+		</div>
                 
 		<div class="row">
 			<%= f.check_box :terms_of_service -%>

@@ -48,6 +48,7 @@ class UsersController < ApplicationController
         @states = State.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
         @countries = Country.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
         @grade_level_experiences = GradeLevelExperience.find(:all).map {|u| [u.name, u.id] }
+        @languages = Language.find(:all).map {|u| [u.english_name, u.id] }
         respond_to do |format|
             format.html { render }
         end
@@ -60,6 +61,8 @@ class UsersController < ApplicationController
             @user.force_activate!
         end
         
+      
+        #This code is for the Grade Level Experience
         @levels = GradeLevelExperience.find(:all)
         selected_levels = []
         for level_id_char in params[:grade_level_experiences]
@@ -72,10 +75,31 @@ class UsersController < ApplicationController
 
         missing_levels = @levels - selected_levels
 
-        for role in missing_levels
+        for level in missing_levels
 
           if @user.grade_level_experiences.include?(level)
             @user.grade_level_experiences.delete(level)
+          end
+        end  
+      
+      
+       #This code is for the additional languages
+        @languages = Language.find(:all)
+        selected_languages = []
+        for lang_id_char in params[:other_languages]
+          language= Language.find(lang_id_char.to_i)
+          if not @user.languages.include?(language)
+            @user.languages << language
+          end
+          selected_languages << language
+        end
+
+        missing_languages = @languages - selected_languages
+
+        for language in missing_languages
+
+          if @user.languages.include?(language)
+            @user.languages.delete(language)
           end
         end  
       

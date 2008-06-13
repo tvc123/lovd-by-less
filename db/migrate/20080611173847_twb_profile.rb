@@ -2,7 +2,7 @@ class TwbProfile < ActiveRecord::Migration
   def self.up
     add_column :users, :organization, :string
     add_column :users, :grade_experience, :integer
-    add_column :users, :first_lagnuage, :integer
+    add_column :users, :first_language, :integer
     
     create_table "languages", :force => true do |t|
       t.string  "name"

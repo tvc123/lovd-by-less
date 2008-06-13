@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
     # Photos
     has_many :photos, :order => 'created_at DESC'
-
+    has_and_belongs_to_many :grade_level_experiences
     acts_as_ferret :fields => [ :location, :f, :about_me ], :remote=>true
 
     file_column :icon, :magick => {

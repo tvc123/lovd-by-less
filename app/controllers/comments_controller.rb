@@ -1,53 +1,50 @@
 class CommentsController < ApplicationController
-  skip_filter :store_location, :only => [:create, :destroy]
-  before_filter :setup
-  
-  
-  def index
-    @comments = Comment.between_profiles(@p, @profile).paginate(:page => @page, :per_page => @per_page)
-    redirect_to @p and return if @p == @profile
-    respond_to do |wants|
-      wants.html {render}
-      wants.rss {render :layout=>false}
-    end
-  end
-  
-  def create
-    @comment = @parent.comments.new(params[:comment].merge(:profile_id => @p.id))
     
-    respond_to do |wants|
-      if @comment.save
-        wants.js do
-          render :update do |page|
-            page.insert_html :top, "#{dom_id(@parent)}_comments", :partial => 'comments/comment'
-            page.visual_effect :highlight, "comment_#{@comment.id}".to_sym
-            page << 'tb_remove();'
-            page << "jq('#comment_comment').val('');"
-          end
+    include ApplicationHelper
+    
+    skip_filter :store_location, :only => [:create, :destroy]
+    before_filter :setup
+
+    def index
+        @comments = Comment.between_users(current_user, @user).paginate(:page => @page, :per_page => @per_page)
+        redirect_to current_user and return if is_me?(@user)
+        respond_to do |format|
+            format.html {render}
+            format.rss {render :layout=>false}
         end
-      else
-        wants.js do
-          render :update do |page|
-            page << "message('Oops... I could not create that comment');"
-          end
-        end
-      end
     end
-  end
-  
-  protected
-    
-    def parent; @blog || @profile || nil; end
-    
+
+    def create
+        @comment = @parent.comments.new(params[:comment].merge(:profile_id => @p.id))
+
+        respond_to do |format|
+            if @comment.save
+                format.js do
+                    render :update do |page|
+                        page.insert_html :top, "#{dom_id(@parent)}_comments", :partial => 'comments/comment'
+                        page.visual_effect :highlight, "comment_#{@comment.id}".to_sym
+                        page << 'tb_remove();'
+                        page << "jq('#comment_comment').val('');"
+                    end
+                end
+            else
+                format.js do
+                    render :update do |page|
+                        page << "message('Oops... I could not create that comment');"
+                    end
+                end
+            end
+        end
+    end
+
+    protected
+
+    def parent; @blog || @user || nil; end
+
     def setup
-      @profile = Profile[params[:profile_id]] if params[:profile_id]
-      @user = @profile.user if @profile
-      @blog = Blog.find(params[:blog_id]) unless params[:blog_id].blank?
-      @parent = parent
-    end
-  
-    def allow_to
-      super :user, :only => [:index, :create]
+        @user = User.find_by_login(params[:user_id])
+        @blog = Blog.find(params[:blog_id]) unless params[:blog_id].blank?
+        @parent = parent
     end
 
 end

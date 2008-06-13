@@ -12,22 +12,22 @@ class HomeController < ApplicationController
 
 
     def index
-        respond_to do |wants|
-            wants.html {render}
-            wants.rss {render :partial =>  'profiles/newest_member', :collection => new_members}
+        respond_to do |format|
+            format.html {render}
+            format.rss {render :partial =>  'profiles/newest_member', :collection => new_members}
         end
     end
 
     def newest_members
-        respond_to do |wants|
-            wants.html {render :action=>'index'}
-            wants.rss {render :layout=>false}
+        respond_to do |format|
+            format.html {render :action=>'index'}
+            format.rss {render :layout=>false}
         end
     end
     def latest_comments
-        respond_to do |wants|
-            wants.html {render :action=>'index'}
-            wants.rss {render :layout=>false}
+        respond_to do |format|
+            format.html {render :action=>'index'}
+            format.rss {render :layout=>false}
         end
     end
 

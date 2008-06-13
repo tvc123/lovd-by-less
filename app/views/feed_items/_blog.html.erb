@@ -7,10 +7,10 @@ blog ||= feed_item.item
 <div class="feed_item photo_feed" id="<%= feed_item.dom_id %>">
   <div class="left">
 	<img src="/images/blurp_photos.png" class="png icon_small" title="User Photo Icon"  alt="User Photo Icon" /> 
-	<%= link_to h(blog.profile.f), blog.profile %> blogged <%= time_ago_in_words blog.created_at %> ago <%= link_to sanitize(textilize(blog.title)), profile_blog_path(blog.profile, blog) %>
+	<%= link_to h(blog.user.f), blog.user %> blogged <%= time_ago_in_words blog.created_at %> ago <%= link_to sanitize(textilize(blog.title)), user_blog_path(blog.user, blog) %>
 	</div> 
   	<div class="right">
-    	<%= x_feed_link(feed_item) if me %>
+    	<%= x_feed_link(feed_item) if is_me?(blog.user) %>
   	</div>
 	<div class="clear"></div>
 </div>

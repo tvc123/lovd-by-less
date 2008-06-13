@@ -5,7 +5,7 @@
 	<%= link_to h(p.user.f), p.user %> uploaded a <a href="<%= image_path p, nil %>" title="<%= p.caption %>" class="thickbox">new photo</a>
 	</div> 
   	<div class="right">
-    	<%= x_feed_link(feed_item) if is_user_me?(p.user) %>
+    	<%= x_feed_link(feed_item) if is_me?(p.user) %>
   	</div>
 	<div class="clear"></div>
 </div>

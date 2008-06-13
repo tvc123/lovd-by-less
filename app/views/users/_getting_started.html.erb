@@ -67,7 +67,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if blog_empty -%>
 		<div class="blurp">
 			<img src="/images/blurp_comment.png" class="left png" title="Comment Icon" alt="Comment Icon" />
-			<strong><%= link_to 'Start Blogging!', profile_blogs_path(current_user) %></strong>
+			<strong><%= link_to 'Start Blogging!', user_blogs_path(current_user) %></strong>
 			Your public profile is the way your friends will learn about you and keep up-to-date on your life. 
 			Upload a profile photo, add an "about me" connect with new and old friends.  
 			<div class="clear"></div>

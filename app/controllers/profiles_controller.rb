@@ -34,11 +34,11 @@ class ProfilesController < ApplicationController
 
         @comments = @user.comments.paginate(:page => @page, :per_page => @per_page)
 
-        respond_to do |wants|
-            wants.html do
+        respond_to do |format|
+            format.html do
                 @feed_items = @user.feed_items
             end
-            wants.rss do 
+            format.rss do 
                 @feed_items = @user.feed_items
                 render :layout => false
             end

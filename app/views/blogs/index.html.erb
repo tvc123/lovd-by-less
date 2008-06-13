@@ -10,7 +10,7 @@
   <h1><%= icon @user %> <%= @user.f %>'s Blog</h1>
   <!-- BEGIN POST LINKS -->
   <div id="sub_nav">
-    <%- if @p == @profile -%>
+    <%- if is_me?(@user) -%>
     <%= link_to '&larr; Back to Dashboard', user_path(@user) %>
     <%= link_to 'Write a new post', new_user_blog_path(@user) %>
     <%- else -%>

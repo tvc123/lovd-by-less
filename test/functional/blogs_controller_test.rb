@@ -66,7 +66,7 @@ class BlogsControllerTest < ActionController::TestCase
       assert_template 'new'
       assert_response :success
       assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(p)}
-      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>profile_blogs_path(p)}
+      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(p)}
     end
     
     should "redirect to home_path when logged in as :user" do
@@ -99,7 +99,7 @@ class BlogsControllerTest < ActionController::TestCase
       assert_template 'edit'
       assert_response :success
       assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(p)}
-      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>profile_blogs_path(p)}
+      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(p)}
     end
     
     should "redirect to home_path when logged in as :user" do
@@ -127,7 +127,7 @@ class BlogsControllerTest < ActionController::TestCase
         post :create, {:profile_id => p.id, :blog => VALID_BLOG_POST}, {:user => p.user.id}
         assert_contains flash[:notice], /created/
         assert_response :redirect
-        assert_redirected_to profile_blogs_path(p)
+        assert_redirected_to user_blogs_path(p)
       end
     end
     
@@ -165,7 +165,7 @@ class BlogsControllerTest < ActionController::TestCase
       put :update, {:profile_id => p.id, :id=>b.id, :blog => VALID_BLOG_POST}, {:user => p.user.id}
       assert_contains flash[:notice], /updated/
       assert_response :redirect
-      assert_redirected_to profile_blogs_path(p)
+      assert_redirected_to user_blogs_path(p)
     end
     
     should "render :edit with error when logged in as :owner" do
@@ -203,7 +203,7 @@ class BlogsControllerTest < ActionController::TestCase
         delete :destroy, {:profile_id => p.id, :id=>b.id}, {:user => p.user.id}
         assert_contains flash[:notice], /deleted/
         assert_response :redirect
-        assert_redirected_to profile_blogs_path(p)
+        assert_redirected_to user_blogs_path(p)
       end
     end
     

@@ -8,16 +8,16 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "show me the wall between us" do
-    comments = Comment.between_profiles profiles(:user), profiles(:user2)
+    comments = Comment.between_users profiles(:user), profiles(:user2)
     assert_equal 1, comments.size
     assert_equal [comments(:third).id], comments.map(&:id).sort
 
     assert profiles(:user).comments.create(:comment => 'yo', :profile => profiles(:user2))
-    assert_equal 2, Comment.between_profiles( profiles(:user), profiles(:user2)).size
+    assert_equal 2, Comment.between_users( profiles(:user), profiles(:user2)).size
   end
 
   should "show me the wall between me" do
-    comments = Comment.between_profiles profiles(:user), profiles(:user)
+    comments = Comment.between_users profiles(:user), profiles(:user)
     assert_equal 1, comments.size
     assert_equal [comments(:seven).id], comments.map(&:id).sort
   end

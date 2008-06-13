@@ -26,7 +26,7 @@
       <% newest_pictures.each do |picture|%>
       <div class="image left small_down_image">
         <div>
-          <%= link_to image(picture, :small), profile_photos_path(picture.profile) %>
+          <%= link_to image(picture, :small), user_photos_path(picture.user) %>
         </div>
       </div>
       <% end %>

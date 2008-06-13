@@ -122,7 +122,7 @@ class UsersController < ApplicationController
     end
 
     def welcome
-        @user = User.find(params[:id])
+        @user = User.find_by_login(params[:id])
         respond_to do |format|
             format.html { render }
         end
@@ -181,11 +181,11 @@ class UsersController < ApplicationController
         redirect_to :action => 'index'
 
         #TODO figure out what to do here - should we really delete the account or just disable it?
-           # respond_to do |wants|
+           # respond_to do |format|
            #               @user.destroy
            #               cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
            #               session[:user] = nil
-           #               wants.js do
+           #               format.js do
            #                   render :update do |page| 
            #                       page.alert('Your user account, and all data, have been deleted.')
            #                       page << 'location.href = "/";'
@@ -207,9 +207,9 @@ class UsersController < ApplicationController
     end
 
     def delete_icon
-        respond_to do |wants|
+        respond_to do |format|
         @p.update_attribute :icon, nil
-        wants.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
+        format.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
         end      
     end
 

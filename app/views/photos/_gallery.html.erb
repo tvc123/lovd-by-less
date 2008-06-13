@@ -30,8 +30,8 @@ if mini
     <h1><%= icon profile %> <%= "#{profile.f}'s Photos" %></h1>
 
     <div id="sub_nav">
-      <%= link_to '&larr; Back to Dashboard', user_path(current_user) if is_user_me?(profile) %>
-      <%= link_to "&larr; Back to #{h profile.f}'s profile", profile_path(profile) unless is_user_me?(profile) %> 
+      <%= link_to '&larr; Back to Dashboard', user_path(current_user) if is_me?(profile) %>
+      <%= link_to "&larr; Back to #{h profile.f}'s profile", profile_path(profile) unless is_me?(profile) %> 
     </div>	
     <div id="photo_wall">
       <%= render :partial => 'photo', :collection => @photos %>
@@ -44,7 +44,7 @@ if mini
   </div>
 
   <div class="right" id="column_r">
-    <% if is_user_me?(profile) %>
+    <% if is_me?(profile) %>
     <div class="right upload_form activity_box">
       <%= render :partial => 'form' %>
     </div>

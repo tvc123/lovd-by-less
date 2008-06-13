@@ -3,7 +3,7 @@
 DELETE_CONFIRM = "Are you sure you want to delete?\nThis can not be undone."
 SEARCH_LIMIT = 25
 SITE_NAME = 'Teachers Without Borders'
-SITE = RAILS_ENV == 'production' ? 'teacherswithoutborders.org' : 'localhost:3000'
+SITE = RAILS_ENV == 'production' ? 'twb1.enpraxis.net:8080' : 'localhost:3000'
 
 MAILER_TO_ADDRESS = 'info@#{SITE}'
 MAILER_FROM_ADDRESS = 'The Teachers Without Borders Team <info@teacherswithoutborders.org>'

@@ -96,7 +96,39 @@ $(document).ready(function()
 	 		<%= select_tag('other_languages[]', options_for_select(@languages),{:multiple => true, :size =>5} ) -%>
 		</div>
                 
-		<div class="row">
+		
+                
+                <div class="row">
+			<label for="user_why_joined"> A few words on why you joined TWB</label>
+	 		<%= f.text_area :why_joined, {  :class => "text-area" } -%>
+		</div>
+                
+                <div class="row">
+			<label for="user_skills"> Additional Skills & Interests</label>
+	 		<%= f.text_area :skills, {  :class => "text-area" } -%>
+		</div>
+                <div class="row">
+			<label for="user_occupation"> Occupation</label>
+	 		<%= f.text_area :occupation, {  :class => "text-area" } -%>
+		</div>
+                <div class="row">
+			<label for="user_aim_name">AOL Instant messenger </label>
+	 		<%= f.text_field :aim_name, {  :class => "text-field" } -%>
+		</div>
+                <div class="row">
+			<label for="user_msn">MSN messenger </label>
+	 		<%= f.text_field :msn, {  :class => "text-field" } -%>
+		</div>
+                <div class="row">
+			<label for="user_skype">Skype </label>
+	 		<%= f.text_field :skype, {  :class => "text-field" } -%>
+		</div>
+                <div class="row">
+			<label for="user_yahoo">Yahoo! Messenger </label>
+	 		<%= f.text_field :yahoo, {  :class => "text-field" } -%>
+		</div>
+                
+                <div class="row">
 			<%= f.check_box :terms_of_service -%>
 			<label for="notify">I agree to the <a href="<%=tos_url%>" target="_blank">Terms and Conditions</a></label>																																						
 		</div>

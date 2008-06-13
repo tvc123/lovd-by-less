@@ -12,8 +12,7 @@ class UsersController < ApplicationController
     end
 
     # Show the user's home page.  This is their 'dash board'
-    def show
-      
+    def show  
         
         unless current_user.youtube_username.blank?
             begin
@@ -45,15 +44,12 @@ class UsersController < ApplicationController
     def new
         @user = User.new
         #@users = User.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
-        @states = State.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
-        @countries = Country.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
-        @grade_level_experiences = GradeLevelExperience.find(:all).map {|u| [u.name, u.id] }
-        @languages = Language.find(:all).map {|u| [u.english_name, u.id] }
+        setup_form_values
         respond_to do |format|
             format.html { render }
         end
     end
-
+    
     def create
         cookies.delete :auth_token
         @user = User.new(params[:user])
@@ -108,8 +104,10 @@ class UsersController < ApplicationController
         #Uncomment to have the user logged in after creating an account - Not Recommended
         #self.current_user = @user
         flash[:notice] = "Thanks for signing up! Please check your email to activate your account and then login."
-        redirect_to welcome_user_path(@user)    
-    rescue ActiveRecord::RecordInvalid
+        redirect_to welcome_user_path(@user)
+           
+    rescue ActiveRecord::RecordInvalid # => e
+        setup_form_values
         respond_to do |format|
             format.html { render :action => "new" }
         end
@@ -141,10 +139,9 @@ class UsersController < ApplicationController
         end
     end
 
-    # use this to manage user preferences
-    # TODO need to examine the preferences code in the old system and bring it here
     def edit
         @user = current_user
+        setup_form_values
     end
 
     def update
@@ -156,7 +153,10 @@ class UsersController < ApplicationController
                 redirect_to edit_user_url(@user)
             else
                 flash.now[:error] = @user.errors
-                render :action => :edit
+                setup_form_values
+                respond_to do |format|
+                    format.html { render :action => :edit}
+                end
             end
         when 'password'
             if @user.change_password(params[:verify_password], params[:new_password], params[:confirm_password])
@@ -164,7 +164,10 @@ class UsersController < ApplicationController
                 redirect_to edit_profile_url(@user)
             else
                 flash.now[:error] = @user.errors
-                render :action=> :edit
+                setup_form_values
+                respond_to do |format|
+                    format.html { render :action => :edit}
+                end
             end
         else
             RAILS_ENV == 'test' ? render( :text=>'') : raise( 'Unsupported switch in action')
@@ -221,6 +224,13 @@ class UsersController < ApplicationController
                 redirect_to user_path(current_user)
             end
         end
+    end
+    
+    def setup_form_values
+        @states = State.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
+        @countries = Country.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
+        @grade_level_experiences = GradeLevelExperience.find(:all).map {|u| [u.name, u.id] }
+        @languages = Language.find(:all).map {|u| [u.english_name, u.id] }
     end
 
 end

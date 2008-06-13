@@ -176,3 +176,10 @@ position:absolute;margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (T
 * html #TB_HideSelect{/* ie6 hack */
 position:absolute;height:expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight :document.body.offsetHeight + 'px');}
 #TB_iframeContent{clear:both;border:none;margin-bottom:-1px;margin-top:1px;_margin-bottom:1px;}
+/*--top-navigation--*/
+#top-navigation{float:left;display:inline;width:100%;background-color:#4B7041;}
+#top-navigation input{float:left;margin:4px 5px;padding:0 2px;overflow:hidden;width:90px;background:#fff;font:10px Verdana,sans-serif;border:0;height:15px;}
+#top-navigation ul{float:left;margin:4px 0;padding:0;display:inline;}
+#top-navigation ul li{float:left;padding:0 4px 0 10px;list-style:none;color:#ffc;font-size:11px;line-height:13px;font-weight:bold;}
+#top-navigation ul li a{float:left;color:#ffc;text-decoration:none;font-size:120%;}
+#top-navigation ul li a:hover{text-decoration:underline;}

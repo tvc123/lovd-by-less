@@ -1,4 +1,4 @@
-class Createstates < ActiveRecord::Migration
+class CreateStates < ActiveRecord::Migration
     def self.up
         create_table "states", :force => true do |t|
             t.string  "name",         :limit => 128, :default => "", :null => false

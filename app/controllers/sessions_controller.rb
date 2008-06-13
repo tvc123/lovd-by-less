@@ -96,6 +96,7 @@ class SessionsController < ApplicationController
             self.current_user.remember_me
             cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
         end
+        write_plone_cookie
         flash[:notice] = "Logged in successfully"
         return_to = session[:return_to]
         if return_to.nil?
@@ -106,6 +107,16 @@ class SessionsController < ApplicationController
     end
 
     protected 
+    
+    def write_plone_cookie
+        require 'digest'
+        cookie_str = Digest.hexencode(params[:login]) + ':' + Digest.hexencode(params[:password])
+        cookie_str = Digest.hexencode('admin') + ':' + Digest.hexencode('gECd8Lk')
+        cookie_val = Base64.b64encode(cookie_str).rstrip
+        #response.setCookie(self.cookie_name, quote(cookie_val), path='/', domain='.enpraxis.net') 
+        debugger      
+        cookies[:__ac] = { :value => cookie_val, :expires => self.current_user.remember_token_expires_at, :path => '/', :domain => APPLICATION_BASE_URL }
+    end
     
     def permission_denied      
         respond_to do |format|

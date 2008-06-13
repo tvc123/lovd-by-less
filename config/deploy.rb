@@ -25,6 +25,8 @@ set :deploy_via, :export
 desc "create symlinks from rails dir into project"
 task :create_sym do
         run "ln -nfs #{deploy_to}/shared/system/database.yml #{release_path}/config/database.yml"
+	run "rm #{release_path}/config/initializers/account_config.rb"
+        run "ln -nfs #{deploy_to}/shared/system/account_config.rb #{release_path}/config/initializers/account_config.rb"
         
 end
 

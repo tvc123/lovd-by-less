@@ -43,12 +43,22 @@
 	
       <div id="top" >
         <%= link_to(image_tag('logo.png', :class=>'png left'), home_path) %>
-        <div class="half right text_r">
-          <%= link_to 'Home', home_path %>
-        </div>
-        <div class="clear"></div>
-				<div>test</div>
       </div>
+
+			<div class="clear"></div>
+
+			<div id="local-navigation">
+				<ul>
+					<li><%= link_to 'Home', home_path %></li>
+					<li><%= link_to 'People', users_path %></li>
+					<li><%= link_to 'Groups', groups_path %></li>
+					<li><%= link_to 'Photos', home_path %></li>
+					<li><%= link_to 'Blogs', home_path %></li>
+				</ul>          
+      </div>
+			
+			<div class="clear"></div>
+			
       <div id="content">
           <div id="content_top">
             <div id="search" class="left">

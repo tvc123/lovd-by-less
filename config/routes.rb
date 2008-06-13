@@ -36,6 +36,9 @@ ActionController::Routing::Routes.draw do |map|
     
     map.resources :profiles, :collection => { :search => :get }
     
+    # groups
+    map.resources :groups
+    
     # sessions
     map.resource :session
     map.with_options(:controller => 'sessions') do |sessions|

@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
 
     def has_wall_with profile
         return false if profile.blank?
-        !Comment.between_profiles(self, profile).empty?
+        !Comment.between_users(self, profile).empty?
     end
 
     def website= val

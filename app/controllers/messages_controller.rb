@@ -16,15 +16,15 @@ class MessagesController < ApplicationController
   def create
     @message = @p.sent_messages.create(params[:message]) 
     
-    respond_to do |wants|
+    respond_to do |format|
       if @message.new_record?
-        wants.js do
+        format.js do
           render :update do |page|
             page.alert @message.errors.to_s
           end
         end
       else
-        wants.js do
+        format.js do
           render :update do |page|
             page.alert "Message sent."
             page << "jq('#message_subject, #message_body').val('');"

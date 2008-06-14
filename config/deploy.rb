@@ -33,3 +33,7 @@ end
 task :after_update_code do
         create_sym
 end
+
+task :tail_log, :roles => :app do
+stream "tail -f #{shared_path}/log/production.log"
+end

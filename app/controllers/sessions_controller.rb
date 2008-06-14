@@ -110,6 +110,7 @@ class SessionsController < ApplicationController
     
     def write_plone_cookie
         require 'digest'
+        require 'base64'
         cookie_str = Digest.hexencode(params[:login]) + ':' + Digest.hexencode(params[:password])
         cookie_val = Base64.b64encode(cookie_str).rstrip  
         cookies[:__ac] = { :value => cookie_val, :expires => self.current_user.remember_token_expires_at, :path => '/', :domain => APPLICATION_BASE_URL }

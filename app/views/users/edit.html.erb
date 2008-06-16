@@ -1,51 +1,220 @@
-<div id="introGroup"> 
-<h1>User Preferences</h1>
-<p>Update your user profile and preferences here.</p>
+<h1>Edit Profile <%= 'or '+link_to('Skip This Step', profile_path(@user)) if flash[:notice]=="Thanks for signing up!" %></h1>
+<div id="sub_nav">
+<%= link_to 'View Public Profile', profile_path(@user).add_param(:public_view=>true)%>
+<%= link_to('&larr; Jump to Dashboard', @user) if @user %>  
 </div>
 
-<% form_for :user, :url => user_url(@user), :html => { :method => :put, :name => "frmPreferences" } do |f| %>
-	<input type="hidden" name="data[Action][key]" id="data[Action][key]" value="" />
-	
-	<div id="form_frame" style="width: 440px; margin-left: 20px;">
-		
-		<%= error_messages_for :user %>
+<div class="left half">
+  <div id="general_info">
+    <% form_for @user, :html=>{:method=>:put, :class=>"box no_top"} do |f| %>
+      <h2><%= "General info" %></h2>
+
+     	<div class="row">
+				<label for="user_email">Email Address <em>*</em></label>
+		 		<%= f.text_field :email, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_first_name">First Name:</label>
+				<%= f.text_field :first_name %>   
+      </div>
+
+			<div class="row">
+				<label for="user_last_name">Last Name:</label>
+				<%= f.text_field :last_name %>
+			</div>
+			
+			<div class="row">
+				<label for="user_location">Location:</label>
+      	<%= f.text_field :location %>    
+			</div>
+			
+			<div class="row">
+				<label for="user_website">Website:</label>
+				<%= f.text_field :website %>
+			</div>
+			
+			<div class="row">
+				<label for="user_blog">Blog:</label>
+				<%= f.text_field :blog %>
+			</div>
+
+			<div class="row">
+				<label for="user_city">City <em>*</em></label>
+		 		<%= f.text_field :city, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_state">State <em>*</em></label>
+		 		<%= f.select :state, @states %>
+			</div>
+
+			<div class="row">
+				<label for="user_zip">Postal Code <em>*</em></label>
+		 		<%= f.text_field :zip, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_country">Country <em>*</em></label>
+		 		<%= f.select :country, @countries %>
+			</div>
+
+			<div class="row">
+				<label for="user_organization">School District / University / Company: <em>*</em></label>
+		 		<%= f.text_field :organization, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_grade_experience">Grade Level Experience <em>*</em></label>
+		 		<%= select_tag('grade_level_experiences[]', options_for_select(@grade_level_experiences),{:multiple => true, :size =>5} ) -%>
+			</div>
+
+	    <div class="row">
+				<label for="user_phone">Phone </label>
+		 		<%= f.text_field :phone, {  :class => "text-field" } -%>
+			</div>
+
+	    <div class="row">
+				<label for="user_phone2">Phone 2 </label>
+		 		<%= f.text_field :phone2, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_first_language">First Language </label>
+		 		<%= f.select :first_language, @languages %>
+			</div>
+
+			<div class="row">
+				<label for="user_language">Other Language(s)</label>
+		 		<%= select_tag('other_languages[]', options_for_select(@languages),{:multiple => true, :size =>5} ) -%>
+			</div>
+
+			<div class="row">
+				<label for="user_about_me"> About Me</label>
+		 		<%= f.text_area :about_me, {  :class => "text-area" } -%>
+			</div>
+			
+			<div class="row">
+				<label for="user_why_joined"> A few words on why you joined TWB</label>
+		 		<%= f.text_area :why_joined, {  :class => "text-area" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_skills"> Additional Skills & Interests</label>
+		 		<%= f.text_area :skills, {  :class => "text-area" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_occupation"> Occupation</label>
+		 		<%= f.text_area :occupation, {  :class => "text-area" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_flickr">Flickr:</label>
+				<%= f.text_field :flickr %>
+			</div>
+			
+			<div class="row">
+				<label for="user_youtube_username">Youtube Username:</label>
+				<%= f.text_field :youtube_username %>
+			</div>
+			
+			<div class="row">
+				<label for="user_flickr_username">Flickr Username:</label>
+				<%= f.text_field :flickr_username %>
+			</div>
+			
+			<div class="row">
+				<label for="user_aim_name">AOL Instant messenger </label>
+		 		<%= f.text_field :aim_name, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_msn">MSN messenger </label>
+		 		<%= f.text_field :msn, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_skype">Skype </label>
+		 		<%= f.text_field :skype, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_yahoo">Yahoo! Messenger </label>
+		 		<%= f.text_field :yahoo, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_gtalk_name">GTalk </label>
+		 		<%= f.text_field :gtalk_name, {  :class => "text-field" } -%>
+			</div>
+
+			<div class="row">
+				<label for="user_ichat_name">iChat </label>
+		 		<%= f.text_field :ichat_name, {  :class => "text-field" } -%>
+			</div>
+
+      <div class="row button">
+      	<%= f.submit 'Save', :class => 'button' %>
+      </div>
+
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+</div>
+
+<div class="right half">
+  <div id="upload_icon">
+    <% form_for @user, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |f| %>
+      <h2><%= "Upload Icon:" %></h2>
+    
+      <label>Upload your Icon</label>
+      <%= file_column_field( "profile", "icon", :size => 15)%>
+      <div class="clear"></div>
+      <% unless @user.icon.blank? %>
+      <div id="avatar_edit">
+        <span id="profile_icon_picture">
+          <%= icon @user %>
+          <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@user), :confirm=>DELETE_CONFIRM  %>
+        </span>
+      </div>
+      <% end %>
+
+      <div class="row button">
+      <%= f.submit 'Save', :class => 'button' %>
+      </div>
+
+      <input type="hidden" name="switch" value="image" />
+    <% end %>
+  </div>
 
 
-		<table width="100%" border="0" cellspacing="0" cellpadding="3">
-			<tr>
-				<td class="form_label">
-					<label for="email">Email</label>
-				</td>
-				<td>
-					<%= f.text_field :email, :size => 60 %>
-				</td>
-			</tr>
-			<tr>
-				<td class="lined" colspan="2">
-				</td>
-			</tr>
-			<tr>
-				<td class="space note" colspan="2">
-					Leave the following fields blank to retain the current password.
-				</td>
-			</tr>
-			<tr>
-				<td class="form_label">
-					<label for="password">Password</label>
-				</td>
-				<td>
-					<%=link_to 'Change Password', change_password_url %>
-				</td>
-			</tr>
-			<tr>
-				<td class="lined" colspan="2">
-				</td>
-			</tr>
-		
-			
-		</table>
+  <div id="change_passwords">
+  	<% form_tag url_for(:controller => "accounts", :action => "update") do %>
+			<h2>Change Password</h2>
+			<div class="row">
+				<label for="user_password">Password: </label>
+				<%= password_field_tag :password -%>
+			</div>
+			<div class="row">
+				<label for="user_password_confirmation">Confirm Password:</label>
+				<%= password_field_tag :password_confirmation %>
+			</div>			
+			<div class="row button">
+      	<%= submit_tag "Change Password" %>
+      </div>
 
-			
-			
-	</div>
-<% end -%>
+		<% end %>
+  </div>
+
+
+  <div id="delete_account">
+		<form>    
+			<h2>Remove My Account</h2>
+      <%= link_to_remote 'Delete my user account and all my data.', :url=>user_path(@user), :method=>:delete, :confirm=>DELETE_CONFIRM  %>
+    </form>
+  </div>
+
+  <div class="clear"></div>
+</div>

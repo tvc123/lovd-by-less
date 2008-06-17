@@ -12,7 +12,7 @@ invited = friendship.invited
       <%= link_to h(inviter.f), inviter %> is now a <%= friendship.description inviter %> of <%= link_to h(invited.f), invited %>. 
 	</div>
 	<div class="right">
-	  <%= x_feed_link(feed_item) if me %>
+	  <%= x_feed_link(feed_item) if is_me?(@user) %>
 	</div>
 	<div class="clear"></div>
 	</div>

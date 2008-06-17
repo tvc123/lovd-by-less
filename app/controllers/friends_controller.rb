@@ -8,7 +8,7 @@ class FriendsController < ApplicationController
     def create
         respond_to do |format|
             if Friend.make_friends(current_user, @user)
-                friend = @p.reload.friend_of? @user
+                friend = current_user.reload.friend_of? @user
                 format.js {render( :update ){|page| page.replace current_user.dom_id(@user.dom_id + '_friendship_'), get_friend_link( current_user, @user)}}
             else
                 message = "Oops... That didn't work. Try again!"
@@ -35,8 +35,7 @@ class FriendsController < ApplicationController
     protected
 
     def setup
-        @user = User[params[:id] || params[:user_id]]
-        @user = @user.user
+        @user = User.find_by_login(params[:user_id]) || User[params[:id] || params[:user_id]].user
     end
 
 end

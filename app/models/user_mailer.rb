@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
 
     def signup_notification(user)
         setup_email(user)
-        
+
         # Email header info
         @subject = "Welcome to #{AccountConfig::APPLICATION_NAME}!"
 
@@ -28,6 +28,17 @@ class UserMailer < ActionMailer::Base
     def reset_password(user)
         setup_email(user)
         @subject    = "Your #{AccountConfig::APPLICATION_NAME} password has been reset."
+    end
+
+    def follow inviter, invited, description
+        @subject        = "Follow notice from #{SITE_NAME}"
+        @recipients     = invited.email
+        @body['inviter']   = inviter
+        @body['invited']   = invited
+        @body['description'] = description
+        @from           = MAILER_FROM_ADDRESS
+        @sent_on        = Time.new
+        @headers        = {}
     end
 
     protected

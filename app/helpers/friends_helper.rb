@@ -8,7 +8,7 @@ module FriendsHelper
         return wrap_get_friend_link(link_to_remote( 'Stop Being Friends', :url => user_friend_path(user, target), :method => :delete), dom_id) if user.friend_of? target
         return wrap_get_friend_link(link_to_remote( 'Stop Following', :url => user_friend_path(user, target), :method => :delete), dom_id) if user.following? target
         return wrap_get_friend_link(link_to_remote( 'Be Friends', :url => user_friends_path(target), :method => :post), dom_id) if user.followed_by? target
-        wrap_get_friend_link(link_to_remote( 'Start Following', :url => user_path(target), :method => :post), dom_id)
+        wrap_get_friend_link(link_to_remote( 'Start Following', :url => user_friends_path(target), :method => :post), dom_id)
     end
 
     protected

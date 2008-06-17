@@ -2,6 +2,7 @@
 #locals
 message ||= @message
 message ||= Message.new params[:message]
+to_list ||= []
 to_list ||= @to_list
 to_list ||= [current_user] #used on someone's profile page
 hide_header ||= false
@@ -22,13 +23,26 @@ end
 <% end %>
 
 <div class="thickbox_form">
-	<% less_remote_form_for :message, :url => messages_path do |f| %>
-	<%= f.wrap('To') {to_list.to_select :message, :receiver_id, :selected=>(params[:message][:receiver_id].to_i rescue ''), :name => :f} %>
-	<%= f.text_field :subject %>
-	<%= f.text_area :body %>
+	<% remote_form_for :message, :url => messages_path do |f| %>
+		
+		<div class="row">
+			<label for="">To:</label>
+			<%= f.select :receiver_id, to_list %>
+		</div>
+		
+		<div class="row">
+			<label for="">Subject:</label>
+			<%= f.text_field :subject %>
+		</div>
+		
+		<div class="row">
+			<label for="">Body:</label>
+			<%= f.text_field :body %>
+		</div>
+		
+		<div class="row button">
+		  <%= submit_tag 'Send Message', :class=>'button' %>
+		</div>
 
-	<div class="row button">
-	  <%= submit_tag 'Send Message', :class=>'button' %>
-	</div>
 	<%end %>
 </div>

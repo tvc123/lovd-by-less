@@ -1,15 +1,15 @@
 <div class="activity_box learn">
-  <div class="left avatar"><%= icon current_user, :big %></div>
+  <div class="left avatar"><%= icon bio, :big %></div>
   <div class="right bio_stuff">
-    <h1><%= h current_user.f %></h1> 
-	  <h3><%= location_link current_user %></h3>
-		<% unless current_user.about_me.blank? %><div><strong>About:</strong> <%= sanitize(textilize(current_user.about_me)) %></div><% end %>
-		<% unless current_user.website.blank? %><div><strong>Website:</strong> <%= link_to h(current_user.website), h(current_user.website) %></div><% end %>
-		<% unless current_user.blog.blank? %><div><strong>Blog:</strong> <%= link_to h(current_user.blog), h(current_user.blog) %></div><% end %>
-		<% unless current_user.flickr.blank? %><div><strong>Flickr:</strong> <%= link_to h(current_user.flickr), h(current_user.flickr) %></div><% end %>
-		<% unless current_user.aim_name.blank? %><div><strong>AIM:</strong> <a href="aim:goim?screenname=<%= h current_user.aim_name %>"><%= h current_user.aim_name %></a></div><% end %>
-		<% unless current_user.gtalk_name.blank? %><div><strong>GTalk:</strong> <a href="xmpp:<%= h current_user.gtalk_name %>"><%=h current_user.gtalk_name %></a></div><% end %>
-		<% unless current_user.ichat_name.blank? %><div><strong>iChat:</strong> <a href="ichat:<%= h current_user.ichat_name %>"><%=h current_user.ichat_name %></a></div><% end %>
+    <h1><%= h bio.f %></h1> 
+	  <h3><%= location_link bio %></h3>
+		<% unless bio.about_me.blank? %><div><strong>About:</strong> <%= sanitize(textilize(bio.about_me)) %></div><% end %>
+		<% unless bio.website.blank? %><div><strong>Website:</strong> <%= link_to h(bio.website), h(bio.website) %></div><% end %>
+		<% unless bio.blog.blank? %><div><strong>Blog:</strong> <%= link_to h(bio.blog), h(bio.blog) %></div><% end %>
+		<% unless bio.flickr.blank? %><div><strong>Flickr:</strong> <%= link_to h(bio.flickr), h(bio.flickr) %></div><% end %>
+		<% unless bio.aim_name.blank? %><div><strong>AIM:</strong> <a href="aim:goim?screenname=<%= h bio.aim_name %>"><%= h bio.aim_name %></a></div><% end %>
+		<% unless bio.gtalk_name.blank? %><div><strong>GTalk:</strong> <a href="xmpp:<%= h bio.gtalk_name %>"><%=h bio.gtalk_name %></a></div><% end %>
+		<% unless bio.ichat_name.blank? %><div><strong>iChat:</strong> <a href="ichat:<%= h bio.ichat_name %>"><%=h bio.ichat_name %></a></div><% end %>
 	</div>
     <div class="clear"></div>
 </div>

@@ -1,8 +1,8 @@
 <% 
 type ||= 'friends'
 size ||= 20
-list = current_user.send(type).find(:all, :limit => size, :order => 'RAND()') rescue []
-total = current_user.send(type).count
+list = @user.send(type).find(:all, :limit => size, :order => 'RAND()') rescue []
+total = @user.send(type).count
 with_friending ||= false
 title = type == 'followings' ? 'Following' : type
 %>
@@ -13,11 +13,11 @@ title = type == 'followings' ? 'Following' : type
 	
 	<div class="inside_box">
     
-<% list.each do |p| %>
-		<div class="left my_network">
-			<%= icon p %> <%= get_friend_link @p, p if with_friending %>
-		</div>
-<% end %>
+		<% list.each do |user| %>
+			<div class="left my_network">
+				<%= icon user %> <%= get_friend_link @user, user if with_friending %>
+			</div>
+		<% end %>
 
 		<div class="clear"></div>    
 	</div>

@@ -69,8 +69,10 @@ class PasswordsController < ApplicationController
             flash[:notice] = "Password mismatch."
             render :action => 'edit', :id => params[:id]
             return
-        end  
+        end
+        
         redirect_to login_path
+        
     rescue
         logger.error "Invalid Reset Code entered"
         flash[:notice] = "Sorry - That is an invalid password reset code. Please check your code and try again. (Perhaps your email client inserted a carriage return?)"

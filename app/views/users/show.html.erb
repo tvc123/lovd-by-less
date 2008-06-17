@@ -12,7 +12,7 @@
   <%= link_to 'Photos', user_photos_path(current_user) %>
   <%= link_to 'Friends', user_friends_path(current_user) if current_user.has_network? %>
   <%= link_to 'Blog', user_blogs_path(current_user) %>
-  <%= link_to 'Account Settings', edit_user_path(current_user) %>
+	<%= link_to 'Edit My Profile', edit_user_path(current_user) %>
 </div>
 
 <%= render :partial => 'users/getting_started' %>

@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     # Show the user's home page.  This is their 'dash board'
     def show  
         
+        @user = current_user
+        
         unless current_user.youtube_username.blank?
             begin
                 client = YouTubeG::Client.new

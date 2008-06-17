@@ -1,7 +1,10 @@
 --- 
+user: git
+group: git
+cwd: /var/www/ozmozr/current
 log_file: log/mongrel.log
 port: "8080"
 environment: production
 address: 0.0.0.0
-pid_file: tmp/pids/mongrel.pid
+pid_file: log/mongrel.pid
 servers: 1

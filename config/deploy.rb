@@ -37,3 +37,40 @@ end
 task :tail_log, :roles => :app do
 stream "tail -f #{shared_path}/log/production.log"
 end
+
+
+set :monit_group, 'git'
+desc <<-DESC
+Restart the Mongrel processes on the app server by
+calling restart_mongrel_cluster.
+DESC
+task :restart, :roles => :app do
+	restart_mongrel_cluster
+end
+desc <<-DESC
+Restart the Mongrel processes on the app server by
+calling restart_mongrel_cluster.
+DESC
+deploy.task :restart, :roles => :app do
+	restart_mongrel_cluster
+end
+desc <<-DESC
+Start Mongrel processes on the app server.
+DESC
+task :start_mongrel_cluster , :roles => :app do
+sudo "/usr/local/bin/monit start all -g #{monit_group}"
+end
+desc <<-DESC
+Restart the Mongrel processes on the app server by
+starting and stopping the cluster.
+DESC
+task :restart_mongrel_cluster , :roles => :app do
+sudo "/usr/local/bin/monit restart all -g #{monit_group}"
+end
+desc <<-DESC
+Stop the Mongrel processes on the app server.
+DESC
+task :stop_mongrel_cluster , :roles => :app do
+sudo "/usr/local/bin/monit stop all -g #{monit_group}"
+end
+

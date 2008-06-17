@@ -48,6 +48,13 @@ task :restart, :roles => :app do
 	restart_mongrel_cluster
 end
 desc <<-DESC
+Restart the Mongrel processes on the app server by
+calling restart_mongrel_cluster.
+DESC
+deploy.task :restart, :roles => :app do
+	restart_mongrel_cluster
+end
+desc <<-DESC
 Start Mongrel processes on the app server.
 DESC
 task :start_mongrel_cluster , :roles => :app do

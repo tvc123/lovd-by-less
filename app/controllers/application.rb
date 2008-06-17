@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
     helper :all
 
-    include ExceptionNotifiable
+    #include ExceptionNotifiable
     include AuthenticatedSystem
 
     filter_parameter_logging "password"

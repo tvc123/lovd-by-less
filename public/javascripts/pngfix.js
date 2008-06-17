@@ -5,7 +5,7 @@ var version = parseFloat(arVersion[1])
 
 if ((version >= 5.5) && (document.body.filters)) 
 {
-	jq('img').each(function(){
+	jQuery('img').each(function(){
 		if (this.src.toUpperCase().indexOf('.PNG') > -1)
 	      {
 	         var imgID = (this.id) ? "id='" + this.id + "' " : ""

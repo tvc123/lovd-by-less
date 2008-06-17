@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
         format.js do
           render :update do |page|
             page.alert "Message sent."
-            page << "jq('#message_subject, #message_body').val('');"
+            page << "jQuery('#message_subject, #message_body').val('');"
             page << "tb_remove()"
           end
         end

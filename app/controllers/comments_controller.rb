@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
                         page.insert_html :top, "#{dom_id(@parent)}_comments", :partial => 'comments/comment'
                         page.visual_effect :highlight, "comment_#{@comment.id}".to_sym
                         page << 'tb_remove();'
-                        page << "jq('#comment_comment').val('');"
+                        page << "jQuery('#comment_comment').val('');"
                     end
                 end
             else

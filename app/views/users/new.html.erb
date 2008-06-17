@@ -1,28 +1,28 @@
 <script type="text/javascript" language="JavaScript">
-$(document).ready(function()
+jQuery(document).ready(function()
 {
-    $("#user_login").blur(function()
+    jQuery("#user_login").blur(function()
     {
         //check the username exists or not from ajax
-        $.post('<%=is_login_available_users_url%>',{ user_login:$(this).val() } ,function(data)
+        jQuery.post('<%=is_login_available_users_url%>',{ user_login:$(this).val() } ,function(data)
         {
-        	$("#availibility").html(data);    
+        	jQuery("#availibility").html(data);    
         }); 
     });
 		
-		$(".text-field").focus(function()
+		jQuery(".text-field").focus(function()
 		{
-			$(".active").removeClass("active");
-			$(".text-field-help").css("display", "none");
-			$("#" + this.id + "-help").show();
-			$("#" + this.id + "-container").addClass("active");
+			jQuery(".active").removeClass("active");
+			jQuery(".text-field-help").css("display", "none");
+			jQuery("#" + this.id + "-help").show();
+			jQuery("#" + this.id + "-container").addClass("active");
 		});
 		
-		$("#user_login").keydown(function() { 
-			$("#availibility").html(''); 
+		jQuery("#user_login").keydown(function() { 
+			jQuery("#availibility").html(''); 
 		});
 		
-		$(".text-field-help").css("display", "none");
+		jQuery(".text-field-help").css("display", "none");
 });
 </script>
 

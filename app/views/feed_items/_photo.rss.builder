@@ -5,6 +5,6 @@ xml.item do
   xml.description p.caption.blank? ? 'No caption provided' : sanitize(textilize(p.caption))
   xml.author "#{p.profile.email} (#{p.profile.f})"
   xml.pubDate p.updated_at
-  xml.link profile_photo_url(p.profile, p)
-  xml.guid profile_photo_url(p.profile, p)
+  xml.link user_photo_url(p.user, p)
+  xml.guid user_photo_url(p.user, p)
 end

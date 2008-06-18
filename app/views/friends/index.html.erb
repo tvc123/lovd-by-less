@@ -1,7 +1,7 @@
 <h1>My Network</h1>	
 <div id="sub_nav">
-	<%= link_to("&larr; Back to #{h @profile.f}'s Profile", @profile) unless me %>
-	<%= link_to('&larr; Back to Dashboard', @p) if me %>
+	<%= link_to("&larr; Back to #{h @user.f}'s Profile", @user) unless is_me?(@user) %>
+	<%= link_to('&larr; Back to Dashboard', current_user) if is_me?(@user) %>
 </div>
 
 <%= render :partial => 'friends/list', :locals => {:type => 'friends', :with_friending => true, :size => nil} %>

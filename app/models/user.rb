@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
     # prevents a user from submitting a crafted form that bypasses activation
     # anything else you want your user to change should be added here.
     attr_accessor :password
-    attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :terms_of_service
+    attr_protected :crypted_password, :salt, :remember_token, :remember_token_expires_at, :activation_code, :activated_at,
+                   :password_reset_code, :enabled, :can_send_messages, :is_active, :created_at, :updated_at, :plone_password
 
     validates_presence_of     :password,                   :if => :password_required?
     validates_presence_of     :password_confirmation,      :if => :password_required? && Proc.new { |u| !u.password.blank? }

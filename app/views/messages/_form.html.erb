@@ -2,9 +2,8 @@
 #locals
 message ||= @message
 message ||= Message.new params[:message]
-to_list ||= []
 to_list ||= @to_list
-to_list ||= [current_user] #used on someone's profile page
+to_list ||= [@user] #used on someone's profile page
 hide_header ||= false
 
 unless message.new_record?
@@ -16,9 +15,9 @@ end
 <% unless hide_header %>
   <h1>Compose New Message</h1>
   <div id="sub_nav">
-  	<%= link_to '&larr; Back to Dashboard', @p %>  
-  	<%= link_to "Inbox", messages_path unless @p.received_messages.empty? %>
-  	<%= link_to "Sent", sent_messages_path, :class=>"selected"  unless @p.sent_messages.empty? %>
+  	<%= link_to '&larr; Back to Dashboard', current_user %>  
+  	<%= link_to "Inbox", messages_path unless current_user.received_messages.empty? %>
+  	<%= link_to "Sent", sent_messages_path, :class=>"selected"  unless current_user.sent_messages.empty? %>
   </div>
 <% end %>
 
@@ -27,7 +26,7 @@ end
 		
 		<div class="row">
 			<label for="">To:</label>
-			<%= f.select :receiver_id, to_list %>
+			<%= f.collection_select(:receiver_id, to_list, :id, :full_name) %>	
 		</div>
 		
 		<div class="row">
@@ -37,7 +36,7 @@ end
 		
 		<div class="row">
 			<label for="">Body:</label>
-			<%= f.text_field :body %>
+			<%= f.text_area :body %>
 		</div>
 		
 		<div class="row button">

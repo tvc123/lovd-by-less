@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
 
     skip_filter :login_required
     before_filter :setup
-
+    
     def index
         respond_to do |format|
             format.html { render }

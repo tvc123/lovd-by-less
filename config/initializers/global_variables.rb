@@ -11,4 +11,4 @@ REGISTRATION_RECIPIENTS = %W() #send an email to this list everytime someone sig
 
 YOUTUBE_BASE_URL = "http://gdata.youtube.com/feeds/api/videos/"
 
-APPLICATION_BASE_URL = '.enpraxis.net' # for cookies that need to work accross all subdomains (the plone site)
+APPLICATION_BASE_URL = '.twbtools.com' # for cookies that need to work accross all subdomains (the plone site)

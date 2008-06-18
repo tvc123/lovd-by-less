@@ -9,11 +9,11 @@ xml.rss(:version=>"2.0") do
     @photos.each do |photo|
       xml.item do
         xml.title "Photo"
-        xml.description "<a href=\"#{profile_photo_url(@user, photo)}\" title=\"#{photo.caption}\" alt=\"#{photo.caption}\" class=\"thickbox\" rel=\"user_gallery\">#{image photo, :small}</a>" + photo.caption
+        xml.description "<a href=\"#{user_photo_url(@user, photo)}\" title=\"#{photo.caption}\" alt=\"#{photo.caption}\" class=\"thickbox\" rel=\"user_gallery\">#{image photo, :small}</a>" + photo.caption
         xml.author "#{@user.f}"
         xml.pubDate @user.created_at
-        xml.link profile_photo_url(@user, photo)
-        xml.guid profile_photo_url(@user, photo)
+        xml.link user_photo_url(@user, photo)
+        xml.guid user_photo_url(@user, photo)
       end
     end
   end

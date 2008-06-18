@@ -16,7 +16,7 @@ if mini
       <% photos.each do |picture|%>
       <div class="image left">
         <div>
-          <%= link_to image(picture, :small), user_photos_path(picture.profile) %>
+          <%= link_to image(picture, :small), user_photos_path(picture.user) %>
         </div>
       </div>
       <% end %>
@@ -30,8 +30,8 @@ if mini
     <h1><%= icon profile %> <%= "#{profile.f}'s Photos" %></h1>
 
     <div id="sub_nav">
-      <%= link_to '&larr; Back to Dashboard', user_path(current_user) if is_me?(profile) %>
-      <%= link_to "&larr; Back to #{h profile.f}'s profile", profile_path(profile) unless is_me?(profile) %> 
+      <%= link_to '&larr; Back to Dashboard', user_path(@user) if is_me?(@user) %>
+      <%= link_to "&larr; Back to #{h profile.f}'s profile", profile_path(@user) unless is_me?(@user) %> 
     </div>	
     <div id="photo_wall">
       <%= render :partial => 'photo', :collection => @photos %>

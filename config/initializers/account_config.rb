@@ -5,4 +5,5 @@ module AccountConfig
     APPLICATION_NAME = 'Teachers Without Borders' # Sent in emails to users
     MAIL_CHARSET = 'utf-8'# Email charset
     AUTOMATICALLY_ACTIVATE = false # controls whether or not email is used
+    ENABLE_PLONE_INTEGRATION = true
 end

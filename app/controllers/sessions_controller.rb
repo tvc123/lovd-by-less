@@ -109,6 +109,7 @@ class SessionsController < ApplicationController
     protected 
     
     def write_plone_cookie
+        return unless AccountConfig::ENABLE_PLONE_INTEGRATION
         require 'digest'
         require 'base64'
         cookie_str = Digest.hexencode(params[:login]) + ':' + Digest.hexencode(params[:password])

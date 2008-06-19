@@ -271,11 +271,7 @@ class User < ActiveRecord::Base
     def following? user
         user.in? followings
     end
-
-    def can_send_messages
-        user.can_send_messages
-    end
-
+    
     def self.search query = '', options = {}
         query ||= ''
         q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'

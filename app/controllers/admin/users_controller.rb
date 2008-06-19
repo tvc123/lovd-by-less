@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
         respond_to do |format|
             format.js do
                 render :update do |page|
-                    if @p == @user
+                    if is_me?(@user)
                         page << "message('You cannot deactivate yourself!');"
                     else
                         @user.toggle! :is_active

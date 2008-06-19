@@ -62,7 +62,7 @@ class MessagesController < ApplicationController
 
     def can_send
         render :update do |page|
-            page.alert "Sorry, you can't send messages. (Cuz you sux.)"
+            page.alert "Sorry, you can't send messages."
         end unless current_user.can_send_messages
     end
 end

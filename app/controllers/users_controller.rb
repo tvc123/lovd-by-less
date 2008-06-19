@@ -213,7 +213,7 @@ class UsersController < ApplicationController
 
     def delete_icon
         respond_to do |format|
-        @p.update_attribute :icon, nil
+        current_user.update_attribute :icon, nil
         format.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
         end      
     end

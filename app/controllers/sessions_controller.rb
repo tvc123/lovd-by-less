@@ -109,12 +109,12 @@ class SessionsController < ApplicationController
     protected 
     
     def write_plone_cookie
-        return unless AccountConfig::ENABLE_PLONE_INTEGRATION
+        return unless GlobalConfig.enable_plone_integration
         require 'digest'
         require 'base64'
         cookie_str = Digest.hexencode(params[:login]) + ':' + Digest.hexencode(params[:password])
         cookie_val = Base64.b64encode(cookie_str).rstrip  
-        cookies[:__ac] = { :value => cookie_val, :expires => self.current_user.remember_token_expires_at, :path => '/', :domain => APPLICATION_BASE_URL }
+        cookies[:__ac] = { :value => cookie_val, :expires => self.current_user.remember_token_expires_at, :path => '/', :domain => GlobalConfig.application_base_url }
     end
     
     def permission_denied      

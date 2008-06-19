@@ -1,6 +1,6 @@
 <% content_for :head do%>
-<%= auto_discovery_link_tag(:rss, "http://#{SITE}/latest_comments.rss", :title=>"Latest Comments") %>
-<%= auto_discovery_link_tag(:rss, "http://#{SITE}/newest_members.rss", :title=>"Newest Members") %>
+<%= auto_discovery_link_tag(:rss, "http://#{GlobalConfig.application_url}/latest_comments.rss", :title=>"Latest Comments") %>
+<%= auto_discovery_link_tag(:rss, "http://#{GlobalConfig.application_url}/newest_members.rss", :title=>"Newest Members") %>
 <% end%>
 
 <div>

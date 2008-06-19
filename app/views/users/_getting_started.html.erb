@@ -25,7 +25,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<div class="blurp">
 			<img src="/images/blurp_photos.png" class="png left" title="Share Icon"  alt="Share Icon" />
 			<strong><%= link_to 'Share Photos', profile_photos_path(current_user) %></strong>
-			<%= SITE_NAME %> allows users to upload images with captions on to their profile.  
+			<%= GlobalConfig.application_url_name %> allows users to upload images with captions on to their profile.  
 			We love someone to build albums, tagging and commenting on photos for this open source project!
 			<div class="clear"></div>
 		</div>
@@ -57,7 +57,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<div class="blurp">
 			<img src="/images/blurp_message.png" class="png left" title="Message Icon" alt="Message Icon" />
 			<strong>Message Friends</strong>
-			<%= SITE_NAME %> allows users to upload images with captions on to their profile.  
+			<%= GlobalConfig.application_url_name %> allows users to upload images with captions on to their profile.  
 			We love someone to build albums, tagging and commenting on photos!
 			
 			<div class="clear"></div>

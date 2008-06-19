@@ -3,8 +3,8 @@ xml.instruct! :xml, :version=>"1.0"
 xml.rss(:version=>"2.0") do
   xml.channel do
     xml.title "#{@user.f}'s Blog"
-    xml.link SITE
-    xml.description "#{@user.f}'s Blog at #{SITE_NAME}"
+    xml.link GlobalConfig.application_url
+    xml.description "#{@user.f}'s Blog at #{GlobalConfig.application_url_name}"
     xml.language 'en-us'
     @photos.each do |photo|
       xml.item do

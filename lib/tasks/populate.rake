@@ -6,7 +6,7 @@ task :pop do
     puts 'Adding default admin user'
     user = User.new
     user.login = "admin"
-    user.email = AccountConfig::ADMIN_EMAIL
+    user.email = GlobalConfig.admin_email
     user.password = "admin"
     user.password_confirmation = "admin"
     user.terms_of_service = true

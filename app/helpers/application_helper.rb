@@ -69,7 +69,7 @@ module ApplicationHelper
         youtube_unique_id = youtube_unique_path.split(/\/|\?v\=/).last.split(/\&/).first
         p youtube_unique_id
         client = YouTubeG::Client.new
-        video = client.video_by YOUTUBE_BASE_URL+youtube_unique_id rescue return "(video not found)"
+        video = client.video_by GlobalConfig.youtube_base_url+youtube_unique_id rescue return "(video not found)"
         id = Digest::SHA1.hexdigest("--#{Time.now}--#{video.title}--")
         inline_tb_link(video.title, h(id), {}, {:height => 355, :width => 430}) + %(<div id="#{h id}" style="display:none;">#{video.embed_html}</div>)
     end

@@ -1,0 +1,78 @@
+#Configure global settings for the application
+
+common:
+
+    # Sent in emails to users
+    application_name: 'Teachers Without Borders'
+
+    # Email charset
+    mail_charset: 'utf-8'
+
+    # controls whether or not email is used
+    automatically_activate: false
+    
+    enable_plone_integration: true
+    
+    delete_confirm: "Are you sure you want to delete?\nThis can not be undone."
+    
+    search_limit: 25
+    
+    site_name: 'Teachers Without Borders'
+     
+    youtube_base_url: "http://gdata.youtube.com/feeds/api/videos/"
+    
+    flickr_key: '311e11626af5e7b9518a960a687a9b9a'
+    
+    flickr_secret: '643cbb44766793f1'
+           
+    flickr_cache: "#{RAILS_ROOT}/config/flickr.cache"
+            
+production:
+
+    # Source address for user emails
+    email_from: 'jbasdf@jbasdf.com'
+
+    # Destination email for system errors
+    admin_email: 'admin@jbasdf.com'
+
+    # Sent in emails to users
+    application_url: 'twbtools.com'
+
+    mailer_to_address: 'info@teacherswithoutborders.org'
+    
+    # for cookies that need to work across all subdomains (the plone site)
+    application_base_url: '.twbtools.com' 
+    
+development:
+
+    # Source address for user emails
+    email_from: 'jbasdf@jbasdf.com'
+
+    # Destination email for system errors
+    admin_email: 'admin@jbasdf.com'
+
+    # Sent in emails to users
+    application_url: 'localhost:3000'
+
+    mailer_to_address: 'info@jbasdf.com'
+    
+    # for cookies that need to work across all subdomains (the plone site)
+    application_base_url: 'localhost:3000'
+    
+test:
+
+    # Source address for user emails
+    email_from: 'jbasdf@jbasdf.com'
+
+    # Destination email for system errors
+    admin_email: 'admin@jbasdf.com'
+
+    # Sent in emails to users
+    application_url: 'localhost:3000'
+    
+    mailer_to_address: 'info@jbasdf.com'
+    
+
+    
+    
+    

@@ -6,5 +6,6 @@ require 'file_column'
 require 'acts_as_ferret'
 require 'youtube_g'
 require 'colored'
+require 'flickr'
 
 Less::JsRoutes.generate!

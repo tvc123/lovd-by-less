@@ -176,7 +176,7 @@
       <div id="avatar_edit">
         <span id="user_icon_picture">
           <%= icon @user %>
-          <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@user), :confirm=>DELETE_CONFIRM  %>
+          <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@user), :confirm => GlobalConfig.delete_confirm  %>
         </span>
       </div>
       <% end %>
@@ -188,7 +188,6 @@
       <input type="hidden" name="switch" value="image" />
     <% end %>
   </div>
-
 
   <div id="change_passwords">
   	<% form_tag url_for(:controller => "accounts", :action => "update") do %>
@@ -208,11 +207,10 @@
 		<% end %>
   </div>
 
-
   <div id="delete_account">
 		<form>    
 			<h2>Remove My Account</h2>
-      <%= link_to_remote 'Delete my user account and all my data.', :url=>user_path(@user), :method=>:delete, :confirm=>DELETE_CONFIRM  %>
+      <%= link_to_remote 'Delete my user account and all my data.', :url => user_path(@user), :method => :delete, :confirm => GlobalConfig.delete_confirm  %>
     </form>
   </div>
 

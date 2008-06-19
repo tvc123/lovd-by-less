@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../config/environment.rb'
 
-FLICKR = Flickr.new(FLICKR_CACHE, FLICKR_KEY, FLICKR_SECRET)
+FLICKR = Flickr.new(GlobalConfig.flickr_cache, GlobalConfig.flickr_key, GlobalConfig.flickr_secret)
 
 unless FLICKR.auth.token
   frob = FLICKR.auth.getFrob

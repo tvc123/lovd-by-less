@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     helper_method :flickr, :flickr_images
     # API objects that get built once per request
     def flickr(user_name = nil, tags = nil )
-        @flickr_object ||= Flickr.new(FLICKR_CACHE, FLICKR_KEY, FLICKR_SECRET)
+        @flickr_object ||= Flickr.new(GlobalConfig.flickr_cache, GlobalConfig.flickr_key, GlobalConfig.flickr_secret)
     end
 
     def flickr_images(user_name = "", tags = "")

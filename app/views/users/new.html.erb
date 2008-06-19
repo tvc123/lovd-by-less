@@ -31,7 +31,7 @@ jQuery(document).ready(function()
 	<% form_for :user, :url => users_path, :html => {:id => "register"} do |f| -%>
 	
     <h1><%= "Sign-up Now" %></h1>
-    <div class="instruction">Welcome to <%= SITE_NAME %></div>
+    <div class="instruction">Welcome to <%= GlobalConfig.application_url_name %></div>
     <div class="instruction"><p>Already a member? <a href="<%=login_url%>">Sign in now</a></p></div>
 		<%= error_messages_for :user -%>		
 

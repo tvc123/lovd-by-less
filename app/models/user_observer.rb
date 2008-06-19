@@ -5,7 +5,7 @@ class UserObserver < ActiveRecord::Observer
     end
 
     def after_save(user)
-        if !AccountConfig::AUTOMATICALLY_ACTIVATE
+        if !GlobalConfig.automatically_activate
             #UserMailer.deliver_activation(user) if user.recently_activated? 
             UserMailer.deliver_activation(user) if user.pending?
         end

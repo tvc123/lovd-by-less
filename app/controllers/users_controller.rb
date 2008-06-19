@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     def create
         cookies.delete :auth_token
         @user = User.new(params[:user])
-        if AccountConfig::AUTOMATICALLY_ACTIVATE
+        if GlobalConfig.automatically_activate
             @user.force_activate!
         end
         

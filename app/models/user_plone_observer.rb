@@ -9,10 +9,10 @@ class UserPloneObserver < ActiveRecord::Observer
         user.plone_password = Digest::SHA1.hexdigest("#{user.password}") 
     end
 
-    def after_save(user)
-        group_member = PloneGroupRole.create(:login => user.login, :rolename => 'Member')
-        open_contributor = PloneOpenRole.create(:login => user.login, :rolename => 'Contributor')
-        open_member = PloneOpenRole.create(:login => user.login, :rolename => 'Member')
+    def after_create(user)
+        group_member = PloneGroupRole.find_by_login(user.login) || PloneGroupRole.create(:login => user.login, :rolename => 'Member')
+        open_contributor = PloneOpenRole.find_by_login(user.login) || PloneOpenRole.create(:login => user.login, :rolename => 'Contributor')
+        open_member = PloneOpenRole.find_by_login(user.login) || PloneOpenRole.create(:login => user.login, :rolename => 'Member')
     end
     
 end

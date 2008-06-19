@@ -1,3 +1,8 @@
+<%-
+size ||= 10
+blogs ||= @user.blogs.find :all, :limit => size
+total = @user.blogs.count
+-%>
 <%- total = list.length -%>
 <% if !list.empty? %>
 	<div class="activity_box">

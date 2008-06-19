@@ -174,7 +174,7 @@
       <div class="clear"></div>
       <% unless @user.icon.blank? %>
       <div id="avatar_edit">
-        <span id="profile_icon_picture">
+        <span id="user_icon_picture">
           <%= icon @user %>
           <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@user), :confirm=>DELETE_CONFIRM  %>
         </span>

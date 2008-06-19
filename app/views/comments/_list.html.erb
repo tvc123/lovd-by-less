@@ -1,5 +1,4 @@
 <%-
-profile ||= current_user
 with_form ||= false
 with_wall_to_wall ||= false
 
@@ -7,13 +6,13 @@ comments ||= @comments
 @count = comments.total_entries
 
 parent ||= @parent
-parent = @blog || current_user || nil
+parent = @blog || @user || nil
 -%>
   
 <div class="activity_box" id="comment">
 	<h2>Comments
-	<%= link_to '(Our Wall-to-Wall)', profile_comments_path(profile) if current_user && with_wall_to_wall && !me && current_user.has_wall_with(profile) %>
-	<%= inline_tb_link('(Leave a Comment)', "new_comment", :title => "Leaving A Comment On #{profile.f}'s Wall") if with_form and current_user %>
+	<%= link_to '(Our Wall-to-Wall)', user_comments_path(@user) if current_user && with_wall_to_wall && !is_me?(@user) && current_user.has_wall_with(@user) %>
+	<%= inline_tb_link('(Leave a Comment)', "new_comment", :title => "Leaving A Comment On #{@user.f}'s Wall") if with_form and current_user %>
     </h2>
 	<div id="<%= "#{dom_id(parent)}_comments" %>" class="inside_box">
 		<%= render :partial => 'comments/comment', :collection => comments %>

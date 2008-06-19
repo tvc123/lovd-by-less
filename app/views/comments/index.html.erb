@@ -14,7 +14,7 @@ parent ||= @parent
 
 <h1>Wall-to-Wall</h1>
 <div id="sub_nav">
-  <%= link_to "&larr; Back to Profile", profile %>
+  <%= link_to "&larr; Back to Profile", profile_path(@user) %>
   <%= inline_tb_link 'Add A Comment', "new_comment", :title => "Adding A Comment" %>
 </div>
 

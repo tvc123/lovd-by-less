@@ -29,7 +29,7 @@ second:
 
 third:
     commentable: user2
-    commentable_type: Profile
+    commentable_type: User
     comment: A comment
     profile: user
 
@@ -53,12 +53,12 @@ sixth:
 
 seven:
     commentable: user
-    commentable_type: Profile
+    commentable_type: User
     comment: A comment
     profile: user
 eight:
     commentable: user3
-    commentable_type: Profile
+    commentable_type: User
     comment: A comment
     profile: admin
 nine:

@@ -10,9 +10,9 @@ class UserPloneObserver < ActiveRecord::Observer
     end
 
     def after_save(user)
-        group_member = PloneGroupRole.create(:login => user.login, 'Member')
-        open_contributor = PloneOpenRole.create(:login => user.login, 'Contributor')
-        open_member = PloneOpenRole.create(:login => user.login, 'Member')
+        group_member = PloneGroupRole.create(:login => user.login, :rolename => 'Member')
+        open_contributor = PloneOpenRole.create(:login => user.login, :rolename => 'Contributor')
+        open_member = PloneOpenRole.create(:login => user.login, :rolename => 'Member')
     end
     
 end

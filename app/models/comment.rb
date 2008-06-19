@@ -15,7 +15,7 @@
 #
 class Comment < ActiveRecord::Base
 
-    validates_presence_of :comment, :profile
+    validates_presence_of :comment, :user
 
     belongs_to :commentable, :polymorphic => true
     belongs_to :user

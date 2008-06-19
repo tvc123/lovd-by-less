@@ -22,7 +22,7 @@
 #     post "/login", :user=>{:login => users(:user).login, :password => 'test'}
 #     assert_response :redirect
 #     assert session[:user]
-#     assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:user).profile.to_param
+#     assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:user).user.to_param
 #     follow_redirect!
 #   
 #     #   puts @response.body
@@ -39,7 +39,7 @@
 #     post "/login", :user=>{:login => users(:admin).login, :password => 'test'}
 #     assert_response :redirect
 #     assert session[:user]
-#     assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:admin).profile.to_param
+#     assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:admin).user.to_param
 #     follow_redirect!
 #   
 #     #   puts @response.body

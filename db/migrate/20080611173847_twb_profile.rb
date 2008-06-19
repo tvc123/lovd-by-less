@@ -12,8 +12,8 @@ class TwbProfile < ActiveRecord::Migration
       t.string  "english_name"
       t.integer "is_default", :default => 0
     end
-    create_table "profiles_languages", :force => true do |t|
-      t.integer  "profile_id"
+    create_table "users_languages", :force => true do |t|
+      t.integer  "user_id"
       t.integer  "language_id"
     end
     add_index :profiles_languages, [:profile_id, :language_id]

@@ -15,10 +15,10 @@ class CommentsController < ApplicationController
     end
 
     def create
-        @comment = @parent.comments.new(params[:comment].merge(:profile_id => current_user.id))
+        @comment = @parent.comments.new(params[:comment].merge(:user_id => current_user.id))
 
         respond_to do |format|
-            if @comment.save
+            if @comment.save!
                 format.js do
                     render :update do |page|
                         page.insert_html :top, "#{dom_id(@parent)}_comments", :partial => 'comments/comment'

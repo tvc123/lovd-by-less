@@ -23,17 +23,17 @@ class AccountMailerTest < ActiveSupport::TestCase
     assert !ActionMailer::Base.deliveries.empty?
 
     sent = ActionMailer::Base.deliveries.first
-    assert_equal [@u.profile.email], sent.to
+    assert_equal [@u.email], sent.to
     assert_match "Signup info", sent.subject
     assert_match @u.login, sent.body
   end
 
   def test_forgot_password
-    AccountMailer.deliver_forgot_password(@u.profile.email, @u.f, @u.login,'new_pass')
+    AccountMailer.deliver_forgot_password(@u.email, @u.f, @u.login,'new_pass')
     assert !ActionMailer::Base.deliveries.empty?
 
     sent = ActionMailer::Base.deliveries.first
-    assert_equal [@u.profile.email], sent.to
+    assert_equal [@u.email], sent.to
     assert_match @u.f, sent.body
     assert_match @u.login, sent.body
     assert_match 'new_pass', sent.body

@@ -313,5 +313,10 @@ class User < ActiveRecord::Base
         self.update_attribute(:activated_at, Time.now.utc)
     end    
 
+    def fix_http str
+        return '' if str.blank?
+        str.starts_with?('http') ? str : "http://#{str}"
+    end
+
 end
 

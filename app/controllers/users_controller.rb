@@ -148,32 +148,18 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(current_user)
-        case params[:switch]
-        when 'name','image'
-            if @user.update_attributes params[:profile]
-                flash[:notice] = "Settings have been saved."
-                redirect_to edit_user_url(@user)
-            else
-                flash.now[:error] = @user.errors
-                setup_form_values
-                respond_to do |format|
-                    format.html { render :action => :edit}
-                end
-            end
-        when 'password'
-            if @user.change_password(params[:verify_password], params[:new_password], params[:confirm_password])
-                flash[:notice] = "Password has been changed."
-                redirect_to edit_profile_url(@user)
-            else
-                flash.now[:error] = @user.errors
-                setup_form_values
-                respond_to do |format|
-                    format.html { render :action => :edit}
-                end
-            end
+     
+        if @user.update_attributes params[:user]
+            flash[:notice] = "Settings have been saved."
+            redirect_to edit_user_url(@user)
         else
-            RAILS_ENV == 'test' ? render( :text=>'') : raise( 'Unsupported switch in action')
+            flash.now[:error] = @user.errors
+            setup_form_values
+            respond_to do |format|
+                format.html { render :action => :edit}
+            end
         end
+
     end      
       
     def destroy

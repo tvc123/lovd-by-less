@@ -21,7 +21,7 @@ class FeedItemsController < ApplicationController
 
     def setup
         @user = User.find_by_login(params[:user_id])
-        if is_me?(@user)
+        unless is_me?(@user)
             respond_to do |format|
                 format.html do
                     flash[:notice] = "Sorry, you can't do that."

@@ -49,7 +49,9 @@ production:
     
     # configuration for plone xml rpc call that creates user folders
     plone_xmlrpc_port: 8088
+    
     plone_xmlrpc_path: '/plone'
+    
     plone_xmlrpc_server: "10.6.0.4"
     
 development:

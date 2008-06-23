@@ -26,6 +26,10 @@ common:
     flickr_secret: '643cbb44766793f1'
            
     flickr_cache: "#{RAILS_ROOT}/config/flickr.cache"
+     
+    courses_website: "courses.twbtools.com"
+    
+    groups_website: "groups.twbtools.com"
             
 production:
 
@@ -43,6 +47,11 @@ production:
     # for cookies that need to work across all subdomains (the plone site)
     application_base_url: '.connect.twbtools.com' 
     
+    # configuration for plone xml rpc call that creates user folders
+    plone_xmlrpc_port: 8088
+    plone_xmlrpc_path: '/plone'
+    plone_xmlrpc_server: "10.6.0.4"
+    
 development:
 
     # Source address for user emails
@@ -58,6 +67,11 @@ development:
     
     # for cookies that need to work across all subdomains (the plone site)
     application_base_url: 'localhost:3000'
+    
+    # configuration for plone xml rpc call that creates user folders
+    plone_xmlrpc_port: 80
+    plone_xmlrpc_path: ''
+    plone_xmlrpc_server: "groups.twbtools.com"
     
 test:
 

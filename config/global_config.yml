@@ -30,7 +30,10 @@ common:
     courses_website: "courses.twbtools.com"
     
     groups_website: "groups.twbtools.com"
-            
+
+    starling_plone_user_queue: 'plone_users'
+    starling_server: '127.0.0.1:22122'
+    
 production:
 
     # Source address for user emails
@@ -48,11 +51,10 @@ production:
     application_base_url: '.connect.twbtools.com' 
     
     # configuration for plone xml rpc call that creates user folders
-    plone_xmlrpc_port: 8088
-    
-    plone_xmlrpc_path: '/plone'
-    
+    plone_xmlrpc_port: 8088    
+    plone_xmlrpc_path: '/plone'    
     plone_xmlrpc_server: "10.6.0.4"
+    
     
 development:
 

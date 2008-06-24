@@ -30,9 +30,6 @@ common:
     courses_website: "courses.twbtools.com"
     
     groups_website: "groups.twbtools.com"
-
-    starling_plone_user_queue: 'plone_users'
-    starling_server: '127.0.0.1:22122'
     
 production:
 

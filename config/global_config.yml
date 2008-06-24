@@ -72,7 +72,7 @@ development:
     
     # configuration for plone xml rpc call that creates user folders
     plone_xmlrpc_port: 80
-    plone_xmlrpc_path: ''
+    plone_xmlrpc_path: '/RPC2'
     plone_xmlrpc_server: "groups.twbtools.com"
     
 test:

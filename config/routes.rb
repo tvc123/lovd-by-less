@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :groups
     
     # sessions
-    map.resource :sessions
+    map.resource :session
     map.with_options(:controller => 'sessions') do |sessions|
         sessions.login "/login",   :action => 'new'
         sessions.logout "/logout",  :action => 'destroy'

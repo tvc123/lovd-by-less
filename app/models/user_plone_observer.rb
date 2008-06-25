@@ -6,11 +6,13 @@ class UserPloneObserver < ActiveRecord::Observer
         return if user.nil?
         return if user.password.nil?
         return if user.password.empty?
-        user.plone_password = Digest::SHA1.hexdigest("#{user.password}") 
+        if GlobalConfig.integrate_plone
+            user.plone_password = Digest::SHA1.hexdigest("#{user.password}")
+        end
     end
 
     def after_create(user)    
-        PloneWorker.asynch_process_plone_users(:user_id => user.id, :password => user.password)
+        PloneWorker.asynch_process_plone_users(:user_id => user.id, :password => user.password) if GlobalConfig.integrate_plone
     end
     
 end

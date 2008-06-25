@@ -12,7 +12,8 @@ class Plone
            open_member = PloneOpenRole.find_by_login(user.login) || PloneOpenRole.create(:login => user.login, :rolename => 'Member')
 
            logger.info "Creating user folder on plone site"
-           server = XMLRPC::Client.new(GlobalConfig.plone_xmlrpc_server, GlobalConfig.plone_xmlrpc_path, GlobalConfig.plone_xmlrpc_port, nil, nil, user.login, password, false, 2000)   
+           server = XMLRPC::Client.new(GlobalConfig.plone_xmlrpc_server, GlobalConfig.plone_xmlrpc_path, GlobalConfig.plone_xmlrpc_port, 
+                                        nil, nil, user.login, password, false, 2000)   
            result = server.call2('xmlrpc_createMemberArea', user.login)
 
            if result[0] == false

@@ -96,7 +96,7 @@ class SessionsController < ApplicationController
             self.current_user.remember_me
             cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
         end
-        write_plone_cookie
+        write_plone_cookie if GlobalConfig.integrate_plone
         flash[:notice] = "Logged in successfully"
         return_to = session[:return_to]
         if return_to.nil?

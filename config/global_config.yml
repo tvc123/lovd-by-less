@@ -31,6 +31,8 @@ common:
     
     groups_website: "groups.twbtools.com"
     
+    integrate_plone: true
+    
 production:
 
     # Source address for user emails

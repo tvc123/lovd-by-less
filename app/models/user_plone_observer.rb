@@ -10,7 +10,7 @@ class UserPloneObserver < ActiveRecord::Observer
     end
 
     def after_create(user)    
-       PloneWorker.asynch_process_plone_users(:user_id => user.id, :password => user.password)
+        PloneWorker.asynch_process_plone_users(:user_id => user.id, :password => user.password)
     end
     
 end

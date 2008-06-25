@@ -6,7 +6,7 @@ class PloneWorker < Workling::Base
 
         user = User.find(options[:user_id])
         if user
-            if !Plone.user_to_plone.user_to_plone(user, options[:password])
+            if !Plone.user_to_plone(user, options[:password])
                 PloneWorker.asynch_process_plone_users(:user_id => user.id)
             end
         end

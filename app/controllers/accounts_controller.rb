@@ -7,7 +7,15 @@ class AccountsController < ApplicationController
     def show
         # Uncomment and change paths to have user logged in after activation - not recommended
         #self.current_user = User.find_and_activate!(params[:id])
-        User.find_and_activate!(params[:id])
+        user = User.find_and_activate!(params[:id])
+        
+        if GlobalConfig.integrate_plone
+            if Plone.user_to_plone(user, user.tmp_password)
+                user.tmp_password = ''
+                user.save
+            end             
+        end
+               
         flash[:notice] = "Your account has been activated! You can now login."
         redirect_to login_path
     rescue User::ArgumentError

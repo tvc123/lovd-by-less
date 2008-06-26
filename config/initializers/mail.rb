@@ -1,11 +1,21 @@
 # Email settings
+# ActionMailer::Base.delivery_method = :smtp
+# ActionMailer::Base.smtp_settings = {
+#     :address => "mail.jbasdf.com",
+#     :port => 25,
+#     :domain => "jbasdf.com",
+#     :authentication => :login,
+#     :user_name => "jbasdf@jbasdf.com",
+#     :password => "1qazxsw2"  
+# }
+
+
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
-    :address => "mail.jbasdf.com",
+    :address => "localhost",
     :port => 25,
-    :domain => "jbasdf.com",
+    :domain => "teacherswithoutborders.org",
     :authentication => :login,
-    :user_name => "jbasdf@jbasdf.com",
-    :password => "1qazxsw2"  
+    :user_name => "info@teacherswithoutborders.com",
+    :password => ""  
 }
-

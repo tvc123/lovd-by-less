@@ -14,8 +14,5 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
     :address => "localhost",
     :port => 25,
-    :domain => "teacherswithoutborders.org",
-    :authentication => :login,
-    :user_name => "info@teacherswithoutborders.com",
-    :password => ""  
+    :domain => "teacherswithoutborders.org"
 }

@@ -36,10 +36,10 @@ common:
 production:
 
     # Source address for user emails
-    email_from: 'jbasdf@jbasdf.com'
+    email_from: 'info@teacherswithoutborders.org'
 
     # Destination email for system errors
-    admin_email: 'admin@jbasdf.com'
+    admin_email: 'admin@teacherswithoutborders.com'
 
     # Sent in emails to users
     application_url: 'connect.twbtools.com'
@@ -58,15 +58,15 @@ production:
 development:
 
     # Source address for user emails
-    email_from: 'jbasdf@jbasdf.com'
+    email_from: 'info@teacherswithoutborders.com'
 
     # Destination email for system errors
-    admin_email: 'admin@jbasdf.com'
+    admin_email: 'admin@teacherswithoutborders.com'
 
     # Sent in emails to users
     application_url: 'localhost:3000'
 
-    mailer_to_address: 'info@jbasdf.com'
+    mailer_to_address: 'info@teacherswithoutborders.com'
     
     # for cookies that need to work across all subdomains (the plone site)
     application_base_url: 'localhost:3000'
@@ -79,15 +79,15 @@ development:
 test:
 
     # Source address for user emails
-    email_from: 'jbasdf@jbasdf.com'
+    email_from: 'info@teacherswithoutborders.com'
 
     # Destination email for system errors
-    admin_email: 'admin@jbasdf.com'
+    admin_email: 'admin@teacherswithoutborders.com'
 
     # Sent in emails to users
     application_url: 'localhost:3000'
     
-    mailer_to_address: 'info@jbasdf.com'
+    mailer_to_address: 'info@teacherswithoutborders.com'
     
 
     

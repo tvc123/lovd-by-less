@@ -1,5 +1,3 @@
-require 'xmlrpc/client'
-
 class PloneWorker < Workling::Base
 
     def process_plone_users(options = {})

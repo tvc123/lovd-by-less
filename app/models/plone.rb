@@ -1,3 +1,5 @@
+require 'xmlrpc/client'
+
 class Plone
     
    def self.user_to_plone(user, password)

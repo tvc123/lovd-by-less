@@ -4,6 +4,7 @@ db/schema.rb
 log/*.log
 tmp
 config/database.yml
+config/mail.rb
 index
 public/system
 public/javascripts/less_routes.js

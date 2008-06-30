@@ -47,7 +47,7 @@ production:
     mailer_to_address: 'info@teacherswithoutborders.org'
     
     # for cookies that need to work across all subdomains (the plone site)
-    application_base_url: '.connect.twbtools.com' 
+    application_base_url: '.twbtools.com' 
     
     # configuration for plone xml rpc call that creates user folders
     plone_xmlrpc_port: 8088    

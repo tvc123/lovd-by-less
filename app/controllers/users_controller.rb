@@ -45,7 +45,6 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
-        #@users = User.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
         setup_form_values
         respond_to do |format|
             format.html { render }
@@ -60,48 +59,7 @@ class UsersController < ApplicationController
         if GlobalConfig.automatically_activate
             @user.force_activate!
         end
-        
-        #This code is for the Grade Level Experience
-        @levels = GradeLevelExperience.find(:all)
-        selected_levels = []
-        for level_id_char in params[:grade_level_experiences]
-            level= GradeLevelExperience.find(level_id_char.to_i)
-            if not @user.grade_level_experiences.include?(level)
-                @user.grade_level_experiences << level
-            end
-            selected_levels << level
-        end
-
-        missing_levels = @levels - selected_levels
-
-        for level in missing_levels
-
-            if @user.grade_level_experiences.include?(level)
-                @user.grade_level_experiences.delete(level)
-            end
-        end  
-
-
-        #This code is for the additional languages
-        @languages = Language.find(:all)
-        selected_languages = []
-        for lang_id_char in params[:other_languages]
-            language= Language.find(lang_id_char.to_i)
-            if not @user.languages.include?(language)
-                @user.languages << language
-            end
-            selected_languages << language
-        end
-
-        missing_languages = @languages - selected_languages
-
-        for language in missing_languages
-
-            if @user.languages.include?(language)
-                @user.languages.delete(language)
-            end
-        end  
-
+     
         @user.save!
         #Uncomment to have the user logged in after creating an account - Not Recommended
         #self.current_user = @user
@@ -143,51 +101,12 @@ class UsersController < ApplicationController
 
     def edit
         @user = current_user
-        @chosen_levels = @user.grade_level_experiences
-        @chosen_levels = @chosen_levels.collect{|level| level.id}
-
-        @chosen_languages = @user.languages
-        @chosen_languages = @chosen_languages.collect{|language| language.id}
-        #debugger
         setup_form_values
     end
 
     def update
         @user = User.find(current_user)
-        #This code is for the Grade Level Experience
-        @levels = GradeLevelExperience.find(:all)
-
-        selected_levels = []
-        for level_id_char in params[:grade_level_experiences]
-            level= GradeLevelExperience.find(level_id_char.to_i)
-            if not @user.grade_level_experiences.include?(level)
-                @user.grade_level_experiences << level
-            end
-            selected_levels << level
-        end
-
-        missing_levels = @levels - selected_levels
-
-        for level in missing_levels
-
-            if @user.grade_level_experiences.include?(level)
-                @user.grade_level_experiences.delete(level)
-            end
-        end  
-
-
-        #This code is for the additional languages
-        @languages = Language.find(:all)
-        selected_languages = []
-        for lang_id_char in params[:other_languages]
-            language= Language.find(lang_id_char.to_i)
-            if not @user.languages.include?(language)
-                @user.languages << language
-            end
-            selected_languages << language
-        end
-
-
+      
         if @user.update_attributes params[:user]
             flash[:notice] = "Settings have been saved."
             redirect_to edit_user_url(@user)
@@ -256,9 +175,8 @@ class UsersController < ApplicationController
         def setup_form_values
             @states = State.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
             @countries = Country.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
-            @grade_level_experiences = GradeLevelExperience.find(:all).map {|u| [u.name, u.id] }
-            @languages = Language.find(:all).map {|u| [u.english_name, u.id] }
-
+            @grade_level_experiences = GradeLevelExperience.find(:all)
+            @languages = Language.find(:all)
         end
 
     end

@@ -14,72 +14,72 @@
 first:
   title: "blog 1"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 second:
   title: "blog 2"
   body: "blah blah blah blah blah"
-  profile: user2
+  user: quentin2
 
 third:
   title: "blog 3"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 four:
   title: "blog 4"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 five:
   title: "blog 5"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 six:
   title: "blog 6"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 seven:
   title: "blog 7"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 eight:
   title: "blog 8"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 
 nine:
   title: "blog 9"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 ten:
   title: "blog 10"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 eleven:
   title: "blog 11"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 twelve:
   title: "blog 7"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 thirteen:
   title: "blog 8"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 fourteen:
   title: "blog 9"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 fifteen:
   title: "blog 10"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin
 sixteen:
   title: "blog 11"
   body: "blah blah blah blah blah"
-  profile: user
+  user: quentin

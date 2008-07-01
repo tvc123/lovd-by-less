@@ -18,11 +18,11 @@ user_to_user2:
   subject: first body
   body: blah, blah
   created_at: 2007-01-02
-  sender: user
-  receiver: user2
+  sender: aaron
+  receiver: quentin
 user2_to_user:
   subject: second
   body: blan2
   created_at: 2007-01-01
-  sender: user2
-  receiver: user
+  sender: quentin
+  receiver: friend_guy

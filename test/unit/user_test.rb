@@ -3,16 +3,18 @@ require File.dirname(__FILE__) + '/../test_helper'
 class UserTest < Test::Unit::TestCase
 
     load_all_fixtures
-
+    
     should_require_unique_attributes :login, :email
 
     should_ensure_length_in_range :password, (4..40)
     should_ensure_length_in_range :login, (3..40)
     should_ensure_length_in_range :email, (0..100)
-
+    
     should_have_many :permissions
     should_have_many :roles, :through => :permissions
 
+    should_protect_attributes :crypted_password, :salt, :remember_token, :remember_token_expires_at, :activation_code, :activated_at,
+                   :password_reset_code, :enabled, :can_send_messages, :is_active, :created_at, :updated_at, :plone_password
 
     should "Create a new user" do
         assert_difference 'User.count' do
@@ -20,7 +22,40 @@ class UserTest < Test::Unit::TestCase
             assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
         end
     end
+ 
+    should "Create a new user and lowercase the login" do
+        assert_difference 'User.count' do
+            user = create_user(:login => 'TESTGUY')
+            assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+            assert user.login == 'testguy'
+        end
+    end
+    
+    should "Allow login with dot" do
+        user = create_user(:login => 'test.guy')
+        assert user.valid?
+    end
 
+    should "Allow login with dots" do
+        user = create_user(:login => 'test.guy.guy')
+        assert user.valid?
+    end
+        
+    should "Allow login with dash" do
+        user = create_user(:login => 'test-guy')
+        assert user.valid?
+    end
+    
+    should "Not allow login with '@'" do
+         user = create_user(:login => 'testguy@example.com')
+         assert !user.valid?
+    end         
+        
+    should "Not allow login with '!'" do
+         user = create_user(:login => 'testguy!')
+         assert !user.valid?
+    end
+     
     should "Fail to create a new user because they didn't agree to terms of service" do
         assert_no_difference 'User.count' do
             user = create_user(:terms_of_service => false)
@@ -120,8 +155,6 @@ class UserTest < Test::Unit::TestCase
                       :email => 'quire@example.com', 
                       :password => 'quire', 
                       :password_confirmation => 'quire', 
-                      :newsletter => true, 
-                      :notify_of_events => true, 
                       :terms_of_service => true }.merge(options))
     end
     

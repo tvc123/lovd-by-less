@@ -16,7 +16,7 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first:
-    profile: user2
+    user: aaron
     commentable: first
     commentable_type: Blog
     comment: "<object width=\"425\" height=\"355\"><param name=\"movie\" value=\"http://www.youtube.com/v/vSb-nV8l2QY&rel=1\" /><param name=\"wmode\" value=\"transparent\" /><embed src=\"http://www.youtube.com/v/vSb-nV8l2QY&rel=1\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"425\" height=\"355\"></embed></object>"
@@ -25,44 +25,44 @@ second:
     commentable: first
     commentable_type: Blog
     comment: A comment
-    profile: user
+    user: quentin
 
 third:
     commentable: user2
     commentable_type: User
     comment: A comment
-    profile: user
+    user: quentin
 
 fourth:
     commentable: first
     commentable_type: Blog
     comment: A comment
-    profile: user2
+    user: aaron
 
 fifth:
     commentable: first
     commentable_type: Blog
     comment: A comment
-    profile: user2
+    user: aaron
 
 sixth:
     commentable: first
     commentable_type: Blog
     comment: A comment
-    profile: user
+    user: quentin
 
 seven:
     commentable: user
     commentable_type: User
     comment: A comment
-    profile: user
+    user: quentin
 eight:
     commentable: user3
     commentable_type: User
     comment: A comment
-    profile: admin
+    user: admin
 nine:
-    profile: user
+    user: quentin
     commentable: first
     commentable_type: Blog
     comment: "<object width=\"425\" height=\"355\"><param name=\"movie\" value=\"http://www.youtube.com/v/vSb-nV8l2QY&rel=1\" /><param name=\"wmode\" value=\"transparent\" /><embed src=\"http://www.youtube.com/v/vSb-nV8l2QY&rel=1\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"425\" height=\"355\"></embed></object>"

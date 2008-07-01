@@ -2,8 +2,12 @@
 
 one:
     role: admin
+    user: admin
+    
+two:
+    role: admin
     user: quentin
 
-two:
+three:
     role: normal
     user: aaron

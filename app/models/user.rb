@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     validates_uniqueness_of   :login, :email, :case_sensitive => false
     
     validates_length_of       :login, :within => 3..40, :if => Proc.new { |u| !u.login.blank? }    
-    validates_format_of       :login, :with => /^([a-z0-9-]+\.){0,2}[a-z0-9-]+$/i, :on => :create, :message => 'may only contain letters, hyphen, digits, and two dots'
+    validates_format_of       :login, :with => /^[a-z0-9-]+$/i, :on => :create, :message => 'may only contain letters, numbers or a hyphen.'
     
     validates_length_of       :email, :within => 6..100,:if => Proc.new { |u| !u.email.blank? }
     validates_format_of       :email, :with => /(^([^@\s]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$)|(^$)/i, :message => 'does not look like a valid email address.'

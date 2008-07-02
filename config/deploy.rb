@@ -66,7 +66,8 @@ Restart the Mongrel processes on the app server by
 starting and stopping the cluster.
 DESC
 task :restart_mongrel_cluster , :roles => :app do
-sudo "/usr/local/bin/monit restart all -g #{monit_group}"
+#sudo "/usr/local/bin/monit restart all -g #{monit_group}"
+sudo " /usr/local/bin/mongrel_rails cluster::restart  -C /var/www/ozmozr/current/config/mongrel_cluster.yml"
 end
 desc <<-DESC
 Stop the Mongrel processes on the app server.

@@ -10,19 +10,10 @@ jQuery(document).ready(function()
         }); 
     });
 		
-		jQuery(".text-field").focus(function()
-		{
-			jQuery(".active").removeClass("active");
-			jQuery(".text-field-help").css("display", "none");
-			jQuery("#" + this.id + "-help").show();
-			jQuery("#" + this.id + "-container").addClass("active");
-		});
-		
 		jQuery("#user_login").keydown(function() { 
 			jQuery("#availibility").html(''); 
 		});
 		
-		jQuery(".text-field-help").css("display", "none");
 });
 </script>
 
@@ -82,7 +73,11 @@ jQuery(document).ready(function()
     
 		<div class="row">
 			<label for="user_grade_experience">Grade Level Experience <em>*</em></label>
-	 		<%= select_tag('grade_level_experiences[]', options_for_select(@grade_level_experiences),{:multiple => true, :size =>5} ) -%>
+			<ul id="grade-level-expriences-selector" class="checkbox-list">
+				<% @grade_level_experiences.each do |level| -%>
+					<li><%= check_box_tag "user[grade_level_experience_ids][]","#{level.id}", user_has_grade_level_experience?(level) -%> <%= "#{level.name}" -%></li>
+				<% end -%>
+			</ul>	
 		</div>
                 
     <div class="row">
@@ -97,12 +92,16 @@ jQuery(document).ready(function()
 
 		<div class="row">
 			<label for="user_first_language">First Language </label>
-	 		<%= f.select :first_language, @languages %>
+	 		<%= f.collection_select :first_language, @languages, :id, :english_name -%>
 		</div>
 
 		<div class="row">
 			<label for="user_language">Other Language(s)</label>
-	 		<%= select_tag('other_languages[]', options_for_select(@languages),{:multiple => true, :size =>5} ) -%>
+			<ul class="checkbox-list">
+				<% @languages.each do |language| -%>
+					<li><%= check_box_tag "user[language_ids][]","#{language.id}", user_speaks_language?(language) -%> <%= "#{language.english_name}" -%></li>
+				<% end -%>
+			</ul>
 		</div>
                 
 		<div class="row">
@@ -111,7 +110,7 @@ jQuery(document).ready(function()
 		</div>
                 
 		<div class="row">
-			<label for="user_skills"> Additional Skills & Interests</label>
+			<label for="user_skills"> Additional Skills &amp; Interests</label>
 	 		<%= f.text_area :skills, {  :class => "text-area" } -%>
 		</div>
 
@@ -140,9 +139,9 @@ jQuery(document).ready(function()
 	 		<%= f.text_field :yahoo, {  :class => "text-field" } -%>
 		</div>
 
-		<div class="row">
+		<div class="row" id="terms-of-service">
 			<%= f.check_box :terms_of_service -%>
-			<label for="notify">I agree to the <a href="<%=tos_url%>" target="_blank">Terms and Conditions</a></label>																																						
+			<label for="user_terms_of_service">I agree to the <a href="<%=tos_url%>" target="_blank">Terms and Conditions</a></label>																																						
 		</div>
 
 	  <div class="button">

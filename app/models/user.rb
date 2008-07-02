@@ -15,11 +15,13 @@ class User < ActiveRecord::Base
     validates_confirmation_of :password,                   :if => :password_required? && Proc.new { |u| !u.password.blank? }
 
     validates_presence_of     :login, :email
-    validates_length_of       :login,    :within => 3..40, :if => Proc.new { |u| !u.login.blank? }
     validates_uniqueness_of   :login, :email, :case_sensitive => false
-
-    validates_length_of       :email,    :within => 6..100,:if => Proc.new { |u| !u.email.blank? }
-    validates_format_of       :email, :with => /(^([^@\s]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$)|(^$)/i, :on => :create, :message=>" does not look like a valid email address."
+    
+    validates_length_of       :login, :within => 3..40, :if => Proc.new { |u| !u.login.blank? }    
+    validates_format_of       :login, :with => /^[a-z0-9-]+$/i, :on => :create, :message => 'may only contain letters, numbers or a hyphen.'
+    
+    validates_length_of       :email, :within => 6..100,:if => Proc.new { |u| !u.email.blank? }
+    validates_format_of       :email, :with => /(^([^@\s]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$)|(^$)/i, :message => 'does not look like a valid email address.'
     validates_uniqueness_of   :email, :case_sensitive => false
 
     #validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true
@@ -56,8 +58,12 @@ class User < ActiveRecord::Base
 
     # Photos
     has_many :photos, :order => 'created_at DESC'
+    
+    # Skills
     has_and_belongs_to_many :grade_level_experiences
     has_and_belongs_to_many :languages
+    
+    # Search
     acts_as_ferret :fields => [ :location, :f, :about_me ], :remote=>true
 
     file_column :icon, :magick => {
@@ -68,7 +74,7 @@ class User < ActiveRecord::Base
         }
     }
 
-    before_save :encrypt_password
+    before_save :encrypt_password, :lower_login
     before_create :make_activation_code
 
     class ActivationCodeNotFound < StandardError; end
@@ -134,6 +140,11 @@ class User < ActiveRecord::Base
         #u 
     end
 
+    #lowercase all logins
+    def lower_login
+        self.login = self.login.downcase 
+    end
+    
     # Encrypts some data with the salt.
     def self.encrypt(password, salt)
         Digest::SHA1.hexdigest("--#{salt}--#{password}--")

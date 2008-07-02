@@ -15,15 +15,15 @@
 
 first:
     caption: this is just a test photo.
-    profile: user
+    user: quentin
     image: photo_1.jpg
 
 second:
     caption: this is just a test photo.
-    profile: user
+    user: quentin
     image: photo_2.jpg
 
 third:
     caption: this is just a test photo.
-    profile: user
+    user: quentin
     image: photo_3.jpg

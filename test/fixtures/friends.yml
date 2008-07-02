@@ -13,14 +13,14 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first:
-  inviter: user
-  invited: user2
+  inviter: quentin
+  invited: aaron
   status: <%= Friend::ACCEPTED %>
 second: 
-  inviter: user2
-  invited: user
+  inviter: quentin
+  invited: friend_guy
   status: <%= Friend::ACCEPTED %>
 third:
-  inviter: user
-  invited: user3
+  inviter: follower_guy
+  invited: aaron
   status: <%= Friend::PENDING %>

@@ -10,6 +10,7 @@ common:
 
     # controls whether or not email is used
     automatically_activate: false
+    automatically_login_after_account_create: false
     
     enable_plone_integration: true
     

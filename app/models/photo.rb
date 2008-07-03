@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 1
+# Schema version: 20080703173050
 #
 # Table name: photos
 #
@@ -7,7 +7,7 @@
 #  caption    :string(1000)  
 #  created_at :datetime      
 #  updated_at :datetime      
-#  profile_id :integer(11)   
+#  user_id    :integer(11)   
 #  image      :string(255)   
 #
 

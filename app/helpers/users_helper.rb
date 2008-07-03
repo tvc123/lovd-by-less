@@ -16,7 +16,7 @@ module UsersHelper
     end
 
     def user_has_grade_level_experience?(level)
-        if @user
+        if @user && !@user.login.nil? # no sense in testing new users that have no grade levels
             @user.grade_level_experiences.include?(level)
         else
             false
@@ -24,7 +24,7 @@ module UsersHelper
     end
 
     def user_speaks_language?(language)
-        if @user
+        if @user && !@user.login.nil? # no sense in testing new users that have no languages
             @user.languages.include?(language)
         else
             false

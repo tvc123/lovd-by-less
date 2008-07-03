@@ -1,3 +1,58 @@
+# == Schema Information
+# Schema version: 20080703173050
+#
+# Table name: users
+#
+#  id                        :integer(11)   not null, primary key
+#  login                     :string(255)   
+#  email                     :string(255)   
+#  crypted_password          :string(40)    
+#  salt                      :string(40)    
+#  remember_token            :string(255)   
+#  remember_token_expires_at :datetime      
+#  activation_code           :string(40)    
+#  activated_at              :datetime      
+#  password_reset_code       :string(40)    
+#  enabled                   :boolean(1)    default(TRUE)
+#  terms_of_service          :boolean(1)    not null
+#  can_send_messages         :boolean(1)    default(TRUE)
+#  time_zone                 :string(255)   default("UTC")
+#  first_name                :string(255)   
+#  last_name                 :string(255)   
+#  website                   :string(255)   
+#  blog                      :string(255)   
+#  flickr                    :string(255)   
+#  about_me                  :text          
+#  aim_name                  :string(255)   
+#  gtalk_name                :string(255)   
+#  ichat_name                :string(255)   
+#  icon                      :string(255)   
+#  location                  :string(255)   
+#  created_at                :datetime      
+#  updated_at                :datetime      
+#  is_active                 :boolean(1)    
+#  youtube_username          :string(255)   
+#  flickr_username           :string(255)   
+#  identity_url              :string(255)   
+#  city                      :string(255)   
+#  state                     :integer(11)   
+#  zip                       :string(255)   
+#  country                   :integer(11)   
+#  phone                     :string(255)   
+#  phone2                    :string(255)   
+#  msn                       :string(255)   
+#  skype                     :string(255)   
+#  yahoo                     :string(255)   
+#  organization              :string(255)   
+#  grade_experience          :integer(11)   
+#  first_language            :integer(11)   
+#  why_joined                :text          
+#  skills                    :text          
+#  occupation                :text          
+#  plone_password            :string(40)    
+#  tmp_password              :string(40)    
+#
+
 require 'digest/sha1'
 require 'mime/types'
 
@@ -292,6 +347,23 @@ class User < ActiveRecord::Base
         arr
     end
 
+    # sync user data with salesforce
+    def salesforce_sync        
+        sf_user = Contact.find(:first,:conditions => {:email => self.email} ) || Contact.new()
+        sf_user.email = self.email
+        sf_user.wordpress_id__c = self.id 
+        sf_user.wordpress_login__c = self.login
+        sf_user.first_name = self.first_name if self.first_name
+        sf_user.last_name = self.last_name if self.last_name && !self.last_name.empty?
+        sf_user.mailing_city = self.city
+
+       # sf_user.mailing_state = user.state.name
+       # sf_user.mailing_postal_code = user.zip
+       # sf_user.mailing_country = user.country.name
+       # debugger
+        sf_user.save
+    end
+    
     protected
 
     # before filter

@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20080703173050
+#
+# Table name: blogs
+#
+#  id         :integer(11)   not null, primary key
+#  title      :string(255)   
+#  body       :text          
+#  user_id    :integer(11)   
+#  created_at :datetime      
+#  updated_at :datetime      
+#
+
 class Blog < ActiveRecord::Base
   has_many :comments, :as => :commentable, :order => "created_at asc"
   belongs_to :user

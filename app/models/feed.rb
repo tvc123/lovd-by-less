@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 1
+# Schema version: 20080703173050
 #
 # Table name: feeds
 #
 #  id           :integer(11)   not null, primary key
-#  profile_id   :integer(11)   
+#  user_id      :integer(11)   
 #  feed_item_id :integer(11)   
 #
 

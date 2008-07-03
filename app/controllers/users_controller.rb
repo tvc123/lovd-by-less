@@ -61,8 +61,12 @@ class UsersController < ApplicationController
         end
      
         @user.save!
-        #Uncomment to have the user logged in after creating an account - Not Recommended
-        #self.current_user = @user
+        
+        if GlobalConfig.automatically_login_after_account_create
+            # Have the user logged in after creating an account - Not Recommended
+            self.current_user = @user
+        end
+        
         flash[:notice] = "Thanks for signing up! Please check your email to activate your account and then login."
         redirect_to welcome_user_path(@user)
 
@@ -100,8 +104,16 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @user = current_user
+        @user = User.find_by_login(params[:id])
+        
+        return unless allowed_access?(:owner => current_user, :object_user_id => @user.id, :permit_roles => ['administrator']) 
+        
         setup_form_values
+        
+        respond_to do |format|
+            format.html { render }
+        end
+        
     end
 
     def update

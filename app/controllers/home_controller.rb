@@ -12,6 +12,10 @@ class HomeController < ApplicationController
 
 
     def index
+    # TODO remove this code.  it is just for testing    
+#        user = User.find(:first)
+ #       user.salesforce_sync
+                
         respond_to do |format|
             format.html {render}
             format.rss {render :partial =>  'profiles/newest_member', :collection => new_members}

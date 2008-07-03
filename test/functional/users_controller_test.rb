@@ -47,7 +47,6 @@ class UsersControllerTest < Test::Unit::TestCase
         should "assign an error to the login field" do
             assert assigns(:user).errors.on(:login) 
         end                                       
-        should_set_the_flash_to(/There was a problem creating your account/i)
     end
     
     context "on POST to :create -- require password on signup. " do
@@ -57,7 +56,6 @@ class UsersControllerTest < Test::Unit::TestCase
         should "assign an error to the password field" do
             assert assigns(:user).errors.on(:password) 
         end                                       
-        should_set_the_flash_to(/There was a problem creating your account/i)
     end
     
     context "on POST to :create -- require password confirmation on signup. " do
@@ -67,7 +65,6 @@ class UsersControllerTest < Test::Unit::TestCase
         should "assign an error to the password confirmation field" do
             assert assigns(:user).errors.on(:password_confirmation) 
         end                                       
-        should_set_the_flash_to(/There was a problem creating your account/i)
     end
     
     context "on POST to :create -- require email on signup. " do
@@ -77,30 +74,62 @@ class UsersControllerTest < Test::Unit::TestCase
         should "assign an error to the email field" do
             assert assigns(:user).errors.on(:email) 
         end                                       
-        should_set_the_flash_to(/There was a problem creating your account/i)
     end
     
     context "on GET to :help" do
-        setup { get :help, :id => users(:quentin).id }
+        setup { get :help, :id => users(:quentin).login }
         should_respond_with :success
         should_render_template :help
     end
 
     context "on GET to :welcome" do
-        setup { get :welcome, :id => users(:quentin).id }
+        setup { get :welcome, :id => users(:quentin).login }
         should_respond_with :success
         should_render_template :welcome
     end
 
+    context "on GET to new (signup)" do
+        setup do
+            @quentin = users(:quentin)
+            login_as :quentin 
+            get :new
+        end
+        should_redirect_to "user_url(@quentin)"
+    end
 
+    context "on GET to edit (preferences) not logged in" do
+        setup do
+            get :edit, :id => users(:quentin)
+        end
+        should_redirect_to "login_url"
+    end
+        
+    context "on GET to edit (preferences) logged in" do
+        setup do
+            login_as :quentin
+            get :edit, :id => users(:quentin).login
+        end
+        should_respond_with :success
+        should_render_template :edit
+    end
+    
+    context "on GET to edit (preferences) logged in but wrong user" do
+        setup do
+            @quentin = users(:quentin)
+            login_as :quentin
+            get :edit, :id => users(:aaron).login
+        end
+        should_redirect_to "user_url(@quentin)"
+    end
+    
     def create_user(options = {})
         post :create, 
              :user => { :login => 'quire', 
                         :email => 'quire@example.com', 
                         :password => 'quire', 
                         :password_confirmation => 'quire', 
-                        :newsletter => true, 
-                        :notify_of_events => true, 
+                        :language_ids => [1,2,3],
+                        :grade_level_experience_ids => [1,2,3],
                         :terms_of_service => true }.merge(options)
     end
 end

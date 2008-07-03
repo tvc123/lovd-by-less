@@ -6,7 +6,7 @@ class ActionMailer::Base
 
   def generic_mailer(options)
     @recipients = options[:recipients] || MAILER_TO_ADDRESS
-    @from = options[:from] || GlobalConfig.email_from
+    @from = options[:from] || MAILER_FROM_ADDRESS
     @cc = options[:cc] || ""
     @bcc = options[:bcc] || ""
     @subject = options[:subject] || ""

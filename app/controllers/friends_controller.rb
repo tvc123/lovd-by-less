@@ -4,7 +4,6 @@ class FriendsController < ApplicationController
     skip_before_filter :login_required, :only=>:index
     skip_before_filter :store_location, :only => [:create, :destroy]
 
-
     def create
         respond_to do |format|
             if Friend.make_friends(current_user, @user)
@@ -17,7 +16,6 @@ class FriendsController < ApplicationController
         end
     end
 
-
     def destroy
         Friend.reset current_user, @user
         respond_to do |format|
@@ -26,11 +24,9 @@ class FriendsController < ApplicationController
         end
     end
 
-
     def index
         render
     end
-
 
     protected
 

@@ -72,6 +72,81 @@ module AuthenticatedSystem
         check_role('administrator')
     end    
 
+    # check to see if the current user is the owner of the specified object
+    def is_owner?(obj)
+        obj.user_id == current_user.id
+    end
+    
+    def is_owner?(user, user_id)
+        user.id == user_id
+    end
+    
+    # check to see if the given user is the same as the current user
+    def is_me?(user)
+        user == current_user
+    end
+    
+    # checks permissions on an object.  Redirects if the current user
+    # doesn't own it or have admin rights
+    def protect_owner(obj)
+        if is_owner?(obj) || check_administrator_role
+            true
+        else
+            permission_denied
+            false
+        end
+    end
+    
+    # allow or deny access depending on options specified
+    def allowed_access?(options)
+        if !options[:owner].nil? && !options[:object_user_id].nil?
+            return true if is_owner?(options[:owner], options[:object_user_id])
+        end
+        
+        options[:permit_roles].each do |role|
+            return true if current_user.has_role?(role)
+        end
+        
+        # access denied
+        permission_denied
+        false 
+    end
+    
+    def can_access?(user, object, roles, &block)
+        if logged_in? && user.is_in_role?(event, roles)
+            content = capture(&block)
+            concat(content, block.binding)
+        end
+    end
+
+    def is_mine?(user, &block)
+        if logged_in? && (current_user.id == user.id)
+            content = capture(&block)
+            concat(content, block.binding)
+        end 
+    end
+    
+    # Redirect as appropriate when an access request fails.
+    #
+    # The default action is to redirect to the login screen.
+    #
+    # Override this method in your controllers if you want to have special
+    # behavior in case the user is not authorized
+    # to access the requested action.  For example, a popup window might
+    # simply close itself.
+    def access_denied
+        respond_to do |format|
+            format.html do
+                store_location
+                flash[:error] = "You must be logged in to access this feature."
+                redirect_to :controller => '/sessions', :action => 'new'
+            end
+            format.xml do
+                request_http_basic_authentication 'Web Password'
+            end
+        end
+    end
+    
     # Redirect as appropriate when an access request fails.
     #
     # The default action is to redirect to the login screen.

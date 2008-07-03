@@ -14,14 +14,6 @@ class TwbProfile < ActiveRecord::Migration
             t.integer "is_default", :default => 0
         end
         
-        create_table "users_languages", :force => true do |t|
-            t.integer  "user_id"
-            t.integer  "language_id"
-        end
-        
-        add_index :users_languages, [:user_id, :language_id]
-        add_index :users_languages, :user_id
-        
         execute "INSERT INTO languages (name,english_name,is_default) VALUES ('English','English',1);"
         execute "INSERT INTO languages (name,english_name) VALUES ('–º–∞–≥I–∞—Ä—É–ª –º–∞—ÜI','Afar');"
         execute "INSERT INTO languages (name,english_name) VALUES ('–±—ã–∑—à”ô–∞','Abkhazian');"
@@ -177,7 +169,6 @@ class TwbProfile < ActiveRecord::Migration
         remove_column :users, :grade_experience
         remove_column :users, :first_lagnuage
         drop_table "languages"
-        drop_table "users_languages"
     end
     
 end

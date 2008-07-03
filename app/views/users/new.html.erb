@@ -67,7 +67,7 @@ jQuery(document).ready(function()
 		</div>
 		
 		<div class="row">
-			<label for="user_organization">School District / University / Company: <em>*</em></label>
+			<label for="user_organization">School District / University / Company:</label>
 	 		<%= f.text_field :organization, {  :class => "text-field" } -%>
 		</div>
     
@@ -75,7 +75,7 @@ jQuery(document).ready(function()
 			<label for="user_grade_experience">Grade Level Experience <em>*</em></label>
 			<ul id="grade-level-expriences-selector" class="checkbox-list">
 				<% @grade_level_experiences.each do |level| -%>
-					<li><%= check_box_tag "user[grade_level_experience_ids][]","#{level.id}", user_has_grade_level_experience?(level) -%> <%= "#{level.name}" -%></li>
+					<li><%= f.check_box :grade_level_experience_ids, {:checked => user_has_grade_level_experience?(level)}, "#{level.id}", ""  -%> <%= "#{level.name}" -%></li>
 				<% end -%>
 			</ul>	
 		</div>
@@ -99,7 +99,7 @@ jQuery(document).ready(function()
 			<label for="user_language">Other Language(s)</label>
 			<ul class="checkbox-list">
 				<% @languages.each do |language| -%>
-					<li><%= check_box_tag "user[language_ids][]","#{language.id}", user_speaks_language?(language) -%> <%= "#{language.english_name}" -%></li>
+					<li><%= f.check_box :language_ids, {:checked => user_speaks_language?(language)}, "#{language.id}", ""  -%> <%= "#{language.english_name}" -%></li>
 				<% end -%>
 			</ul>
 		</div>

@@ -33,12 +33,12 @@ class UserTest < Test::Unit::TestCase
     
     should "Not allow login with dot" do
         user = create_user(:login => 'test.guy')
-        assert user.valid?
+        assert !user.valid?
     end
 
     should "Not allow login with dots" do
         user = create_user(:login => 'test.guy.guy')
-        assert user.valid?
+        assert !user.valid?
     end
         
     should "Allow login with dash" do

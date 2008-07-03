@@ -35,11 +35,11 @@ module Thoughtbot
 
     def should(name, &blk)
       if Shoulda.current_context
-        Shoulda.current_context.should(name, &blk)
+        block_given? ? Shoulda.current_context.should(name, &blk) : Should.current_context.should_eventually(name)
       else
         context_name = self.name.gsub(/Test/, "")
         context = Thoughtbot::Shoulda::Context.new(context_name, self) do
-          should(name, &blk)
+          block_given? ? should(name, &blk) : should_eventually(name)
         end
         context.build
       end
@@ -122,8 +122,8 @@ module Thoughtbot
       attr_accessor :name               # my name
       attr_accessor :parent             # may be another context, or the original test::unit class.
       attr_accessor :subcontexts        # array of contexts nested under myself
-      attr_accessor :setup_block        # block given via a setup method
-      attr_accessor :teardown_block     # block given via a teardown method
+      attr_accessor :setup_blocks       # block given via a setup method
+      attr_accessor :teardown_blocks    # block given via a teardown method
       attr_accessor :shoulds            # array of hashes representing the should statements
       attr_accessor :should_eventuallys # array of hashes representing the should eventually statements
 
@@ -131,8 +131,8 @@ module Thoughtbot
         Shoulda.current_context = self
         self.name               = name
         self.parent             = parent
-        self.setup_block        = nil
-        self.teardown_block     = nil
+        self.setup_blocks       = []
+        self.teardown_blocks    = []
         self.shoulds            = []
         self.should_eventuallys = []
         self.subcontexts        = []
@@ -147,15 +147,19 @@ module Thoughtbot
       end
 
       def setup(&blk)
-        self.setup_block = blk
+        self.setup_blocks << blk
       end
 
       def teardown(&blk)
-        self.teardown_block = blk
+        self.teardown_blocks << blk
       end
 
       def should(name, &blk)
-        self.shoulds << { :name => name, :block => blk }
+        if block_given?
+          self.shoulds << { :name => name, :block => blk }
+        else
+         self.should_eventuallys << { :name => name }
+       end
       end
 
       def should_eventually(name, &blk)
@@ -183,7 +187,7 @@ module Thoughtbot
         end
         
         context = self
-        test_unit_class.send(:define_method, test_name) do |*args|
+        test_unit_class.send(:define_method, test_name) do
           begin
             context.run_all_setup_blocks(self)
             should[:block].bind(self).call
@@ -195,11 +199,15 @@ module Thoughtbot
 
       def run_all_setup_blocks(binding)
         self.parent.run_all_setup_blocks(binding) if am_subcontext?
-        setup_block.bind(binding).call if setup_block
+        setup_blocks.each do |setup_block|
+          setup_block.bind(binding).call
+        end
       end
 
       def run_all_teardown_blocks(binding)
-        teardown_block.bind(binding).call if teardown_block
+        teardown_blocks.reverse.each do |teardown_block|
+          teardown_block.bind(binding).call
+        end
         self.parent.run_all_teardown_blocks(binding) if am_subcontext?
       end
 
@@ -208,7 +216,6 @@ module Thoughtbot
           test_name = [full_name, "should", "#{should[:name]}. "].flatten.join(' ')
           puts "  * DEFERRED: " + test_name
         end
-        subcontexts.each { |context| context.print_should_eventuallys }
       end
 
       def build

@@ -22,7 +22,7 @@ class Forum < ActiveRecord::Base
   has_many :posts, :through => :topics
   
   def to_param
-    "#{self.id}-#{name.to_safe_uri}"
+    "#{name.to_safe_uri}"
   end
   
   

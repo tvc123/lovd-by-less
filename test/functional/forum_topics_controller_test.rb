@@ -6,6 +6,7 @@
 #
 
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../forums_test_helper'
 
 class ForumTopicsControllerTest < ActionController::TestCase
 
@@ -36,7 +37,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "get show as :user" do
     assert_nothing_raised do
-      get :show, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one)}, {:user => profiles(:user).id}
+      get :show, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one)}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'show'
       assert_tag :tag => "form", :attributes => {:class => 'new_forum_post'}
@@ -53,7 +54,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "get show as :admin" do
     assert_nothing_raised do
-      get :show, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one)}, {:user => profiles(:admin).id}
+      get :show, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one)}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'show'
       assert_tag :tag => "form", :attributes => {:class => 'new_forum_post'}
@@ -81,7 +82,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "get new for :user" do
     assert_nothing_raised do
-      get :new, {:forum_id => forum_topics(:one).forum.id}, {:user => profiles(:user).id}
+      get :new, {:forum_id => forum_topics(:one).forum.id}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'new'
     end
@@ -89,7 +90,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "get new for :admin" do
     assert_nothing_raised do
-      get :new, {:forum_id => forum_topics(:one).forum.id}, {:user => profiles(:admin).id}
+      get :new, {:forum_id => forum_topics(:one).forum.id}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'new'
     end
@@ -112,7 +113,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_difference "ForumTopic.count" do
         post :create, {:forum_id => forums(:one).id, 
-                       :forum_topic => valid_forum_topic_attributes}, {:user => profiles(:user).id}
+                       :forum_topic => valid_forum_topic_attributes}, {:user => users(:quentin).id}
         assert_redirected_to :controller => 'forum_topics', :action => 'show'
       end
     end
@@ -122,7 +123,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_difference "ForumTopic.count" do
         post :create, {:forum_id => forums(:one).id,
-                       :forum_topic => valid_forum_topic_attributes}, {:user => profiles(:admin).id}
+                       :forum_topic => valid_forum_topic_attributes}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forum_topics', :action => 'show'
       end
     end
@@ -133,7 +134,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_difference "ForumTopic.count" do
         post :create, {:format=>'js', :forum_id => forums(:one).id,
-                       :forum_topic => valid_forum_topic_attributes}, {:user => profiles(:admin).id}
+                       :forum_topic => valid_forum_topic_attributes}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -145,7 +146,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_no_difference "ForumTopic.count" do
         post :create, {:format=>'js', :forum_id => forums(:one).id,
-                       :forum_topic => unvalid_forum_topic_attributes}, {:user => profiles(:admin).id}
+                       :forum_topic => unvalid_forum_topic_attributes}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -165,7 +166,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "not get edit for :user" do
     assert_nothing_raised do
-      get :edit, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one).id}, {:user => profiles(:user).id}
+      get :edit, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one).id}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -173,7 +174,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
 
   should "get edit for :admin" do
     assert_nothing_raised do
-      get :edit, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one).id}, {:user => profiles(:admin).id}
+      get :edit, {:forum_id => forum_topics(:one).forum.id, :id => forum_topics(:one).id}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'edit'
     end
@@ -195,7 +196,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       put :update, {:forum_id => forum_topics(:one).forum.id, 
                     :id => forum_topics(:one).id, 
-                    :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+                    :forum => valid_forum_attributes}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -205,7 +206,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       put :update, {:forum_id => forum_topics(:one).forum.id,
                     :id => forum_topics(:one).id, 
-                    :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+                    :forum => valid_forum_attributes}, {:user => users(:admin).id}
       assert_redirected_to :controller => 'forums', :action => 'show', :id => forum_topics(:one).forum.to_param
     end
   end
@@ -214,7 +215,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       put :update, {:format=>'js', :forum_id => forum_topics(:one).forum.id,
                     :id => forum_topics(:one).id, 
-                    :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+                    :forum => valid_forum_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
@@ -237,7 +238,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_no_difference "ForumTopic.count" do
         delete :destroy, {:forum_id => forum_topics(:one).forum.id, 
-                          :id => forum_topics(:one).id}, {:user => profiles(:user).id}
+                          :id => forum_topics(:one).id}, {:user => users(:quentin).id}
         assert_response 302
         assert flash[:error]
       end
@@ -248,7 +249,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_difference "ForumTopic.count", -1 do
         delete :destroy, {:forum_id => forum_topics(:one).forum.id, 
-                          :id => forum_topics(:one).id}, {:user => profiles(:admin).id}
+                          :id => forum_topics(:one).id}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forums', :action => 'show', :id => forum_topics(:one).forum.to_param
       end
     end
@@ -259,7 +260,7 @@ class ForumTopicsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       assert_difference "ForumTopic.count", -1 do
         delete :destroy, {:format=>'js', :forum_id => forum_topics(:one).forum.id, 
-                          :id => forum_topics(:one).id}, {:user => profiles(:admin).id}
+                          :id => forum_topics(:one).id}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -279,14 +280,14 @@ class ForumTopicsControllerTest < ActionController::TestCase
     
     should "get the index as :user" do
       assert_nothing_raised do
-        get :index, {:forum_id => forum_topics(:one).forum.id}, {:user => profiles(:user).id}
+        get :index, {:forum_id => forum_topics(:one).forum.id}, {:user => users(:quentin).id}
         assert_response 302
       end
     end
   
     should "get the index as :admin" do
       assert_nothing_raised do
-        get :index, {:forum_id => forum_topics(:one).forum.id}, {:user => profiles(:admin).id}
+        get :index, {:forum_id => forum_topics(:one).forum.id}, {:user => users(:admin).id}
         assert_response 302
       end
     end

@@ -5,8 +5,8 @@
 # Updated on: 5/16/08
 #
 
-
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../forums_test_helper'
 
 class ForumPostsControllerTest < ActionController::TestCase
   
@@ -57,7 +57,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count" do
         post :create, {:forum_id => forum_topics(:one).forum.id, 
                        :topic_id => forum_topics(:one).id,
-                       :forum_post => valid_forum_post_attributes}, {:user => profiles(:user).id}
+                       :forum_post => valid_forum_post_attributes}, {:user => users(:quentin).id}
         assert_redirected_to :controller => 'forum_topics', :action => 'show'
       end
     end
@@ -68,7 +68,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count" do
         post :create, {:forum_id => forum_topics(:one).forum.id, 
                        :topic_id => forum_topics(:one).id,
-                       :forum_post => valid_forum_post_attributes}, {:user => profiles(:admin).id}
+                       :forum_post => valid_forum_post_attributes}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forum_topics', :action => 'show'
       end
     end
@@ -79,7 +79,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count" do
         post :create, {:format=>'js', :forum_id => forum_topics(:one).forum.id, 
                        :topic_id => forum_topics(:one).id,
-                       :forum_post => valid_forum_post_attributes}, {:user => profiles(:admin).id}
+                       :forum_post => valid_forum_post_attributes}, {:user => users(:admin).id}
          assert_response 200
       end
     end
@@ -91,7 +91,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count" do
         post :create, {:format=>'xml', :forum_id => forum_topics(:one).forum.id, 
                        :topic_id => forum_topics(:one).id,
-                       :forum_post => valid_forum_post_attributes}, {:user => profiles(:admin).id}
+                       :forum_post => valid_forum_post_attributes}, {:user => users(:admin).id}
          assert_response 200
       end
     end
@@ -114,7 +114,7 @@ class ForumPostsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       get :edit, {:forum_id => forum_topics(:one).forum.id, 
                   :topic_id => forum_topics(:one).id,
-                  :id => forum_topics(:one).id}, {:user => profiles(:user).id}
+                  :id => forum_topics(:one).id}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -124,7 +124,7 @@ class ForumPostsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       get :edit, {:forum_id => forum_topics(:one).forum.id, 
                   :topic_id => forum_topics(:one).id,
-                  :id => forum_topics(:one).id}, {:user => profiles(:admin).id}
+                  :id => forum_topics(:one).id}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'edit'
     end
@@ -149,7 +149,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => valid_forum_post_attributes}, {:user => profiles(:user).id}
+                    :forum_post => valid_forum_post_attributes}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -160,7 +160,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => valid_forum_post_attributes}, {:user => profiles(:admin).id}
+                    :forum_post => valid_forum_post_attributes}, {:user => users(:admin).id}
       assert_redirected_to :controller => 'forum_topics', :action => 'show', :id => forum_topics(:one).to_param+"\##{forum_posts(:one).dom_id}"
     end
   end
@@ -170,7 +170,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:format=>'js', :forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => valid_forum_post_attributes}, {:user => profiles(:admin).id}
+                    :forum_post => valid_forum_post_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
@@ -180,7 +180,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => unvalid_forum_post_attributes}, {:user => profiles(:admin).id}
+                    :forum_post => unvalid_forum_post_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
@@ -190,7 +190,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:format=>'js', :forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => unvalid_forum_post_attributes}, {:user => profiles(:admin).id}
+                    :forum_post => unvalid_forum_post_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
@@ -200,7 +200,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       put :update, {:format=>'xml', :forum_id => forum_posts(:one).topic.forum.id, 
                     :topic_id => forum_posts(:one).topic.id,
                     :id => forum_posts(:one).id,
-                    :forum_post => unvalid_forum_post_attributes}, {:user => profiles(:admin).id}
+                    :forum_post => unvalid_forum_post_attributes}, {:user => users(:admin).id}
       assert_response 422
     end
   end
@@ -225,7 +225,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_no_difference "ForumPost.count" do
         delete :destroy, {:forum_id => forum_posts(:one).topic.forum.id, 
                           :topic_id => forum_posts(:one).topic.id,
-                          :id => forum_posts(:one).id}, {:user => profiles(:user).id}
+                          :id => forum_posts(:one).id}, {:user => users(:quentin).id}
         assert_response 302
         assert flash[:error]
       end
@@ -237,7 +237,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count", -1 do
         delete :destroy, {:forum_id => forum_posts(:one).topic.forum.id, 
                           :topic_id => forum_posts(:one).topic.id,
-                          :id => forum_posts(:one).id}, {:user => profiles(:admin).id}
+                          :id => forum_posts(:one).id}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forum_topics', :action => 'show', :id => forum_posts(:one).topic.to_param
       end
     end
@@ -248,7 +248,7 @@ class ForumPostsControllerTest < ActionController::TestCase
       assert_difference "ForumPost.count", -1 do
         delete :destroy, {:format=>'js', :forum_id => forum_posts(:one).topic.forum.id, 
                           :topic_id => forum_posts(:one).topic.id,
-                          :id => forum_posts(:one).id}, {:user => profiles(:admin).id}
+                          :id => forum_posts(:one).id}, {:user => users(:admin).id}
           assert_response 200
       end
     end

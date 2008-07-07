@@ -60,6 +60,7 @@ quentin:
     crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
     activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b 
     activated_at: <%= 5.days.ago.to_s :db %> 
+    website: http://www.example.com
     
 aaron:
     login: aaron

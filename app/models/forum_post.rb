@@ -14,7 +14,7 @@
 class ForumPost < ActiveRecord::Base
   validates_presence_of :body, :owner_id
   
-  belongs_to :owner, :class_name => "Profile"
+  belongs_to :owner, :class_name => "User"
   belongs_to :topic, :class_name => "ForumTopic"
   
   after_create :update_topic

@@ -5,7 +5,7 @@ class FeedItemsControllerTest < ActionController::TestCase
   context 'on DELETE to :destroy while logged in as :owner' do
     should 'remove the feed_item from the database using html' do
       assert_difference "Feed.count", -1 do
-        p = profiles(:user)
+        p = users(:quentin)
         f = feed_items(:one)
         delete :destroy, {:profile_id => p.id, :id => f.id}, {:user => p.id}
         assert_response :redirect
@@ -15,7 +15,7 @@ class FeedItemsControllerTest < ActionController::TestCase
     
     should 'remove the feed_item from the database using js' do
       assert_difference "Feed.count", -1 do
-        p = profiles(:user)
+        p = users(:quentin)
         f = feed_items(:one)
         delete :destroy, {:profile_id => p.id, :id => f.id, :format => 'js'}, {:user => p.id}
         assert_response :success

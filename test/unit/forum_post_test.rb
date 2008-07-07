@@ -6,6 +6,7 @@
 #
 
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../forums_test_helper'
 
 class ForumPostTest < ActiveSupport::TestCase
   

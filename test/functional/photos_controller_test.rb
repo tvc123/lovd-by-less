@@ -8,7 +8,7 @@ class PhotosControllerTest < ActionController::TestCase
 
   context 'on GET to :index while not logged in' do
     setup do
-      get :index, {:profile_id => profiles(:user).id}
+      get :index, {:profile_id => users(:quentin).id}
     end
 
     should_assign_to :profile
@@ -24,7 +24,7 @@ class PhotosControllerTest < ActionController::TestCase
 
   context 'on GET to :index while logged in as :owner' do
     setup do
-        get :index, {:profile_id => profiles(:user).id}, {:user => users(:user).id}
+        get :index, {:profile_id => users(:quentin).id}, {:user => users(:quentin).id}
     end
 
     should_assign_to :profile
@@ -39,7 +39,7 @@ class PhotosControllerTest < ActionController::TestCase
 
   context 'on GET to :index while logged in as :user' do
     setup do
-        get :index, {:profile_id => profiles(:user).id}, {:user => users(:user2).id}
+        get :index, {:profile_id => users(:quentin).id}, {:user => users(:aaron).id}
     end
 
     should_assign_to :profile
@@ -54,11 +54,11 @@ class PhotosControllerTest < ActionController::TestCase
 
   context 'on GET to :show' do
     setup do
-      get :show, {:profile_id => profiles(:user).id, :id => photos(:first)}
+      get :show, {:profile_id => users(:quentin).id, :id => photos(:first)}
     end
 
     should_respond_with :redirect
-    should_redirect_to 'profile_photos_path(profiles(:user))'
+    should_redirect_to 'profile_photos_path(users(:quentin))'
     should_not_set_the_flash
   end
 
@@ -66,19 +66,19 @@ class PhotosControllerTest < ActionController::TestCase
   context 'on DELETE to :destroy while logged in as :owner' do
     setup do
       assert_difference "Photo.count", -1 do
-        delete :destroy, {:profile_id => profiles(:user).id, :id => photos(:first)}, {:user => profiles(:user).id}
+        delete :destroy, {:profile_id => users(:quentin).id, :id => photos(:first)}, {:user => users(:quentin).id}
       end
     end
 
     should_respond_with :redirect
-    should_redirect_to 'profile_photos_path(profiles(:user))'
+    should_redirect_to 'profile_photos_path(users(:quentin))'
     should_set_the_flash_to 'Photo was deleted.'
   end
 
   context 'on DELETE to :destroy while logged in as :user' do
     setup do
       assert_no_difference "Photo.count" do
-        delete :destroy, {:profile_id => profiles(:user).id, :id => photos(:first)}, {:user => profiles(:user2).id}
+        delete :destroy, {:profile_id => users(:quentin).id, :id => photos(:first)}, {:user => users(:aaron).id}
       end
     end
 
@@ -90,7 +90,7 @@ class PhotosControllerTest < ActionController::TestCase
   context 'on DELETE to :destroy while logged not in' do
     setup do
       assert_no_difference "Photo.count" do
-        delete :destroy, {:profile_id => profiles(:user).id, :id => photos(:first)}
+        delete :destroy, {:profile_id => users(:quentin).id, :id => photos(:first)}
       end
     end
 
@@ -104,19 +104,19 @@ class PhotosControllerTest < ActionController::TestCase
   context 'on POST to :create with good data while logged in as :owner' do
     setup do
       assert_difference "Photo.count" do
-        post :create, {:profile_id => profiles(:user).id, :photo => VALID_PHOTO}, {:user => profiles(:user).id}
+        post :create, {:profile_id => users(:quentin).id, :photo => VALID_PHOTO}, {:user => users(:quentin).id}
       end
     end
 
     should_respond_with :redirect
-    should_redirect_to 'profile_photos_path(profiles(:user))'
+    should_redirect_to 'profile_photos_path(users(:quentin))'
     should_set_the_flash_to 'Photo successfully uploaded.'
   end
 
   context 'on POST to :create with bad data while logged in as :owner' do
     setup do
       assert_no_difference "Photo.count" do
-        post :create, {:profile_id => profiles(:user).id, :photo => {:image => ''}}, {:user => profiles(:user).id}
+        post :create, {:profile_id => users(:quentin).id, :photo => {:image => ''}}, {:user => users(:quentin).id}
       end
     end
 
@@ -127,7 +127,7 @@ class PhotosControllerTest < ActionController::TestCase
   context 'on POST to :create while logged in as :user' do
     setup do
       assert_no_difference "Photo.count" do
-        post :create, {:profile_id => profiles(:user).id, :id => photos(:first)}, {:user => profiles(:user2).id}
+        post :create, {:profile_id => users(:quentin).id, :id => photos(:first)}, {:user => users(:aaron).id}
       end
     end
 
@@ -138,7 +138,7 @@ class PhotosControllerTest < ActionController::TestCase
   context 'on POST to :create while logged not in' do
     setup do
       assert_no_difference "Photo.count" do
-        post :create, {:profile_id => profiles(:user).id, :id => photos(:first)}
+        post :create, {:profile_id => users(:quentin).id, :id => photos(:first)}
       end
     end
 

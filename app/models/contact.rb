@@ -4,9 +4,3 @@ class Contact < ActiveRecord::Base
     #include ActiveSalesforce::ActiveRecord::Mixin
     #set_table_name "contact"
 end
-
-# class SfContact < ActiveRecord::Base
-#   establish_connection :salesforce
-#   include ActiveSalesforce::ActiveRecord::Mixin
-#   set_table_name "contact"
-# end

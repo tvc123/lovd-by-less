@@ -54,24 +54,24 @@ module ApplicationHelper
             :class => 'thickbox'
             }.merge!(html)
 
-            tb_opts = {
-                :height => 300,
-                :width => 400,
-                :inlineId => inlineId
-                }.merge!(tb)
+        tb_opts = {
+            :height => 300,
+            :width => 400,
+            :inlineId => inlineId
+            }.merge!(tb)
 
-                path = '#TB_inline'.add_param(tb_opts)
-                link_to(link_text, path, html_opts)
-            end
+            path = '#TB_inline'.add_param(tb_opts)
+            link_to(link_text, path, html_opts)
+    end
 
-            def tb_video_link youtube_unique_path
-                return if youtube_unique_path.blank?
-                youtube_unique_id = youtube_unique_path.split(/\/|\?v\=/).last.split(/\&/).first
-                p youtube_unique_id
-                client = YouTubeG::Client.new
-                video = client.video_by GlobalConfig.youtube_base_url+youtube_unique_id rescue return "(video not found)"
-                id = Digest::SHA1.hexdigest("--#{Time.now}--#{video.title}--")
-                inline_tb_link(video.title, h(id), {}, {:height => 355, :width => 430}) + %(<div id="#{h id}" style="display:none;">#{video.embed_html}</div>)
-            end
+    def tb_video_link youtube_unique_path
+        return if youtube_unique_path.blank?
+        youtube_unique_id = youtube_unique_path.split(/\/|\?v\=/).last.split(/\&/).first
+        p youtube_unique_id
+        client = YouTubeG::Client.new
+        video = client.video_by GlobalConfig.youtube_base_url+youtube_unique_id rescue return "(video not found)"
+        id = Digest::SHA1.hexdigest("--#{Time.now}--#{video.title}--")
+        inline_tb_link(video.title, h(id), {}, {:height => 355, :width => 430}) + %(<div id="#{h id}" style="display:none;">#{video.embed_html}</div>)
+    end
 
-        end
+end

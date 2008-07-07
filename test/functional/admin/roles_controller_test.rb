@@ -82,14 +82,14 @@ context "RolesController -- Test logged in" do
 
     it "Should update role" do
         put :update, :id => roles(:admin).id, :role => { :rolename => 'updatedrole' }, :user_id => users(:quentin)
-        assert_redirected_to roles_path()
+        assert_redirected_to admin_roles_path()
     end
 
     it "Should destroy role" do
         assert_difference('Permission.count', -1) do
             delete :destroy, :id => roles(:admin).id, :user_id => users(:quentin)
         end
-        assert_redirected_to roles_path
+        assert_redirected_to admin_roles_path
     end
     
 end

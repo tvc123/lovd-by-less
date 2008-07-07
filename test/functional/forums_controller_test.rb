@@ -4,6 +4,7 @@
 #
 
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../forums_test_helper'
 
 class ForumsControllerTest < ActionController::TestCase
 
@@ -30,7 +31,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get the index as :user" do
     assert_nothing_raised do
-      get :index, {}, {:user => profiles(:user).id}
+      get :index, {}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'index'
       assert_no_tag :tag => 'a', :content => "Create a new forum"
@@ -45,7 +46,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get the index as :admin" do
     assert_nothing_raised do
-      get :index, {}, {:user => profiles(:admin).id}
+      get :index, {}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'index'
       assert_tag :tag => 'a', :content => "Create a new forum"
@@ -80,7 +81,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get show as :user" do
     assert_nothing_raised do
-      get :show, {:id => forums(:one)}, {:user => profiles(:user).id}
+      get :show, {:id => forums(:one)}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'show'
 
@@ -98,7 +99,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get show as :admin" do
     assert_nothing_raised do
-      get :show, {:id => forums(:one)}, {:user => profiles(:admin).id}
+      get :show, {:id => forums(:one)}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'show'
 
@@ -128,7 +129,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "not get new for :user" do
     assert_nothing_raised do
-      get :new, {}, {:user => profiles(:user).id}
+      get :new, {}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -136,7 +137,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get new for :admin" do
     assert_nothing_raised do
-      get :new, {}, {:user => profiles(:admin).id}
+      get :new, {}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'new'
     end
@@ -158,7 +159,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "not create a new forum for :user" do
     assert_nothing_raised do
       assert_no_difference "Forum.count" do
-        post :create, {:forum => valid_forum_attributes}, {:user => profiles(:user).id}
+        post :create, {:forum => valid_forum_attributes}, {:user => users(:quentin).id}
         assert_response 302
         assert flash[:error]
       end
@@ -168,7 +169,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "create a new forum for :admin" do
     assert_nothing_raised do
       assert_difference "Forum.count" do
-        post :create, {:forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+        post :create, {:forum => valid_forum_attributes}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forums', :action => 'index'
       end
     end
@@ -177,7 +178,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "not create a new forum for :user .js" do
     assert_nothing_raised do
       assert_no_difference "Forum.count" do
-        post :create, {:format=>'js', :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+        post :create, {:format=>'js', :forum => valid_forum_attributes}, {:user => users(:quentin).id}
         assert_response 302
       end
     end
@@ -186,7 +187,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "create a new forum for :admin .js" do
     assert_nothing_raised do
       assert_difference "Forum.count" do
-        post :create, {:format=>'js', :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+        post :create, {:format=>'js', :forum => valid_forum_attributes}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -195,7 +196,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "not create a new forum for :user .xml" do
     assert_nothing_raised do
       assert_no_difference "Forum.count" do
-        post :create, {:format=>'xml', :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+        post :create, {:format=>'xml', :forum => valid_forum_attributes}, {:user => users(:quentin).id}
         assert_response 302
       end
     end
@@ -204,7 +205,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "create a new forum for :admin .xml" do
     assert_nothing_raised do
       assert_difference "Forum.count" do
-        post :create, {:format=>'xml', :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+        post :create, {:format=>'xml', :forum => valid_forum_attributes}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -223,7 +224,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "not get edit for :user" do
     assert_nothing_raised do
-      get :edit, {:id => forums(:one).id}, {:user => profiles(:user).id}
+      get :edit, {:id => forums(:one).id}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -231,7 +232,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "get edit for :admin" do
     assert_nothing_raised do
-      get :edit, {:id => forums(:one).id}, {:user => profiles(:admin).id}
+      get :edit, {:id => forums(:one).id}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'edit'
     end
@@ -250,7 +251,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "not update a forum for :user" do
     assert_nothing_raised do
-      put :update, {:id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+      put :update, {:id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:quentin).id}
       assert_response 302
       assert flash[:error]
     end
@@ -258,49 +259,49 @@ class ForumsControllerTest < ActionController::TestCase
 
   should "update a forum for :admin" do
     assert_nothing_raised do
-      put :update, {:id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+      put :update, {:id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:admin).id}
       assert_redirected_to :controller => 'forums', :action => 'index' #, :id => forums(:one).to_param
     end
   end
   
   should "not update a forum for :admin" do
     assert_nothing_raised do
-      put :update, {:id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => profiles(:admin).id}
+      put :update, {:id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
   
   should "not update a forum for :user js" do
     assert_nothing_raised do
-      put :update, {:format=>'js', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+      put :update, {:format=>'js', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:quentin).id}
       assert_response 302
     end
   end
 
   should "update a forum for :admin js" do
     assert_nothing_raised do
-      put :update, {:format=>'js', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+      put :update, {:format=>'js', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
 
   should "not update a forum for :admin js" do
     assert_nothing_raised do
-      put :update, {:format=>'js', :id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => profiles(:admin).id}
+      put :update, {:format=>'js', :id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => users(:admin).id}
       assert_response 200
     end
   end
     
   should "not update a forum for :user xml" do
     assert_nothing_raised do
-      put :update, {:format=>'xml', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:user).id}
+      put :update, {:format=>'xml', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:quentin).id}
       assert_response 302
     end
   end
 
     should "update a forum for :admin xml" do
       assert_nothing_raised do
-        put :update, {:format=>'xml', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => profiles(:admin).id}
+        put :update, {:format=>'xml', :id => forums(:one).id, :forum => valid_forum_attributes}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -308,7 +309,7 @@ class ForumsControllerTest < ActionController::TestCase
 
     should "not update a forum for :admin xml" do
       assert_nothing_raised do
-        put :update, {:format=>'xml', :id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => profiles(:admin).id}
+        put :update, {:format=>'xml', :id => forums(:one).id, :forum => unvalid_forum_attributes}, {:user => users(:admin).id}
         assert_response 422
       end
     end
@@ -329,7 +330,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "not destroy a forum for :user" do
     assert_nothing_raised do
       assert_no_difference "Forum.count" do
-        delete :destroy, {:id => forums(:one).id}, {:user => profiles(:user).id}
+        delete :destroy, {:id => forums(:one).id}, {:user => users(:quentin).id}
         assert_response 302
         assert flash[:error]
       end
@@ -339,7 +340,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "destroy a forum for :admin" do
     assert_nothing_raised do
       assert_difference "Forum.count", -1 do
-        delete :destroy, {:id => forums(:one).id}, {:user => profiles(:admin).id}
+        delete :destroy, {:id => forums(:one).id}, {:user => users(:admin).id}
         assert_redirected_to :controller => 'forums', :action => 'index'
       end
     end
@@ -349,7 +350,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "destroy a forum for :admin .js" do
     assert_nothing_raised do
       assert_difference "Forum.count", -1 do
-        delete :destroy, {:format=>'js', :id => forums(:one).id}, {:user => profiles(:admin).id}
+        delete :destroy, {:format=>'js', :id => forums(:one).id}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -359,7 +360,7 @@ class ForumsControllerTest < ActionController::TestCase
   should "destroy a forum for :admin .xml" do
     assert_nothing_raised do
       assert_difference "Forum.count", -1 do
-        delete :destroy, {:format=>'xml', :id => forums(:one).id}, {:user => profiles(:admin).id}
+        delete :destroy, {:format=>'xml', :id => forums(:one).id}, {:user => users(:admin).id}
         assert_response 200
       end
     end
@@ -369,7 +370,7 @@ class ForumsControllerTest < ActionController::TestCase
     assert_no_difference "Forum.count" do
     assert_difference "Forum[forums(:one).id].position", 1 do
     assert_difference "Forum[forums(:two).id].position", -1 do
-      post :update_positions, {:forums_list=>[forums(:two).id, forums(:one).id]}, {:user => profiles(:admin).id}
+      post :update_positions, {:forums_list=>[forums(:two).id, forums(:one).id]}, {:user => users(:admin).id}
       assert_response 200
     end
     end

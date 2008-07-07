@@ -1,5 +1,7 @@
 class BlogsController < ApplicationController
    
+    web_service_api BloggerAPI
+   
     include ApplicationHelper
     
     skip_filter :login_required, :only => [:index, :show]

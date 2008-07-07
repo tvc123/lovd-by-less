@@ -19,10 +19,10 @@ class SpiderTest < ActionController::IntegrationTest
     puts 'test_spider_user'
     get "/login"
     assert_response :success
-    post "/login", :user=>{:login => users(:user).login, :password => 'test'}
+    post "/login", :user=>{:login => users(:quentin).login, :password => 'test'}
     assert_response :redirect
     assert session[:user]
-    assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:user).profile.to_param
+    assert_redirected_to :controller=>'profiles', :action=>'show', :id=>users(:quentin).profile.to_param
     follow_redirect!
   
     #   puts @response.body

@@ -4,7 +4,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   should "get the index" do
     assert_nothing_raised do
-      get :index, {}, {:user => profiles(:user).id}
+      get :index, {}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'index'
     end
@@ -12,7 +12,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   should "get the index as :admin" do
     assert_nothing_raised do
-      get :index, {}, {:user => profiles(:admin).id}
+      get :index, {}, {:user => users(:admin).id}
       assert_response 200
       assert_template 'index'
     end
@@ -30,7 +30,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   should "get the show message page" do
     assert_nothing_raised do
-      get :show, {:id => messages(:user_to_user2).id}, {:user => profiles(:user).id}
+      get :show, {:id => messages(:user_to_user2).id}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'show'
     end
@@ -48,7 +48,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   should "get sent messages" do
     assert_nothing_raised do
-      get :sent, {}, {:user => profiles(:user).id}
+      get :sent, {}, {:user => users(:quentin).id}
       assert_response 200
       assert_template 'sent'
     end
@@ -67,7 +67,7 @@ class MessagesControllerTest < ActionController::TestCase
   should "create a new message" do
     assert_nothing_raised do
       assert_difference "Message.count" do
-        post :create, {:profile_id => profiles(:user2).id, :message => {:subject => 'test', :body => 'message', :receiver_id => profiles(:user2).id}}, {:user => profiles(:user).id}
+        post :create, {:profile_id => users(:aaron).id, :message => {:subject => 'test', :body => 'message', :receiver_id => users(:aaron).id}}, {:user => users(:quentin).id}
         assert_response 200
       end
     end
@@ -77,7 +77,7 @@ class MessagesControllerTest < ActionController::TestCase
   should "not create a new message (redirect to login)" do
     assert_nothing_raised do
       assert_no_difference "Message.count" do
-        post :create, {:profile_id => profiles(:user2).id, :message => {:subject => 'test', :body => 'message', :receiver_id => '2'}}
+        post :create, {:profile_id => users(:aaron).id, :message => {:subject => 'test', :body => 'message', :receiver_id => '2'}}
         assert_response 302
         assert_redirected_to login_path
       end
@@ -88,7 +88,7 @@ class MessagesControllerTest < ActionController::TestCase
   should "not create a new message (missing data)" do
     assert_nothing_raised do
       assert_no_difference "Message.count" do
-        post :create, {:profile_id => profiles(:user2).id, :message => {:subject => '', :body => ''}}, {:user => profiles(:user).id}
+        post :create, {:profile_id => users(:aaron).id, :message => {:subject => '', :body => ''}}, {:user => users(:quentin).id}
         assert_response 200
       end
     end
@@ -98,7 +98,7 @@ class MessagesControllerTest < ActionController::TestCase
   should "not create a new message (no can_send)" do
     assert_nothing_raised do
       assert_no_difference "Message.count" do
-        post :create, {:profile_id => profiles(:user2).id, :message => {:subject => '', :body => ''}}, {:user => profiles(:cant_message).id}
+        post :create, {:profile_id => users(:aaron).id, :message => {:subject => '', :body => ''}}, {:user => users(:cant_message).id}
         assert_response 200
         assert_match "Cuz you sux", @response.body
       end

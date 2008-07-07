@@ -15,7 +15,7 @@ class AccountMailerTest < ActiveSupport::TestCase
     @expected = TMail::Mail.new
     @expected.set_content_type "text", "plain", { "charset" => CHARSET }
     @expected.mime_version = '1.0'
-    @u = users(:user)
+    @u = users(:quentin)
   end
 
   def test_signup

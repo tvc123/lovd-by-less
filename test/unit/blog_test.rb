@@ -5,7 +5,7 @@ class BlogTest < ActiveSupport::TestCase
   should 'create new feed_item and feeds after creating a blog post' do
     assert_difference "FeedItem.count" do
       assert_difference "Feed.count", 2 do
-        p = profiles(:user)
+        p = users(:quentin)
         assert p.blogs.create(:title => 'this is a test post', :body => 'omg yay test!')
       end
     end

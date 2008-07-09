@@ -26,10 +26,26 @@ Rails::Initializer.run do |config|
     # Make Active Record use UTC-base instead of local time
     config.active_record.default_timezone = :utc
 
+    # configure gems
+    config.gem 'will_paginate', :version => '~> 2.2.2'
+    config.gem 'colored', :version => '1.1'
+    config.gem 'youtube-g', :version => '0.4.1', :lib =>'youtube_g'
+    config.gem 'uuidtools', :version => '1.0.3'
+    config.gem 'acts_as_ferret', :version => '0.4.3'
+    config.gem 'ferret', :version => '0.11.4'
+    config.gem 'hpricot', :version => '0.6'
+    config.gem 'mocha', :version => '0.5.6'    
+    config.gem 'avatar', :version => '0.0.5'
+    config.gem 'tzinfo', :veresion => '0.3.9'
+    config.gem 'redgreen', :version => '1.2.2'
+    config.gem 'rflickr', :lib => 'flickr'
+    config.gem 'test-spec', :lib => 'test/spec', :version => '0.9.0'
+    config.gem 'RedCloth', :lib => 'redcloth', :version => '3.0.4'
+    config.gem 'activerecord-activesalesforce-adapter', :lib => 'active_record', :version => '2.0.0'
+    
 end
 
 # load in global var here so that initializers can use them
-
 require 'ostruct'
 require 'yaml'
 
@@ -37,3 +53,5 @@ config = OpenStruct.new(YAML.load_file("#{RAILS_ROOT}/config/global_config.yml")
 env_config = config.send(RAILS_ENV)
 config.common.update(env_config) unless env_config.nil?
 ::GlobalConfig = OpenStruct.new(config.common)
+
+Globalite.language = :us

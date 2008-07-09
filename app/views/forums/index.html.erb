@@ -1,14 +1,13 @@
-<h1><%= SITE_NAME %> Forums</h1>
+<h1><%= GlobalConfig.application_name %> Forums</h1>
 
-<%- if_admin do%>
-<div id="sub_nav">
-  <%= inline_tb_link('Create a new forum', "new_forum", :title => "Creating a new forum") %>
-</div>
-<div id="new_forum" class="hidden">
-  <%= render :partial => 'form' %>
-</div>
-
-<%- end%>
+<% is_admin? do -%>
+	<div id="sub_nav">
+	  <%= inline_tb_link('Create a new forum', "new_forum", :title => "Creating a new forum") %>
+	</div>
+	<div id="new_forum" class="hidden">
+	  <%= render :partial => 'form' %>
+	</div>
+<% end -%>
 
 <div id="forum_list_header">
   <div class="last_post">Last Post</div>
@@ -23,7 +22,7 @@
 </div>
 <br />
 
-<%- if_admin do %>
+<% is_admin? do -%>
   <%= sortable_element('forums_list', :url => {:action => :update_positions}) %>
   Drag forum rows to reorder.<br/>
-<%- end%>
+<% end -%>

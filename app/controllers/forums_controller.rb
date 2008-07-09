@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+    
     skip_filter :login_required, :only => [:show, :index]
     before_filter :setup
 

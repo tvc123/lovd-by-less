@@ -348,8 +348,8 @@ class User < ActiveRecord::Base
     end
 
     # sync user data with salesforce
-    def salesforce_sync        
-        sf_user = Contact.find(:first,:conditions => {:email => self.email} ) || Contact.new()
+    def salesforce_sync
+        sf_user = Contact.find_all_by_email(self.email) || Contact.new()
         sf_user.email = self.email
         sf_user.wordpress_id__c = self.id 
         sf_user.wordpress_login__c = self.login

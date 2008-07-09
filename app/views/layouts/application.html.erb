@@ -60,6 +60,7 @@
               <% if logged_in? %>
               	<%= icon(current_user, :small) unless current_user.icon.blank? %> <strong>Hi, <%= current_user.login %></strong> 
 								<%= link_to('Dashboard', current_user) if current_user %>
+								<%= link_to('Forums', forums_url) %>
 								<%= link_to '(logout)', logout_path %>
 							<% else %>	
               	<strong>You must <%= link_to 'Login', login_path %> or <%= link_to 'Sign-up', signup_path %> to participate</strong>

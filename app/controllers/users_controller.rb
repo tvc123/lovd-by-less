@@ -16,6 +16,10 @@ class UsersController < ApplicationController
 
         @user = current_user
 
+        # TODO remove this code.  it is just for testing    
+        @user.salesforce_sync
+         
+         
         unless current_user.youtube_username.blank?
             begin
                 client = YouTubeG::Client.new

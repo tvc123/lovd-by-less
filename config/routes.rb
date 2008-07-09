@@ -53,11 +53,21 @@ ActionController::Routing::Routes.draw do |map|
         a.resources :roles
     end
 
+    # messages
     map.resources :messages, :collection => {:sent => :get}
+    
+    # blogs
     map.resources :blogs do |blog|
         blog.resources :comments
     end
 
+    # forums
+    map.resources :forums, :collection => {:update_positions => :post} do |forum|
+      forum.resources :topics, :controller => :forum_topics do |topic|
+        topic.resources :posts, :controller => :forum_posts
+      end
+    end
+    
     # Install the default routes as the lowest priority.
     map.connect ':controller/:action/:id'
     map.connect ':controller/:action/:id.:format'

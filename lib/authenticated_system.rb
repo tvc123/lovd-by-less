@@ -58,7 +58,7 @@ module AuthenticatedSystem
     end
 
     def check_role(role)
-        unless logged_in? && @current_user.has_role?(role)
+        unless logged_in? && current_user.has_role?(role)
             if logged_in?
                 permission_denied
             else
@@ -68,8 +68,8 @@ module AuthenticatedSystem
         end
     end
 
-    def check_administrator_role
-        check_role('administrator')
+    def is_admin?
+        current_user.has_role?('administrator')
     end    
 
     # check to see if the current user is the owner of the specified object
@@ -89,7 +89,7 @@ module AuthenticatedSystem
     # checks permissions on an object.  Redirects if the current user
     # doesn't own it or have admin rights
     def protect_owner(obj)
-        if is_owner?(obj) || check_administrator_role
+        if is_owner?(obj) || is_admin?
             true
         else
             permission_denied
@@ -222,7 +222,7 @@ module AuthenticatedSystem
     # Inclusion hook to make #current_user and #logged_in?
     # available as ActionView helper methods.
     def self.included(base)
-        base.send :helper_method, :current_user, :logged_in?
+        base.send :helper_method, :current_user, :logged_in?, :is_admin?
     end
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.

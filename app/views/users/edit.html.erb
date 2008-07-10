@@ -175,9 +175,9 @@
 <div class="right half">
   <div id="upload_icon">
     <% form_for @user, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |f| %>
-      <h2><%= "Upload Icon:" %></h2>
+      <h2><%= "Upload Photo:" %></h2>
     
-      <label>Upload your Icon</label>
+      <label>Upload a photo for your profile</label>
       <%= file_column_field( "profile", "icon", :size => 15)%>
       <div class="clear"></div>
       <% unless @user.icon.blank? %>
@@ -201,7 +201,7 @@
   	<% form_tag url_for(:controller => "accounts", :action => "update") do %>
 			<h2>Change Password</h2>
 			<div class="row">
-				<label for="user_password">Password: </label>
+				<label for="user_password">Password:</label>
 				<%= password_field_tag :password -%>
 			</div>
 			<div class="row">
@@ -209,7 +209,7 @@
 				<%= password_field_tag :password_confirmation %>
 			</div>			
 			<div class="row button">
-      	<%= submit_tag "Change Password" %>
+      	<%= submit_tag "Change Password", :class => 'button' %>
       </div>
 
 		<% end %>

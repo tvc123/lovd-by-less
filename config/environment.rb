@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
     config.active_record.default_timezone = :utc
 
     # configure gems
+    config.gem 'builder', :version => '2.1.2'
     config.gem 'will_paginate', :version => '~> 2.2.2'
     config.gem 'colored', :version => '1.1'
     config.gem 'youtube-g', :version => '0.4.1', :lib =>'youtube_g'
@@ -53,5 +54,3 @@ config = OpenStruct.new(YAML.load_file("#{RAILS_ROOT}/config/global_config.yml")
 env_config = config.send(RAILS_ENV)
 config.common.update(env_config) unless env_config.nil?
 ::GlobalConfig = OpenStruct.new(config.common)
-
-Globalite.language = :us

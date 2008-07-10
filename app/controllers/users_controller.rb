@@ -189,7 +189,7 @@ class UsersController < ApplicationController
             @states = State.find(:all, :order => "name" )
             @countries = Country.find(:all, :order => "name" )
             @grade_level_experiences = GradeLevelExperience.find(:all)
-            @languages = Language.find(:all)
+            @languages = Language.find(:all, :order => "english_name")
         end
 
     end

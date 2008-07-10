@@ -185,8 +185,7 @@ position:absolute;height:expression(document.body.scrollHeight > document.body.o
 #local-navigation ul li a:hover, #top-navigation ul li a:hover{text-decoration:underline;}
 #local-navigation{float:left;display:inline;width:100%;}
 #local-navigation ul li{background-color:#4B7041;padding:3px;margin:0px 4px;}
-
-.checkbox-list{width:300px;height:200px;overflow:auto;}
+.checkbox-list{width:300px;height:200px;overflow:auto;border-top:solid 2px #848484;border-left:solid 2px #848484;border-right:solid 2px #fafafa;border-bottom:solid 2px #fafafa;padding:2px;}
 #grade-level-expriences-selector{height:110px;}
 #terms-of-service{width:500px;}
 #terms-of-service input{float:left;clear:none;margin-right:5px;}

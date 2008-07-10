@@ -176,15 +176,14 @@
   <div id="upload_icon">
     <% form_for @user, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |f| %>
       <h2><%= "Upload Photo:" %></h2>
-    
       <label>Upload a photo for your profile</label>
-      <%= file_column_field( "profile", "icon", :size => 15)%>
+      <%= file_column_field( "user", "icon", :size => 15)%>
       <div class="clear"></div>
       <% unless @user.icon.blank? %>
       <div id="avatar_edit">
         <span id="user_icon_picture">
           <%= icon @user %>
-          <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@user), :confirm => GlobalConfig.delete_confirm  %>
+          <%= link_to_remote 'delete icon', :url=>delete_icon_user_path(@user), :confirm => GlobalConfig.delete_confirm  %>
         </span>
       </div>
       <% end %>

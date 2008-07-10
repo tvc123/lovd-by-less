@@ -30,6 +30,8 @@ class UsersController < ApplicationController
 
         @comments = current_user.comments.paginate(:page => @page, :per_page => @per_page)
 
+        @user = current_user
+        
         respond_to do |format|
             format.html do
                 @feed_items = current_user.feed_items

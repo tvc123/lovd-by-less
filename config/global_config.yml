@@ -34,6 +34,8 @@ common:
     
     integrate_plone: true
     
+    integrate_salesforce: true
+    
 production:
 
     # Source address for user emails

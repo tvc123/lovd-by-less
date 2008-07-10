@@ -13,12 +13,6 @@ class UsersController < ApplicationController
 
     # Show the user's home page.  This is their 'dash board'
     def show  
-
-        @user = current_user
-
-        # TODO remove this code.  it is just for testing    
-        @user.salesforce_sync
-         
          
         unless current_user.youtube_username.blank?
             begin
@@ -124,6 +118,7 @@ class UsersController < ApplicationController
         @user = User.find(current_user)
       
         if @user.update_attributes params[:user]
+            @current_user.salesforce_sync if GlobalConfig.integrate_salesforce
             flash[:notice] = "Settings have been saved."
             redirect_to edit_user_url(@user)
         else
@@ -189,8 +184,8 @@ class UsersController < ApplicationController
         end
 
         def setup_form_values
-            @states = State.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
-            @countries = Country.find(:all, :order => "name" ).map {|u| [u.name, u.id] }
+            @states = State.find(:all, :order => "name" )
+            @countries = Country.find(:all, :order => "name" )
             @grade_level_experiences = GradeLevelExperience.find(:all)
             @languages = Language.find(:all)
         end

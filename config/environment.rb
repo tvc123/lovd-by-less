@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
     config.gem 'youtube-g', :version => '0.4.1', :lib =>'youtube_g'
     config.gem 'uuidtools', :version => '1.0.3'
     config.gem 'acts_as_ferret', :version => '0.4.3'
-    config.gem 'ferret', :version => '0.11.4'
+    config.gem 'ferret', :version => '0.11.6'
     config.gem 'hpricot', :version => '0.6'
     config.gem 'mocha', :version => '0.5.6'    
     config.gem 'avatar', :version => '0.0.5'

@@ -1,0 +1,106 @@
+--- !ruby/object:Gem::Specification 
+name: activerecord-activesalesforce-adapter
+version: !ruby/object:Gem::Version 
+  version: 2.0.0
+platform: ruby
+authors: 
+- Doug Chasman
+autorequire: activerecord-activesalesforce-adapter
+bindir: bin
+cert_chain: []
+
+date: 2007-12-31 00:00:00 -07:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rails
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 2.0.2
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: builder
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.4
+    version: 
+description: 
+email: dchasman@salesforce.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+files: 
+- lib/active_record
+- lib/active_record/connection_adapters
+- lib/active_record/connection_adapters/rforce.rb
+- lib/active_record/connection_adapters/relationship_definition.rb
+- lib/active_record/connection_adapters/result_array.rb
+- lib/active_record/connection_adapters/activesalesforce_adapter.rb
+- lib/active_record/connection_adapters/asf_active_record.rb
+- lib/active_record/connection_adapters/column_definition.rb
+- lib/active_record/connection_adapters/id_resolver.rb
+- lib/active_record/connection_adapters/sid_authentication_filter.rb
+- lib/active_record/connection_adapters/entity_definition.rb
+- lib/active_record/connection_adapters/activesalesforce.rb
+- lib/active_record/connection_adapters/boxcar_command.rb
+- lib/active_record/connection_adapters/recording_binding.rb
+- test/unit
+- test/unit/config.yml
+- test/unit/recorded_test_case.rb
+- test/unit/basic_test.rb
+- test/unit/recorded_results
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_batch_insert.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_read_all_content_columns.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_find_a_contact_by_id.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_create_a_contact.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_count_contacts.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_get_created_by_from_contact.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_use_default_rule.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_assignment_rule_id.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_client_id.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_use_update_mru.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_master_detail.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_add_notes_to_contact.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_find_addresses.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_save_a_contact.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_find_a_contact.recording
+- test/unit/recorded_results/AsfUnitTestsBasicTest.test_find_a_contact_by_first_name.recording
+- README
+has_rdoc: false
+homepage: http://rubyforge.org/projects/activesfdc/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- bin
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.0.1
+signing_key: 
+specification_version: 2
+summary: ActiveSalesforce (ASF) is a Rails connection adapter that provides direct access to Salesforce.com hosted data and metadata via the ActiveRecord model layer. Objects, fields, and relationships are all auto surfaced as active record attributes and rels.
+test_files: []
+

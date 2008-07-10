@@ -53,7 +53,7 @@ jQuery(document).ready(function()
 
 		<div class="row">
 			<label for="user_state">State <em>*</em></label>
-	 		<%= f.select :state, @states %>
+			<%= f.collection_select :state_id, @states, :id, :name %>
 		</div>
 
 		<div class="row">
@@ -63,7 +63,7 @@ jQuery(document).ready(function()
 		
 		<div class="row">
 			<label for="user_country">Country <em>*</em></label>
-	 		<%= f.select :country, @countries %>
+			<%= f.collection_select :country_id, @countries, :id, :name %>
 		</div>
 		
 		<div class="row">
@@ -92,8 +92,8 @@ jQuery(document).ready(function()
 
 		<div class="row">
 			<label for="user_first_language">First Language </label>
-	 		<%= f.collection_select :first_language, @languages, :id, :english_name -%>
-		</div>
+	 		<%= f.collection_select :language_id, @languages, :id, :english_name %>
+		</div
 
 		<div class="row">
 			<label for="user_language">Other Language(s)</label>

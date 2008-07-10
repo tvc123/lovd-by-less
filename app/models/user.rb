@@ -116,7 +116,14 @@ class User < ActiveRecord::Base
     
     # Skills
     has_and_belongs_to_many :grade_level_experiences
+    
+    # Lanugauge
     has_and_belongs_to_many :languages
+    belongs_to :language
+    
+    # Location
+    belongs_to :state
+    belongs_to :country
     
     # Search
     acts_as_ferret :fields => [ :location, :f, :about_me ], :remote=>true
@@ -349,18 +356,43 @@ class User < ActiveRecord::Base
 
     # sync user data with salesforce
     def salesforce_sync
-        sf_user = Contact.find_all_by_email(self.email) || Contact.new()
+        sf_user = Contact.find(:first, :conditions => ['email = ?', self.email]) || Contact.new()
         sf_user.email = self.email
-        sf_user.wordpress_id__c = self.id 
-        sf_user.wordpress_login__c = self.login
+        sf_user.remote_id__c = self.id 
+        sf_user.remote_login__c = self.login
         sf_user.first_name = self.first_name if self.first_name
         sf_user.last_name = self.last_name if self.last_name && !self.last_name.empty?
         sf_user.mailing_city = self.city
+        sf_user.mailing_state = self.state.name
+        sf_user.mailing_postal_code = self.zip
+        sf_user.mailing_country = self.country.name
+        sf_user.first_language__c = self.language
+        sf_user.grade_level_experience__c = self.grade_level_experiences.collect{|c| c.name}
+        sf_user.why_joined__c = self.why_joined
+        sf_user.additional_skills__c = self.skills
+        sf_user.other_languages__c = self.languages.collect{|c| c.english_name}
+        sf_user.occupation__c = self.occupation
+        sf_user.employer__c = self.organization
+        
+        #  website                   :string(255)   
+        #  blog                      :string(255)   
+        #  about_me                  :text          
+        #  aim_name                  :string(255)   
+        #  location                  :string(255)   
+        #  city                      :string(255)   
+        #  state                     :integer(11)   
+        #  zip                       :string(255)   
+        #  country                   :integer(11)   
+        #  phone                     :string(255)   
+        #  phone2                    :string(255)   
+   
+        # interest_areas__c: nil,
+        # giraffe_heroes__c: false, 
+        # my_tec_c__c: false, 
+        # twb_tools__c: false, 
+        # twb_canada__c: false, 
+        # newsletter__c: false,
 
-       # sf_user.mailing_state = user.state.name
-       # sf_user.mailing_postal_code = user.zip
-       # sf_user.mailing_country = user.country.name
-       # debugger
         sf_user.save
     end
     

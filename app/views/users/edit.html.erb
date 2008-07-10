@@ -46,17 +46,17 @@
 
 			<div class="row">
 				<label for="user_state">State <em>*</em></label>
-		 		<%= f.select :state, @states %>
+				<%= f.collection_select :state_id, @states, :id, :name %>
 			</div>
 
 			<div class="row">
 				<label for="user_zip">Postal Code <em>*</em></label>
-		 		<%= f.text_field :zip, {  :class => "text-field" } -%>
+		 		<%= f.text_field :zip, { :class => "text-field" } -%>
 			</div>
 
 			<div class="row">
 				<label for="user_country">Country <em>*</em></label>
-		 		<%= f.select :country, @countries %>
+				<%= f.collection_select :country_id, @countries, :id, :name %>
 			</div>
 
 			<div class="row">
@@ -75,17 +75,17 @@
 
 	    <div class="row">
 				<label for="user_phone">Phone </label>
-		 		<%= f.text_field :phone, {  :class => "text-field" } -%>
+		 		<%= f.text_field :phone, { :class => "text-field" } -%>
 			</div>
 
 	    <div class="row">
 				<label for="user_phone2">Phone 2 </label>
-		 		<%= f.text_field :phone2, {  :class => "text-field" } -%>
+		 		<%= f.text_field :phone2, { :class => "text-field" } -%>
 			</div>
 
 			<div class="row">
 				<label for="user_first_language">First Language </label>
-		 		<%= f.select :first_language, @languages %>
+		 		<%= f.collection_select :language_id, @languages, :id, :english_name %>
 			</div>
 
 			<div class="row">

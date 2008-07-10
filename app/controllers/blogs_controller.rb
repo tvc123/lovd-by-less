@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
    
-    web_service_api BloggerAPI
+    #web_service_api BloggerAPI
    
     include ApplicationHelper
     

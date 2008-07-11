@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BlogsControllerTest < ActionController::TestCase
+class BlogsControllerTest < Test::Unit::TestCase
 
   VALID_BLOG_POST = {
     :title => 'Valid Blog Post',
@@ -16,7 +16,7 @@ class BlogsControllerTest < ActionController::TestCase
   end
 
   context 'on GET to :show' do
-    should "render action when logged in as :owner" do
+    should "render action when logged in as owner" do
       do_show_assertions users(:quentin).id
       OWNER_LINKS.each {|l| assert_tag(:tag => 'a', :content => l)}
       assert_tag :tag => 'a', :content => 'Add a Comment'
@@ -57,11 +57,11 @@ class BlogsControllerTest < ActionController::TestCase
   
   context 'on GET to :new' do
     should "render action when logged in as :owner" do
-      p = users(:quentin)
-      get :new, {:profile_id => p.id}, {:user => p.user.id}
+      present_user = users(:quentin)
+      get :new, {:profile_id => present_user.id}, {:user => present_user.id}
       assert_not_nil assigns(:blogs)
       assert assigns(:blog).new_record?
-      assert_equal p, assigns(:profile)
+      assert_equal present_user, assigns(:profile)
       assert_equal Hash.new, flash
       assert_template 'new'
       assert_response :success
@@ -89,17 +89,17 @@ class BlogsControllerTest < ActionController::TestCase
   
   context 'on GET to :edit' do
     should "render action when logged in as :owner" do
-      p = users(:quentin)
-      b = p.blogs.first
-      get :edit, {:profile_id => p.id, :id => b.id}, {:user => p.user.id}
+      present_user = users(:quentin)
+      present_blog = present_user.blogs.first
+      get :edit, {:profile_id => present_user.id, :id => present_blog.id}, {:user => present_user.id}
       assert_not_nil assigns(:blogs)
-      assert_equal b, assigns(:blog)
-      assert_equal p, assigns(:profile)
+      assert_equal present_blog, assigns(:blog)
+      assert_equal present_user, assigns(:profile)
       assert_equal Hash.new, flash
       assert_template 'edit'
       assert_response :success
-      assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(p)}
-      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(p)}
+      assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(present_user)}
+      assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(present_user)}
     end
     
     should "redirect to home_path when logged in as :user" do
@@ -122,19 +122,19 @@ class BlogsControllerTest < ActionController::TestCase
   
   context 'on POST to :create' do
     should "redirect to profil_blogs_path with new blog when logged in as :owner" do
-      p = users(:quentin)
+      present_user = users(:quentin)
       assert_difference "Blog.count" do
-        post :create, {:profile_id => p.id, :blog => VALID_BLOG_POST}, {:user => p.user.id}
+        post :create, {:profile_id => present_user.id, :blog => VALID_BLOG_POST}, {:user => present_user.id}
         assert_contains flash[:notice], /created/
         assert_response :redirect
-        assert_redirected_to user_blogs_path(p)
+        assert_redirected_to user_blogs_path(present_user)
       end
     end
     
     should "render :new with error when logged in as :owner" do
-      p = users(:quentin)
+      present_user = users(:quentin)
       assert_no_difference "Blog.count" do
-        post :create, {:profile_id => p.id, :blog => VALID_BLOG_POST.merge(:body => '')}, {:user => p.user.id}
+        post :create, {:profile_id => present_user.id, :blog => VALID_BLOG_POST.merge(:body => '')}, {:user => present_user.id}
         assert_response :success
         assert_template 'new'
         assert assigns(:blog).new_record?
@@ -160,18 +160,18 @@ class BlogsControllerTest < ActionController::TestCase
   
   context 'on PUT to :update' do
     should "redirect to profil_blogs_path with blog when logged in as :owner" do
-      p = users(:quentin)
-      b = p.blogs.first
-      put :update, {:profile_id => p.id, :id=>b.id, :blog => VALID_BLOG_POST}, {:user => p.user.id}
+      present_user = users(:quentin)
+      present_blog = present_user.blogs.first
+      put :update, {:profile_id => present_user.id, :id=>present_blog.id, :blog => VALID_BLOG_POST}, {:user => present_user.id}
       assert_contains flash[:notice], /updated/
       assert_response :redirect
-      assert_redirected_to user_blogs_path(p)
+      assert_redirected_to user_blogs_path(present_user)
     end
     
     should "render :edit with error when logged in as :owner" do
-      p = users(:quentin)
-      b = p.blogs.first
-      put :update, {:profile_id => p.id, :id=>b.id, :blog => VALID_BLOG_POST.merge(:title => '')}, {:user => p.user.id}
+      present_user = users(:quentin)
+      present_blog = present_user.blogs.first
+      put :update, {:profile_id => present_user.id, :id=>present_blog.id, :blog => VALID_BLOG_POST.merge(:title => '')}, {:user => present_user.id}
       assert_response :success
       assert_template 'edit'
       assert !assigns(:blog).errors.empty?
@@ -196,14 +196,16 @@ class BlogsControllerTest < ActionController::TestCase
   end
   
   context 'on DELETE to :destroy' do
+    
     should "redirect to profil_blogs_path after deleting when logged in as :owner" do
       assert_difference "Blog.count", -1 do
-        p = users(:quentin)
-        b = p.blogs.first
-        delete :destroy, {:profile_id => p.id, :id=>b.id}, {:user => p.user.id}
+        #debugger
+        present_user =users(:quentin)
+        present_blog =present_user.blogs.first
+        delete :destroy, {:profile_id => present_user.id, :id=>present_blog.id}, {:user => present_user.id}
         assert_contains flash[:notice], /deleted/
         assert_response :redirect
-        assert_redirected_to user_blogs_path(p)
+        assert_redirected_to user_blogs_path(present_blog)
       end
     end
     
@@ -244,6 +246,7 @@ class BlogsControllerTest < ActionController::TestCase
   
   def do_index_assertions session_user_id = nil, opts = {}
     p = users(:quentin)
+    
     get :index, {:profile_id => p.id}.merge(opts), {:user => session_user_id}
     assert_not_nil assigns(:blogs)
     assert assigns(:blog).new_record?

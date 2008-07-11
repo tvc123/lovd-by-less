@@ -190,6 +190,7 @@ class UsersController < ApplicationController
             @countries = Country.find(:all, :order => "name" )
             @grade_level_experiences = GradeLevelExperience.find(:all)
             @languages = Language.find(:all, :order => "english_name")
+            @united_states_id = @countries.select {|country| country.name.include?('United States of America')}[0].id
         end
 
     end

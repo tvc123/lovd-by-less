@@ -18,12 +18,12 @@
 	
 			<div id="top-navigation">
 				<ul class="top-nav">
-					<li class="first"><a href="http://twbtools.com/">Home</a></li>
-					<li><a href="http://twbtools.com/news/">News</a></li>
-					<li><a href="http://courses.twbtools.com">Courses</a></li>
-					<li><a href="http://groups.twbtools.com/discussion">Discuss</a></li>
-					<li><a href="http://groups.twbtools.com">Workspaces</a></li>
-					<li><a href="http://twbtools.com/donate/">Donate</a></li>
+					<li class="first"><a href="http://<%= GlobalConfig.application_base_url %>/">Home</a></li>
+					<li><a href="http://<%= GlobalConfig.application_base_url %>/news/">News</a></li>
+					<li><a href="http://courses.<%= GlobalConfig.application_base_url %>">Courses</a></li>
+					<li><a href="http://groups.<%= GlobalConfig.application_base_url %>">Workspaces</a></li>
+					<li><a href="http://<%= GlobalConfig.application_base_url %>/donate/">Donate</a></li>
+					<li><a href="http://connect.<%= GlobalConfig.application_base_url %>/">Members</a></li>
 				</ul>	
 				<div id="portal-searchbox">
 				    <form name="searchform" action="http://twb.enpraxis.net/search">
@@ -31,6 +31,10 @@
 								<input type="Submit" id="searchsubmit" value="Search" />
 				    </form>
 				</div>
+				<ul class="top-menu">
+					<li><%= link_to 'Join', signup_path, {:title => 'Join Teachers Without Borders'} %></li>
+					<li><%= link_to 'Members', home_path %></li>
+				</ul>
 			</div>
 	
       <div id="top" >

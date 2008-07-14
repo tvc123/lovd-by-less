@@ -190,6 +190,15 @@ class User < ActiveRecord::Base
         end
     end
 
+    # checks to see if a given email is already in the database
+    def self.email_exists?(email)
+        if User.find_by_email(email).nil?
+            false
+        else
+            true
+        end
+    end
+    
     # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
     # Updated 2/20/08
     def self.authenticate(login, password)    

@@ -6,10 +6,19 @@ jQuery(document).ready(function()
         //check the username exists or not from ajax
         jQuery.post('<%=is_login_available_users_url%>',{ user_login:jQuery(this).val() } ,function(data)
         {
-        	jQuery("#availibility").html(data);    
+        	jQuery("#login-availibility").html(data);    
         }); 
     });
 		
+		jQuery("#user_email").blur(function()
+    {
+        //check the email exists or not from ajax
+        jQuery.post('<%=is_email_available_users_url%>',{ user_email:jQuery(this).val() } ,function(data)
+        {
+        	jQuery("#email-availibility").html(data);    
+        }); 
+    });
+
 		jQuery("#user_country_id").change(function()
     {
 				if(jQuery(this).val() == '<%=@united_states_id%>'){
@@ -20,7 +29,11 @@ jQuery(document).ready(function()
     });
 
 		jQuery("#user_login").keydown(function() { 
-			jQuery("#availibility").html(''); 
+			jQuery("#login-availibility").html(''); 
+		});
+		
+		jQuery("#user_email").keydown(function() { 
+			jQuery("#email-availibility").html(''); 
 		});
 		
 		// intially hide the state select list
@@ -33,18 +46,18 @@ jQuery(document).ready(function()
 	<% form_for :user, :url => users_path, :html => {:id => "register"} do |f| -%>
 	
     <h1><%= "Sign-up Now" %></h1>
-    <div class="instruction">Welcome to <%= GlobalConfig.application_url_name %></div>
+    <div class="instruction">Welcome to <%= GlobalConfig.application_name %></div>
     <div class="instruction"><p>Already a member? <a href="<%=login_url%>">Sign in now</a></p></div>
 		<%= error_messages_for :user -%>		
 
 		<div class="row">
 			<label for="user_login">Choose a Member Name<em>*</em></label>
-			<%= f.text_field :login, {  :class => "text-field" } -%><span id="availibility"></span>
+			<%= f.text_field :login, {  :class => "text-field" } -%><span id="login-availibility" class="availability"></span>
 		</div>
 		    
 		<div class="row">
 			<label for="user_email">Email Address <em>*</em></label>
-	 		<%= f.text_field :email, {  :class => "text-field" } -%>
+	 		<%= f.text_field :email, {  :class => "text-field" } -%><span id="email-availibility" class="availability"></span>
 		</div>
 
 		<div class="row">

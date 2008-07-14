@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
     def destroy
         self.current_user.forget_me if logged_in?
         cookies.delete :auth_token
+        delete_plone_cookie
         reset_session
         flash[:notice] = "You have been logged out."
         redirect_to login_path
@@ -96,7 +97,7 @@ class SessionsController < ApplicationController
             self.current_user.remember_me
             cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
         end
-        write_plone_cookie if GlobalConfig.integrate_plone
+        write_plone_cookie
         flash[:notice] = "Logged in successfully"
         return_to = session[:return_to]
         if return_to.nil?
@@ -115,6 +116,11 @@ class SessionsController < ApplicationController
         cookie_str = Digest.hexencode(params[:login]) + ':' + Digest.hexencode(params[:password])
         cookie_val = Base64.b64encode(cookie_str).rstrip  
         cookies[:__ac] = { :value => cookie_val, :expires => self.current_user.remember_token_expires_at, :path => '/', :domain => GlobalConfig.application_base_url }
+    end
+    
+    def delete_plone_cookie
+        return unless GlobalConfig.enable_plone_integration
+        cookies.delete :__ac
     end
     
     def permission_denied      

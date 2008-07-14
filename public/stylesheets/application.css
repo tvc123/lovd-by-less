@@ -12,6 +12,7 @@ a:hover{text-decoration:underline;}
 .right{float:right;}
 .hidden{display:none;}
 li{list-style:none;}
+.availability{color:red;margin-left:140px;clear:none;float:left;}
 #wrapper{width:870px;margin:0px auto;padding:0px;}
 #plain_wrapper{width:450px;margin:0px auto;padding:0px;background:#e9efd5;border:10px solid #666;}
 #content{color:#000;background:#fff;padding:0 0 0 0;min-height:600px;height:auto !important;height:600px;}
@@ -106,8 +107,6 @@ h2 a{text-transform:capitalize;font-weight:normal;font-size:11px;}
 .blurp img{margin:5px 15px 45px 0;float:left;}
 h2.getting_started{border-bottom:1px dotted #333;padding:15px 0 3px 0;}
 h1 img{width:34px;border:1px solid #333;margin-bottom:-5px;}
-.flashnotice{padding:3px;margin-bottom:10px;clear:both;background:#555;}
-.flasherror{padding:3px;margin-bottom:10px;clear:both;color:red;}
 #blog .row textarea{height:400px;width:400px;}
 #blog .row input{width:400px;}
 #blog .row input.button{width:auto;}
@@ -179,10 +178,10 @@ position:absolute;height:expression(document.body.scrollHeight > document.body.o
 /*--top-navigation--*/
 #top-navigation{float:left;display:inline;width:100%;background-color:#4B7041;}
 #top-navigation input{float:left;margin:4px 5px;padding:0 2px;overflow:hidden;width:90px;background:#fff;font:10px Verdana,sans-serif;border:0;height:15px;}
-#local-navigation ul, #top-navigation ul{float:left;margin:4px 0;padding:0;display:inline;}
-#local-navigation ul li, #top-navigation ul li{float:left;padding:0 4px 0 10px;list-style:none;color:#ffc;font-size:11px;line-height:13px;font-weight:bold;}
-#local-navigation ul li a, #top-navigation ul li a{float:left;color:#ffc;text-decoration:none;font-size:120%;}
-#local-navigation ul li a:hover, #top-navigation ul li a:hover{text-decoration:underline;}
+#local-navigation ul,#top-navigation ul{float:left;margin:4px 0;padding:0;display:inline;}
+#local-navigation ul li,#top-navigation ul li{float:left;padding:0 4px 0 10px;list-style:none;color:#ffc;font-size:11px;line-height:13px;font-weight:bold;}
+#local-navigation ul li a,#top-navigation ul li a{float:left;color:#ffc;text-decoration:none;font-size:120%;}
+#local-navigation ul li a:hover,#top-navigation ul li a:hover{text-decoration:underline;}
 #local-navigation{float:left;display:inline;width:100%;}
 #local-navigation ul li{background-color:#4B7041;padding:3px;margin:0px 4px;}
 .checkbox-list{width:300px;height:200px;overflow:auto;border-top:solid 2px #848484;border-left:solid 2px #848484;border-right:solid 2px #fafafa;border-bottom:solid 2px #fafafa;padding:2px;}
@@ -190,3 +189,10 @@ position:absolute;height:expression(document.body.scrollHeight > document.body.o
 #terms-of-service{width:500px;}
 #terms-of-service input{float:left;clear:none;margin-right:5px;}
 #terms-of-service label{float:left;clear:none;width:400px;}
+.fieldWithErrors{padding:2px;background-color:red;display:table;}
+#errorExplanation{width:400px;border:2px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#f0f0f0;}
+#errorExplanation h2{text-align:left;font-weight:bold;padding:5px 5px 5px 15px;font-size:12px;margin:-7px;background-color:#c00;color:#fff;}
+#errorExplanation p{color:#333;margin-bottom:0;padding:5px;}
+#errorExplanation ul li{font-size:12px;list-style:none;}
+.flashnotice{padding:3px;margin-bottom:10px;clear:both;width:400px;border:2px solid red;background:#f0f0f0;}
+.flasherror{padding:3px;margin-bottom:10px;clear:both;color:red;}

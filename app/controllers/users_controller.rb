@@ -93,7 +93,7 @@ class UsersController < ApplicationController
     def is_login_available
         result = 'Username not available'
 
-        if params[:user_login].length <= 0
+        if params[:user_login] && params[:user_login].length <= 0
             result = ''
         elsif !User.login_exists?(params[:user_login])
             result = 'Username available'
@@ -103,6 +103,19 @@ class UsersController < ApplicationController
         end
     end
 
+    def is_email_available
+        result = 'Email already in use'
+
+        if params[:user_email] && params[:user_email].length <= 0
+            result = ''
+        elsif !User.email_exists?(params[:email_login])
+            result = 'Email available'
+        end
+        respond_to do |format|
+            format.html { render :text => result}
+        end
+    end
+    
     def edit
         @user = User.find_by_login(params[:id])
         

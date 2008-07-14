@@ -28,9 +28,9 @@ common:
            
     flickr_cache: "#{RAILS_ROOT}/config/flickr.cache"
      
-    courses_website: "courses.twbtools.com"
+    courses_website: "courses.teacherswithoutborders.org"
     
-    groups_website: "groups.twbtools.com"
+    groups_website: "groups.teacherswithoutborders.org"
     
     integrate_plone: true
     
@@ -42,15 +42,15 @@ production:
     email_from: 'info@teacherswithoutborders.org'
 
     # Destination email for system errors
-    admin_email: 'admin@teacherswithoutborders.com'
+    admin_email: 'admin@teacherswithoutborders.org'
 
     # Sent in emails to users
-    application_url: 'connect.twbtools.com'
+    application_url: 'connect.teacherswithoutborders.org'
 
     mailer_to_address: 'info@teacherswithoutborders.org'
     
     # for cookies that need to work across all subdomains (the plone site)
-    application_base_url: '.twbtools.com' 
+    application_base_url: '.teacherswithoutborders.org' 
     
     # configuration for plone xml rpc call that creates user folders
     plone_xmlrpc_port: 8088    
@@ -61,15 +61,15 @@ production:
 development:
 
     # Source address for user emails
-    email_from: 'info@teacherswithoutborders.com'
+    email_from: 'info@teacherswithoutborders.org'
 
     # Destination email for system errors
-    admin_email: 'admin@teacherswithoutborders.com'
+    admin_email: 'admin@teacherswithoutborders.org'
 
     # Sent in emails to users
     application_url: 'localhost:3000'
 
-    mailer_to_address: 'info@teacherswithoutborders.com'
+    mailer_to_address: 'info@teacherswithoutborders.org'
     
     # for cookies that need to work across all subdomains (the plone site)
     application_base_url: 'localhost:3000'
@@ -77,20 +77,20 @@ development:
     # configuration for plone xml rpc call that creates user folders
     plone_xmlrpc_port: 80
     plone_xmlrpc_path: '/RPC2'
-    plone_xmlrpc_server: "groups.twbtools.com"
+    plone_xmlrpc_server: "groups.teacherswithoutborders.org"
     
 test:
 
     # Source address for user emails
-    email_from: 'info@teacherswithoutborders.com'
+    email_from: 'info@teacherswithoutborders.org'
 
     # Destination email for system errors
-    admin_email: 'admin@teacherswithoutborders.com'
+    admin_email: 'admin@teacherswithoutborders.org'
 
     # Sent in emails to users
     application_url: 'localhost:3000'
     
-    mailer_to_address: 'info@teacherswithoutborders.com'
+    mailer_to_address: 'info@teacherswithoutborders.org'
     
 
     

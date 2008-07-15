@@ -120,6 +120,7 @@ class SessionsController < ApplicationController
     
     def delete_plone_cookie
         return unless GlobalConfig.enable_plone_integration
+        cookies[:__ac] = { :value => nil, :domain => '.' + GlobalConfig.application_base_url, :expires => Time.at(0) }
         cookies.delete :__ac
     end
     

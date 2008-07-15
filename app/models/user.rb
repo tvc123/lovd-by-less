@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
     end
 
     def location
-        return 'No where' if attributes['location'].blank?
+        return '' if attributes['location'].blank?
         attributes['location']
     end
 

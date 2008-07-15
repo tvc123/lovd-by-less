@@ -1,6 +1,6 @@
 require 'xmlrpc/client'
 
-class Plone
+class Plone < ActiveRecord::BaseWithoutTable
 
     def self.user_to_plone(user, password)
         success = true
@@ -28,5 +28,5 @@ class Plone
 
         success
     end
-
+    
 end

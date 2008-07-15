@@ -1,6 +1,14 @@
 class HomeController < ApplicationController
     skip_before_filter :login_required	
 
+    def index 
+       
+        respond_to do |format|
+            format.html {render}
+            format.rss {render :partial =>  'profiles/newest_member', :collection => new_members}
+        end
+    end
+    
     def contact
         return unless request.post?
         body = []
@@ -8,14 +16,6 @@ class HomeController < ApplicationController
         HomeMailer.deliver_mail(:subject=>"from #{GlobalConfig.application_url_name} contact page", :body=>body.join("\n"))
         flash[:notice] = "Thank you for your message.  A member of our team will respond to you shortly."
         redirect_to contact_url    
-    end
-
-
-    def index            
-        respond_to do |format|
-            format.html {render}
-            format.rss {render :partial =>  'profiles/newest_member', :collection => new_members}
-        end
     end
 
     def newest_members

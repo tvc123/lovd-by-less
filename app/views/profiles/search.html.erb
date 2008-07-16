@@ -4,7 +4,7 @@
 		<div class="search_row left text_c">
 			<div><%= icon result %></div>
 			<div><%= link_to h(result.full_name), result %></div>
-			<div>Language(s):<%=result.languages.collection{|language| language.english_name}.join(' ') %></div>
+			<div>Language(s):<%=result.languages.collect{|language| language.english_name}.join(' ') %></div>
 			<div>Location:<%=result.location %></div>
 			<div>Why I joined:<%=result.why_joined %></div>
 		</div>

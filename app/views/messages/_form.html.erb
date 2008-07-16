@@ -1,5 +1,4 @@
 <%
-#locals
 message ||= @message
 message ||= Message.new params[:message]
 to_list ||= @to_list
@@ -24,7 +23,7 @@ end
 			<label for="">To:</label>
 			<%= f.collection_select(:receiver_id, to_list, :id, :full_name) %>	
 		</div>
-		
+	
 		<div class="row">
 			<label for="">Subject:</label>
 			<%= f.text_field :subject %>

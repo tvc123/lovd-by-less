@@ -1,5 +1,4 @@
 <%-
-#locals
 list ||= @list
 sub ||= 'inbox'
 label ||= 'Inbox Messages'
@@ -13,23 +12,23 @@ sent = params[:action]=='sent'
 </div>
  
 <%- if list.empty? -%>
-<p>No Messages</p>
+	<p>No Messages</p>
 <%- else -%>
-<table id="messages" border="0" cellspacing="0" cellpadding="0">
- 	<tr>
-   		<th><%= sent ? "To" : "From" %></th>
-    	<th><%= "When" %></th>
-    	<th><%= "Subject" %></th>
-	</tr>
-	<% list.each do |m|
-		mail_user = (current_user == m.sender ? m.receiver : m.sender)%>
-	<tr>
-		<td><%= link_to mail_user.f,  mail_user %></td>
-		<td><%= time_ago_in_words m.created_at %> ago</td>
-		<td><%= link_to h( m.subject), message_path(m) %></td>
-	</tr>
-	<% end %>
-</table>
+	<table id="messages" border="0" cellspacing="0" cellpadding="0">
+	 	<tr>
+	   		<th><%= sent ? "To" : "From" %></th>
+	    	<th><%= "When" %></th>
+	    	<th><%= "Subject" %></th>
+		</tr>
+		<% list.each do |m|
+			mail_user = (current_user == m.sender ? m.receiver : m.sender)%>
+		<tr>
+			<td><%= link_to mail_user.f,  mail_user %></td>
+			<td><%= time_ago_in_words m.created_at %> ago</td>
+			<td><%= link_to h( m.subject), message_path(m) %></td>
+		</tr>
+		<% end %>
+	</table>
 <%- end -%>
 
 <div id="new_direct_message" class="hidden">

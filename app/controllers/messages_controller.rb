@@ -5,11 +5,9 @@ class MessagesController < ApplicationController
 
     def index
         @message = Message.new
-        @to_list = current_user.friends
-
+        @to_list = (current_user.followers + current_user.friends + current_user.followings)
         if current_user.received_messages.empty? && current_user.has_network?
             flash[:notice] = 'You have no mail in your inbox.  Try sending a message to someone.'
-            @to_list = (current_user.followers + current_user.friends + current_user.followings)
             redirect_to new_user_message_path(current_user) and return
         end
     end
@@ -39,7 +37,9 @@ class MessagesController < ApplicationController
     def new
         @message = Message.new
         @to_list = (current_user.followers + current_user.friends + current_user.followings)
-        render
+        respond_to do |format|
+            format.html
+        end
     end
 
 

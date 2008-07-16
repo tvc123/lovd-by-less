@@ -16,7 +16,7 @@
   		<%= link_to "Inbox", messages_path unless user.received_messages.empty? %>
   		<%= link_to "Sent Messages", sent_messages_path, :class=>"selected" unless user.sent_messages.empty? %>
 			<%= inline_tb_link 'New Message', "new_direct_message", {:title => "New Message"}, {:height => 380} %>
-			<% if message -%>
+			<% if defined? message -%>
 				<%= inline_tb_link 'Reply', "new_reply", {:title => "Reply To #{message.sender.f}"}, {:height => 380} if message.sender != user %>
 			<% end -%>
 		<% end -%>

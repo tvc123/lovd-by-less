@@ -17,6 +17,11 @@ title = type == 'followings' ? 'Following' : type
 			<div class="left my_network">
 				<%= icon user %> <%= get_friend_link @user, user if with_friending %>
 			</div>
+			<div class="left" style="margin-left: 10px;">
+				<%= link_to h(user.f), profile_path(user) %>
+				<small><%= h(user.location) || '' %></small>
+		  </div>
+			<div class="clear"></div>
 		<% end %>
 
 		<div class="clear"></div>    

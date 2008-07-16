@@ -1,0 +1,31 @@
+<div id="sub_nav">
+	<%- if is_me?(user) -%>
+		<%= link_to '&larr; My TWB', user_path(user) %>
+  	<%= link_to 'Messages', messages_path unless user.received_messages.empty? && !user.has_network? %>
+  <%- else -%>
+  	<%= link_to "&larr; Back to #{h user.f}'s Profile", profile_path(user) %>
+  <%- end -%>
+	<%= link_to 'Photos', user_photos_path(user) %>
+  <%= link_to 'Friends', user_friends_path(user) if user.has_network? %>
+  <%= link_to 'Blog', user_blogs_path(user) %>
+	<!--<%= link_to 'Groups', user_groups_path(user) %>	TODO -->
+</div>
+<% if is_me?(user) -%>
+  <div id="local_nav">
+	  <% is_controller? 'messages' do -%>
+  		<%= link_to "Inbox", messages_path unless user.received_messages.empty? %>
+  		<%= link_to "Sent Messages", sent_messages_path, :class=>"selected" unless user.sent_messages.empty? %>
+			<%= inline_tb_link 'New Message', "new_direct_message", {:title => "New Message"}, {:height => 380} %>
+			<% if message -%>
+				<%= inline_tb_link 'Reply', "new_reply", {:title => "Reply To #{message.sender.f}"}, {:height => 380} if message.sender != user %>
+			<% end -%>
+		<% end -%>
+		<% is_controller? 'users' do -%>
+	  	<%= link_to 'Edit My Profile', edit_user_path(user) %>
+    	<%= link_to 'View Public Profile',  profile_path(user)%>
+		<% end -%>
+		<% is_controller? 'blogs' do -%>
+			<%= link_to 'Write a new post', new_user_blog_path(user) %>
+  	<% end -%>
+  </div>
+<% end -%>

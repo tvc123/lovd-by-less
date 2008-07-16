@@ -54,8 +54,6 @@ class MessagesController < ApplicationController
         @to_list = [@message.sender]
     end
 
-
-
     protected
     def allow_to
         super :user, :all => true
@@ -68,7 +66,7 @@ class MessagesController < ApplicationController
     end
     
     def setup
-        @user = User.find_by_login(params[:user_id])
+        @user = User.find_by_login(params[:user_id]) || current_user
     end
 
 end

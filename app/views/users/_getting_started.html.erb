@@ -14,7 +14,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if profile_empty -%>  
 		<div class="blurp">
 			<img src="/images/blurp_profile.png" class="left png" title="Profile Icon" alt="Profile Icon" />
-			<strong><%= link_to 'Setup Your Profile', edit_profile_path %></strong>
+			<strong><%= link_to 'Setup Your Profile', edit_user_path %></strong>
 			Your public profile is the way your friends will learn about you and keep up-to-date on your life.
 			Upload a profile photo, add an "about me" connect with new and old friends.  
 			<div class="clear"></div>
@@ -24,7 +24,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if photos_empty -%>
 		<div class="blurp">
 			<img src="/images/blurp_photos.png" class="png left" title="Share Icon"  alt="Share Icon" />
-			<strong><%= link_to 'Share Photos', profile_photos_path(current_user) %></strong>
+			<strong><%= link_to 'Share Photos', user_photos_path(current_user) %></strong>
 			<%= GlobalConfig.application_url_name %> allows users to upload images with captions on to their profile.  
 			We love someone to build albums, tagging and commenting on photos for this open source project!
 			<div class="clear"></div>

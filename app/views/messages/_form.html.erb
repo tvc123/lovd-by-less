@@ -14,11 +14,7 @@ end
 
 <% unless hide_header %>
   <h1>Compose New Message</h1>
-  <div id="sub_nav">
-  	<%= link_to '&larr; Back to Dashboard', current_user %>  
-  	<%= link_to "Inbox", messages_path unless current_user.received_messages.empty? %>
-  	<%= link_to "Sent", sent_messages_path, :class=>"selected"  unless current_user.sent_messages.empty? %>
-  </div>
+	<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <% end %>
 
 <div class="thickbox_form">

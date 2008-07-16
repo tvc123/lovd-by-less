@@ -26,7 +26,7 @@
 					<li><a href="http://connect.<%= GlobalConfig.application_base_url %>/">Members</a></li>
 				</ul>	
 				<div id="portal-searchbox">
-				    <form name="searchform" action="http://twb.enpraxis.net/search">
+				    <form name="searchform" action="http://www.<%= GlobalConfig.application_base_url %>/search">
 				        <input name="SearchableText" type="text" size="18" value="Search" accesskey="4" class="inputLabel" id="searchGadget" onclick="this.value='';" />
 								<input type="Submit" id="searchsubmit" value="Search" />
 				    </form>
@@ -63,7 +63,7 @@
             <div id="welcome" class="right">
               <% if logged_in? %>
               	<%= icon(current_user, :small) unless current_user.icon.blank? %> <strong>Hi, <%= current_user.login %></strong> 
-								<%= link_to('Dashboard', current_user) if current_user %>
+								<%= link_to('My TWB', current_user) if current_user %>								
 								<%= link_to('Forums', forums_url) %>
 								<%= link_to '(logout)', logout_path %>
 							<% else %>	

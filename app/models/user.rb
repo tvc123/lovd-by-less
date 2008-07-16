@@ -98,6 +98,10 @@ class User < ActiveRecord::Base
     has_many :received_messages, :class_name => 'Message', :order => 'created_at desc', :foreign_key => 'receiver_id'
     has_many :unread_messages,   :class_name => 'Message', :conditions => ["read=?",false] 
 
+    # Groups
+    has_many :memberships
+    has_many :groups, :through => :memberships
+    
     # Friends
     has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"
     has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}"

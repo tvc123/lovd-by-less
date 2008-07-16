@@ -1,7 +1,4 @@
 <h1>New Post</h1>
-<div id="sub_nav">
-	<%= link_to('&larr; Back to Dashboard', current_user) if logged_in? %>  
-	<%= link_to '&larr; Back to Blog', user_blogs_path(current_user) unless current_user.blogs.empty? %>
-</div>  
+<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>  
 <%= render :partial => 'form' %>
 

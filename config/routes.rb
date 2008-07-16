@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :groups
+
 
     map.root :controller => 'home', :action => 'index'
 
@@ -15,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     # users
     map.resources :users, :member => { :enable => :put, :help => :get, :welcome => :get, :delete_icon => :post }, 
                           :collection => { :is_login_available => :post, :is_email_available => :post }, 
-                          :has_many => [:friends, :blogs, :photos, :comments, :feed_items, :messages, :roles] do |users|
+                          :has_many => [:groups, :friends, :blogs, :photos, :comments, :feed_items, :messages, :roles] do |users|
         users.resource :account
     end
         

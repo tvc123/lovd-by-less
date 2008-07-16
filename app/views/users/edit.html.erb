@@ -1,8 +1,5 @@
 <h1>Edit Profile <%= 'or '+link_to('Skip This Step', profile_path(@user)) if flash[:notice]=="Thanks for signing up!" %></h1>
-<div id="sub_nav">
-<%= link_to 'View Public Profile', profile_path(@user).add_param(:public_view=>true)%>
-<%= link_to('&larr; Jump to Dashboard', @user) if @user %>  
-</div>
+<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 
 <div class="left half">
   <div id="general_info">

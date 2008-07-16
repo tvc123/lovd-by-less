@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
 
     before_filter :can_send, :only => :create
+    before_filter :setup
 
     def index
         @message = Message.new
@@ -65,4 +66,9 @@ class MessagesController < ApplicationController
             page.alert "Sorry, you can't send messages."
         end unless current_user.can_send_messages
     end
+    
+    def setup
+        @user = User.find_by_login(params[:user_id])
+    end
+
 end

@@ -74,4 +74,11 @@ module ApplicationHelper
         inline_tb_link(video.title, h(id), {}, {:height => 355, :width => 430}) + %(<div id="#{h id}" style="display:none;">#{video.embed_html}</div>)
     end
 
+    def is_controller?(controller, &block)
+        if params[:controller] == controller
+            content = capture(&block)
+            concat(content, block.binding)
+        end
+    end
+    
 end

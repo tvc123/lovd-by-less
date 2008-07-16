@@ -5,16 +5,8 @@
 <%= auto_discovery_link_tag :rss, formatted_user_photos_url(current_user, :rss), :title=>"#{current_user.login}'s Photos" %>
 <% end -%>
 
-<h1>Your Dashboard</h1>
-<div id="sub_nav">
-  <%= link_to 'View Public Profile',  profile_path(current_user)%>
-  <%= link_to 'Messages', messages_path unless current_user.received_messages.empty? && !current_user.has_network? %>
-  <%= link_to 'Photos', user_photos_path(current_user) %>
-  <%= link_to 'Friends', user_friends_path(current_user) if current_user.has_network? %>
-  <%= link_to 'Blog', user_blogs_path(current_user) %>
-	<%= link_to 'Edit My Profile', edit_user_path(current_user) %>
-</div>
-
+<h1>My TWB</h1>
+<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <%= render :partial => 'users/getting_started' %>
 
 <div class="half left">

@@ -4,15 +4,8 @@ message ||= @message
 to_list ||= @to_list
 %>
 
+<%= render :partial => 'shared/user_menu', :locals => {:user => current_user} %>
 
-
-<div id="sub_nav">
-	<%= link_to '&larr; Back to Dashboard', current_user %> 
-	<%= inline_tb_link 'Reply', "new_reply", {:title => "Reply To #{message.sender.f}"}, {:height => 380} if message && message.sender != current_user %>
-	<%= link_to "Inbox", messages_path %>
-	<%= link_to "Sent", sent_messages_path unless current_user.sent_messages.empty? %>
-
-</div>
 <h2 style="font-size: 11px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
   From: <%= link_to message.sender.f, message.sender %><br />
   When: <%= time_ago_in_words message.created_at %><br />
@@ -21,10 +14,6 @@ to_list ||= @to_list
 <div class="clear" style="padding-bottom: 10px; border-bottom: 1px solid #ccc;">
   <%= textilize message.body %>
 </div>
-
-
-
-
 
 <div id="new_reply" class="hidden">
 	<%= render :partial => "messages/form" %>

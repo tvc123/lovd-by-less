@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
 
     filter_parameter_logging "password"
 
-    before_filter :login_from_cookie, :login_required, :pagination_defaults
+    before_filter :login_from_cookie, :login_required, :setup_paging
     after_filter :store_location
 
-    def pagination_defaults
+    def setup_paging
         @page = (params[:page] || 1).to_i
         @page = 1 if @page < 1
         @per_page = (params[:per_page] || (RAILS_ENV=='test' ? 1 : 40)).to_i

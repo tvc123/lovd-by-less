@@ -27,13 +27,10 @@ if mini
   <%- else -%>
 
   <div class="left" id="column_l">	
-    <h1><%= icon profile %> <%= "#{profile.f}'s Photos" %></h1>
-
-    <div id="sub_nav">
-      <%= link_to '&larr; Back to Dashboard', user_path(@user) if is_me?(@user) %>
-      <%= link_to "&larr; Back to #{h profile.f}'s profile", profile_path(@user) unless is_me?(@user) %> 
-    </div>	
-    <div id="photo_wall">
+		<h1><%= icon profile %> <%= "#{profile.f}'s Photos" %></h1>
+		<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
+		
+		<div id="photo_wall">
       <%= render :partial => 'photo', :collection => @photos %>
 
       <div class="clear"></div>

@@ -25,7 +25,9 @@ class FriendsController < ApplicationController
     end
 
     def index
-        render
+        respond_to do |format|
+            format.html
+        end
     end
 
     protected

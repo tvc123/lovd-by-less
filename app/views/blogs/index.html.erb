@@ -8,16 +8,7 @@
 <div class="left" id="column_l">
 
   <h1><%= icon @user %> <%= @user.f %>'s Blog</h1>
-  <!-- BEGIN POST LINKS -->
-  <div id="sub_nav">
-    <%- if is_me?(@user) -%>
-    <%= link_to '&larr; Back to Dashboard', user_path(@user) %>
-    <%= link_to 'Write a new post', new_user_blog_path(@user) %>
-    <%- else -%>
-    <%= link_to "&larr; Back to #{h @user.f}'s Profile", profile_path(@user) %>
-    <%- end -%>
-  </div>
-  <!-- END POST LINKS -->
+  <%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 
   <% if @blogs.empty? %>
   <%= @user.f %> has no blog posts.

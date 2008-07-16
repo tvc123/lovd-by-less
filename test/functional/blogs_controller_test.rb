@@ -7,7 +7,7 @@ class BlogsControllerTest < Test::Unit::TestCase
     :body => 'This is a valid blog post.'
   }
   
-  OWNER_LINKS = ['(edit)', '(delete)', 'Write a new post', "&larr; Back to Dashboard"]
+  OWNER_LINKS = ['(edit)', '(delete)', 'Write a new post', "&larr; My TWB"]
   
   def setup
     @controller = BlogsController.new
@@ -65,7 +65,7 @@ class BlogsControllerTest < Test::Unit::TestCase
       assert_equal Hash.new, flash
       assert_template 'new'
       assert_response :success
-      assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(p)}
+      assert_tag :content => '&larr; My TWB', :attributes => {:href=>profile_path(p)}
       assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(p)}
     end
     
@@ -98,7 +98,7 @@ class BlogsControllerTest < Test::Unit::TestCase
       assert_equal Hash.new, flash
       assert_template 'edit'
       assert_response :success
-      assert_tag :content => '&larr; Back to Dashboard', :attributes => {:href=>profile_path(present_user)}
+      assert_tag :content => '&larr; My TWB', :attributes => {:href=>profile_path(present_user)}
       assert_tag :content => '&larr; Back to Blogs', :attributes => {:href=>user_blogs_path(present_user)}
     end
     

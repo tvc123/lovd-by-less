@@ -5,13 +5,7 @@
 <div class="left" id="column_l">
 
   <h1><%= icon @user %> <%= @user.f %>'s Blog</h1>
-
-  <div id="sub_nav">
-    <%= link_to '&larr; Back to Dashboard', profile_path(@user) if is_me?(@user) %>
-    <%= link_to 'Write a new post', new_user_blog_path(@user) if is_me?(@user) %>
-    <%= link_to "&larr; Back to #{h @user.f}'s Profile", profile_path(@user) unless is_me?(@user) %>
-  </div>
-
+  <%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
   <%= render :partial => 'blogs/blog' %>
 </div>
 

@@ -1,6 +1,6 @@
 module FriendsHelper
 
-    def get_friend_link user, target
+    def get_friend_link(user, target)
         return wrap_get_friend_link(link_to('Sign-up to Follow', signup_path)) if user.blank?
         return '' unless user != :false && target
         dom_id = user.dom_id(target.dom_id + '_friendship_')
@@ -12,8 +12,9 @@ module FriendsHelper
     end
 
     protected
-    def wrap_get_friend_link str, dom_id = ''
-        content_tag :span, str, :id=>dom_id, :class=>'friendship_description'
+    def wrap_get_friend_link(text, dom_id = '')
+        "<span id=\"\" class=\"\"></span>
+        <span id=\"#{dom_id}\" class=\"#{friendship_description}\">#{text}</span>"
     end
 
 end

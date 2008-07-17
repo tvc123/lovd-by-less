@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
     
+    include SMSFu
     include ApplicationHelper
 
     before_filter :search_results, :only => [:index, :search]
@@ -55,5 +56,5 @@ class ProfilesController < ApplicationController
         end
         @results = User.search((p.delete(:q) || ''), p).paginate(:page => @page, :per_page => @per_page)
     end
-
+    
 end

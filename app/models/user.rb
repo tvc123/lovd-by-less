@@ -367,6 +367,14 @@ class User < ActiveRecord::Base
         arr
     end
 
+    # def can_sms?
+    #     self.allow_sms
+    # end
+    # 
+    # def send_sms
+    #     deliver_sms(self.cell_phone, self.carrier, params[:message], :limit => 128) 
+    # end
+    
     # sync user data with salesforce
     def salesforce_sync
         sf_user = Contact.find(:first, :conditions => ['email = ?', self.email]) || Contact.new()

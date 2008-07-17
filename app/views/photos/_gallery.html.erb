@@ -1,13 +1,12 @@
 <%-
-# Locals
 mini ||= false
-profile ||= @user
+user ||= @user
 photos ||= @photos
 
 if mini
   size ||= 8
-  photos = profile.photos.find :all, :limit => size
-  total = profile.photos.count -%>
+  photos = user.photos.find :all, :limit => size
+  total = user.photos.count -%>
 
   <%- unless photos.empty? -%>
   <div class="activity_box" id="photo">
@@ -24,10 +23,10 @@ if mini
   </div>
   <%- end -%>	
 
-  <%- else -%>
+<%- else -%>
 
   <div class="left" id="column_l">	
-		<h1><%= icon profile %> <%= "#{profile.f}'s Photos" %></h1>
+		<h1><%= icon user %> <%= "#{user.f}'s Photos" %></h1>
 		<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 		
 		<div id="photo_wall">
@@ -41,16 +40,11 @@ if mini
   </div>
 
   <div class="right" id="column_r">
-    <% if is_me?(profile) %>
+    <% if is_me?(user) %>
     <div class="right upload_form activity_box">
       <%= render :partial => 'form' %>
     </div>
     <% end %>
 
   </div>
-
-
-
-  <%- end -%>
-
-
+<%- end -%>

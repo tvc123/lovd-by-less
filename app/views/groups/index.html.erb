@@ -4,8 +4,8 @@
 
 <h1><%= icon @user %> <%= @user.f %>'s Groups</h1>
 <%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
-
 <div class="left" id="column_l">
+	<%= link_to 'Create a New Group', new_user_group_path(@user) %>
   <% if @groups.empty? %>
   	<%= @user.f %> isn't a member of any groups.
   <% else %>

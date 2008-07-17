@@ -1,3 +1,4 @@
+<% if user && !user.nil? -%>
 <div id="sub_nav">
 	<%- if is_me?(user) -%>
 		<%= link_to '&larr; My TWB', user_path(user) %>
@@ -8,7 +9,7 @@
 	<%= link_to 'Photos', user_photos_path(user) %>
   <%= link_to 'Friends', user_friends_path(user) if user.has_network? %>
   <%= link_to 'Blog', user_blogs_path(user) %>
-	<!--<%= link_to 'Groups', user_groups_path(user) %>	TODO -->
+	<%= link_to 'Groups', user_groups_path(user) %>
 </div>
 <% if is_me?(user) -%>
   <div id="local_nav">
@@ -31,4 +32,5 @@
 			<%= link_to 'Write a new post', new_user_blog_path(user) %>
   	<% end -%>
   </div>
+<% end -%>
 <% end -%>

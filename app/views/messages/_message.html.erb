@@ -1,19 +1,9 @@
-<%
-message ||= @message
-to_list ||= @to_list
-%>
-
-<%= render :partial => 'shared/user_menu', :locals => {:user => current_user} %>
-
-<h2 style="font-size: 11px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-  From: <%= link_to message.sender.f, message.sender %><br />
-  When: <%= time_ago_in_words message.created_at %><br />
-  <strong>Subject: <%= h message.subject %></strong>
-</h2>
+<h1><%= h message.subject %></h1>
+<div class="activity_box" id="comment">
+	<h2>
+		From: <%= link_to message.sender.f, profile_path(message.sender) %> <%= time_ago_in_words message.created_at %> ago
+	</h2>
+</div>
 <div class="clear" style="padding-bottom: 10px; border-bottom: 1px solid #ccc;">
   <%= textilize message.body %>
-</div>
-
-<div id="new_reply" class="hidden">
-	<%= render :partial => "messages/form" %>
 </div>

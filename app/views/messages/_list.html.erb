@@ -6,7 +6,6 @@ sent = params[:action]=='sent'
 -%>
 
 <h1>Message Center</h1>
-<%= render :partial => 'shared/user_menu', :locals => {:user => current_user} %>
 <div class="activity_box" id="comment">
 	<h2><%= sanitize label %></h2>
 </div>
@@ -20,17 +19,13 @@ sent = params[:action]=='sent'
 	    	<th><%= "When" %></th>
 	    	<th><%= "Subject" %></th>
 		</tr>
-		<% list.each do |m|
-			mail_user = (current_user == m.sender ? m.receiver : m.sender)%>
+		<% list.each do |message|
+			mail_user = (current_user == message.sender ? message.receiver : message.sender)%>
 		<tr>
-			<td><%= link_to mail_user.f,  mail_user %></td>
-			<td><%= time_ago_in_words m.created_at %> ago</td>
-			<td><%= link_to h( m.subject), message_path(m) %></td>
+			<td><%= link_to mail_user.f,  profile_path(mail_user) %></td>
+			<td><%= time_ago_in_words message.created_at %> ago</td>
+			<td><%= link_to h( message.subject), message_path(message) %></td>
 		</tr>
 		<% end %>
 	</table>
 <%- end -%>
-
-<div id="new_direct_message" class="hidden">
-	<%= render :partial => 'messages/form', :locals => {:hide_header => true} %>
-</div>

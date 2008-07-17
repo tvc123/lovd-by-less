@@ -1,1 +1,2 @@
+<%= render :partial => 'shared/user_menu', :locals => {:user => current_user} %>
 <%= render :partial=>'messages/list', :locals=> {:list => current_user.received_messages} %>

@@ -3,19 +3,7 @@ message ||= @message
 message ||= Message.new params[:message]
 to_list ||= @to_list
 to_list ||= [@user] #used on someone's profile page
-hide_header ||= false
-
-unless message.new_record?
-  message.subject = "RE: " + message.subject
-  message.body = "\n\n\n\n\n\n\n\n\n" + message.body.gsub(/^/, '> ')
-end
 %>
-
-<% unless hide_header %>
-  <h1>Compose New Message</h1>
-	<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
-<% end %>
-
 <div class="thickbox_form">
 	<% remote_form_for :message, :url => messages_path do |f| %>
 		

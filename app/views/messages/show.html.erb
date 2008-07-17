@@ -1,6 +1,13 @@
 <%
-label ||= 'Reading a Message'
+label ||= 'Message'
 @title = label
 %>
-<h1><%= sanitize label %></h1>
-<%= render :partial => "messages/message" %>
+<%= render :partial => 'shared/user_menu', :locals => {:user => current_user} %>
+<%= render :partial => "messages/message", :object => @message %>
+<div id="new_reply" class="hidden">
+	<%
+	@message.subject = "RE: " + @message.subject
+	@message.body = "\n\n\n\n" + @message.body.gsub(/^/, '> ')
+	%>
+	<%= render :partial => "messages/form", :locals => {:to_list => @to_list} %>
+</div>

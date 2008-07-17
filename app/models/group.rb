@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20080715224909
+#
+# Table name: groups
+#
+#  id         :integer(11)   not null, primary key
+#  created_at :datetime      
+#  updated_at :datetime      
+#
+
 class Group < ActiveRecord::Base
     has_many :memberships, :dependent => :destroy
     has_many :membership_requests, :dependent => :destroy

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080703173050
+# Schema version: 20080715224909
 #
 # Table name: users
 #
@@ -35,9 +35,9 @@
 #  flickr_username           :string(255)   
 #  identity_url              :string(255)   
 #  city                      :string(255)   
-#  state                     :integer(11)   
+#  state_id                  :integer(11)   
 #  zip                       :string(255)   
-#  country                   :integer(11)   
+#  country_id                :integer(11)   
 #  phone                     :string(255)   
 #  phone2                    :string(255)   
 #  msn                       :string(255)   
@@ -45,7 +45,7 @@
 #  yahoo                     :string(255)   
 #  organization              :string(255)   
 #  grade_experience          :integer(11)   
-#  first_language            :integer(11)   
+#  language_id               :integer(11)   
 #  why_joined                :text          
 #  skills                    :text          
 #  occupation                :text          

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080703173050
+# Schema version: 20080717230806
 #
 # Table name: forum_topics
 #

@@ -1,3 +1,69 @@
+<div class="left" id="column_l">	
+	<h1><%= @group.name %></h1>
+	
+	<div id="information" class="activity_box">
+		<h2>Information</h2>
+		<%= @group.description %>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="forums" class="activity_box">
+		<h2>Forums</h2>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="wall" class="activity_box">
+		<h2>Wall</h2>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="news" class="activity_box">
+		<h2>News</h2>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="photo_wall" class="activity_box">
+		<h2>Photos</h2>
+    <%= render :partial => 'photo', :collection => @photos %>
+    <div class="clear"></div>
+  </div>
+  <%= will_paginate @photos %>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+  <div class="clear"></div>
+
+	<div id="news" class="activity_box">
+		<h2>Videos</h2>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="news" class="activity_box">
+		<h2>Posted</h2>
+		Links
+	</div>
+	
+	<div class="clear"></div>
+	
+</div>
+
+<div class="right" id="column_r">
+  
+	<%= link_to 'Edit', edit_group_path(@group) %> |
+
+	<div class="right upload_form activity_box">
+    <h2>Admins</h2>
+		<%= @group.creator %>
+		<%= @group.managers %>
+  </div>
+	
+	<div class="clear"></div>
+	
+	<div class="right upload_form activity_box">
+    <h2>Members</h2>
+  </div>
+
+</div>

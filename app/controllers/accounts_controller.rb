@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
             end             
         end
         
-        @current_user.salesforce_sync if GlobalConfig.integrate_salesforce
+        user.salesforce_sync if GlobalConfig.integrate_salesforce
                
         flash[:notice] = "Your account has been activated! You can now login."
         redirect_to login_path

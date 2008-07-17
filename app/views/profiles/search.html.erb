@@ -3,10 +3,16 @@
 	<% @results.each do |result| %>
 		<div class="search_row left text_c">
 			<div><%= icon result %></div>
-			<div><%= link_to h(result.full_name), result %></div>
-			<div>Language(s):<%=result.languages.collect{|language| language.english_name}.join(' ') %></div>
-			<div>Location:<%=result.location %></div>
-			<div>Why I joined:<%=result.why_joined %></div>
+			<div><%= link_to h(result.full_name), profile_path(result) %></div>
+			<% unless result.languages.empty? -%>
+				<div>Language(s):<%=result.languages.collect{|language| language.english_name}.join(' ') %></div>
+			<% end -%>
+			<% unless result.location.empty? -%>
+				<div>Location:<%= result.location %></div>
+			<% end -%>
+			<% unless result.why_joined.empty? -%>
+				<div>Why I joined:<%=result.why_joined %></div>
+			<% end -%>
 		</div>
 	<% end %>
 

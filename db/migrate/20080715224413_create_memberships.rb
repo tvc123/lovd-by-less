@@ -3,8 +3,7 @@ class CreateMemberships < ActiveRecord::Migration
         create_table :memberships do |t|
             t.integer "group_id"
             t.integer "user_id"      
-            t.boolean "creator", :default => false
-            t.boolean "manager", :default => false
+            t.integer "role_id"
             t.timestamps
         end
     end

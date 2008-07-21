@@ -6,7 +6,11 @@ class GroupsController < ApplicationController
     # if a user exists in the request show groups for that user.  If not then show all groups
     def index
         
-        @groups = @user.groups.paginate(:page => @page, :per_page => @per_page)
+        if @user
+            @groups = @user.groups.paginate(:page => @page, :per_page => @per_page)
+        else
+            @groups = Group.find(:all).paginate(:page => @page, :per_page => @per_page)
+        end
         
         respond_to do |format|
             format.html # index.html.erb
@@ -14,8 +18,6 @@ class GroupsController < ApplicationController
         end
     end
 
-    # GET /groups/1
-    # GET /groups/1.xml
     def show
         @group = Group.find(params[:id])
 
@@ -25,8 +27,6 @@ class GroupsController < ApplicationController
         end
     end
 
-    # GET /groups/new
-    # GET /groups/new.xml
     def new
         @group = Group.new
 
@@ -41,11 +41,12 @@ class GroupsController < ApplicationController
         @group = Group.find(params[:id])
     end
 
-    # POST /groups
-    # POST /groups.xml
     def create
         @group = Group.new(params[:group])
-
+        
+        @user.created_groups << @group if @user
+        @user.groups << @group if @user
+        
         respond_to do |format|
             if @group.save
                 flash[:notice] = 'Group was successfully created.'

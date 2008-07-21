@@ -1,3 +1,4 @@
+<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <div class="left" id="column_l">	
 	<h1><%= @group.name %></h1>
 	
@@ -28,10 +29,10 @@
 	
 	<div id="photo_wall" class="activity_box">
 		<h2>Photos</h2>
-    <%= render :partial => 'photo', :collection => @photos %>
+    %= render :partial => 'photos/photo', :collection => @photos %
     <div class="clear"></div>
   </div>
-  <%= will_paginate @photos %>
+  %= will_paginate @photos %
 
   <div class="clear"></div>
 
@@ -52,18 +53,26 @@
 
 <div class="right" id="column_r">
   
-	<%= link_to 'Edit', edit_group_path(@group) %> |
+	<% if true -%>
+		<div id="group-administration" class=" activity_box">
+			<h2>Group Administration</h2>
+			<%= link_to 'Edit Group', edit_group_path(@group) %>
+		</div>
+	<% end -%>
 
-	<div class="right upload_form activity_box">
-    <h2>Admins</h2>
-		<%= @group.creator %>
-		<%= @group.managers %>
+	<div class="clear"></div>
+		
+	<div id="group-officers" class="activity_box">
+    <h2>Officers</h2>
+		<%= render :partial => 'groups/group_member', :object => @group.creator, :locals => {:caption => 'creator'} -%>
+		<%= render :partial => 'groups/group_member', :collection => @group.managers, :locals => {:caption => 'manager'} -%>
   </div>
 	
 	<div class="clear"></div>
 	
-	<div class="right upload_form activity_box">
+	<div id="group-members" class="activity_box">
     <h2>Members</h2>
+		<%= render :partial => 'groups/group_member', :collection => @group.members, :locals => {:caption => 'member'} -%>
   </div>
 
 </div>

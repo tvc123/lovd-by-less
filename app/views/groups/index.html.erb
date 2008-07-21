@@ -1,13 +1,20 @@
-<% content_for :head do  -%>
-	<%= auto_discovery_link_tag :rss, formatted_user_groups_url(@user, :rss), :title=>"#{@user.f}'s Groups" %>
+<% if @user -%>
+	<% content_for :head do  -%>
+		<%= auto_discovery_link_tag :rss, formatted_user_groups_url(@user, :rss), :title=>"#{@user.f}'s Groups" %>
+	<% end -%>
+
+	<h1><%= icon @user %> <%= @user.f %>'s Groups</h1>
+	<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <% end -%>
 
-<h1><%= icon @user %> <%= @user.f %>'s Groups</h1>
-<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <div class="left" id="column_l">
-	<%= link_to 'Create a New Group', new_user_group_path(@user) %>
+	<%= link_to 'Create a New Group', new_user_group_path(current_user) if current_user %>
   <% if @groups.empty? %>
-  	<%= @user.f %> isn't a member of any groups.
+		<% if @user -%>
+  		<%= @user.f %> isn't a member of any groups.
+		<% else -%>
+			There are not currently any groups.
+		<% end -%>
   <% else %>
   	<%= render :partial => 'groups/group', :collection => @groups %>
   <% end %>

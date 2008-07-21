@@ -2,12 +2,12 @@
 <div id="sub_nav">
 	<%- if is_me?(user) -%>
 		<%= link_to '&larr; My TWB', user_path(user) %>
-  	<%= link_to 'Messages', messages_path unless user.received_messages.empty? && !user.has_network? %>
+  	<%= link_to 'Messages', messages_path %>
   <%- else -%>
   	<%= link_to "&larr; Back to #{h user.f}'s Profile", profile_path(user) %>
   <%- end -%>
 	<%= link_to 'Photos', user_photos_path(user) %>
-  <%= link_to 'Friends', user_friends_path(user) if user.has_network? %>
+  <%= link_to 'Friends', user_friends_path(user) %>
   <%= link_to 'Blog', user_blogs_path(user) %>
 	<%= link_to 'Groups', user_groups_path(user) %>
 </div>
@@ -16,7 +16,7 @@
 	  <% is_controller? 'messages' do -%>
   		<%= link_to "Inbox", messages_path unless user.received_messages.empty? %>
   		<%= link_to "Sent Messages", sent_messages_path, :class=>"selected" unless user.sent_messages.empty? %>
-			<%= inline_tb_link 'New Message', "new_direct_message", {:title => "New Message"}, {:height => 380} %>
+			<%= inline_tb_link 'New Message', "new_direct_message", {:title => "New Message"}, {:height => 380} if user.has_network? %>
 			<div id="new_direct_message" class="hidden">
 				<%= render :partial => 'messages/form', :locals => {:to_list => my_friends} %>
 			</div>

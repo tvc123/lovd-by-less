@@ -103,3 +103,27 @@ function toggleComments(comment_id)
     	jQuery('#comment_'+comment_id+'_toggle_link').html() == "(more)" ? "(less)" : "(more)"
 	); 
 }
+
+
+// new stuff
+jQuery(document).ready(function() {
+	
+	jQuery(".tip-field").focus(function() {
+		jQuery(".active").removeClass("active");
+		jQuery(".hidden-tips").css("display", "none");
+		jQuery("#" + this.id + "-help").show();
+		jQuery("#" + this.id + "-container").addClass("active");
+	});
+	
+	jQuery(".hidden-tips").css("display", "none");
+
+	jQuery(".required-value").blur(function() {
+		if (jQuery(this).val().length == 0) {
+			jQuery('#' + this.id + '_required').show();
+		} else {
+			jQuery('#' + this.id + '_required').hide();
+			jQuery("#" + this.id + "-container").children().removeClass("fieldWithErrors");
+		}
+	});
+	
+});

@@ -7,6 +7,16 @@ module ApplicationHelper
         user == current_user
     end
 
+    def custom_form_for(record_or_name_or_array, *args, &proc) 
+        options = args.detect { |argument| argument.is_a?(Hash) } 
+        if options.nil? 
+            options = {:builder => CustomFormBuilder} 
+            args << options 
+        end 
+        options[:builder] = CustomFormBuilder unless options.nil? 
+        form_for(record_or_name_or_array, *args, &proc) 
+    end
+    
     def less_form_for name, *args, &block
         options = args.last.is_a?(Hash) ? args.pop : {}
         options = options.merge(:builder=>LessFormBuilder)

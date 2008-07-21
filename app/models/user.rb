@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
     # Groups
     has_many :memberships
     has_many :groups, :through => :memberships
+    has_many :created_groups, :class_name => 'Group', :foreign_key => 'creator_id'
     
     # Friends
     has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"

@@ -190,6 +190,8 @@ position:absolute;height:expression(document.body.scrollHeight > document.body.o
 #terms-of-service{width:500px;}
 #terms-of-service input{float:left;clear:none;margin-right:5px;}
 #terms-of-service label{float:left;clear:none;width:400px;}
+
+.fieldWithErrors em{color:#fff;}
 .fieldWithErrors{padding:2px;background-color:red;display:table;}
 #errorExplanation{width:400px;border:2px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#f0f0f0;}
 #errorExplanation h2{text-align:left;font-weight:bold;padding:5px 5px 5px 15px;font-size:12px;margin:-7px;background-color:#c00;color:#fff;}
@@ -197,3 +199,13 @@ position:absolute;height:expression(document.body.scrollHeight > document.body.o
 #errorExplanation ul li{font-size:12px;list-style:none;}
 .flashnotice{padding:3px;margin-bottom:10px;clear:both;width:400px;border:2px solid red;background:#f0f0f0;}
 .flasherror{padding:3px;margin-bottom:10px;clear:both;color:red;}
+
+form fieldset{margin:0 0 2px;padding:0px;}
+div.form-item{float:left;clear:none;margin-right:10px;padding:10px;width:375px;}
+div.form-item select{width:170px;}
+.hidden-tips{float:left;clear:none;background:#fff;width:225px;border:solid 1px #1A1A1A;padding:7px;}
+.hidden-tips p{color:#555555;font-size:1.2em;}
+.required-tip{color:red;font-size:1.2em;margin:0pt;font-weight:bolder;}
+.active{background:#E9EFD5 none repeat scroll 0%;}
+#availibility{font-size:1.4em;padding:2px 0;color:#b30e01;font-weight:bold;}
+form em{color:#b61e12;font-style:normal;}

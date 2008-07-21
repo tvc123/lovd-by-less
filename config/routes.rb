@@ -1,7 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :groups
-
-
+  
     map.root :controller => 'home', :action => 'index'
 
     # home
@@ -40,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     
     # groups
     map.resources :groups
-    
+
     # sessions
     map.resource :session
     map.with_options(:controller => 'sessions') do |sessions|

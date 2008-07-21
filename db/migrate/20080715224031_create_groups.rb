@@ -1,9 +1,10 @@
 class CreateGroups < ActiveRecord::Migration
     def self.up
         create_table :groups do |t|
-            t.string "title"
-            t.text "description"
-            t.string "state"
+            t.integer   :creator_id
+            t.string    :name
+            t.text      :description
+            t.string    :state
             t.timestamps
         end
     end

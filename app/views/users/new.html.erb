@@ -41,7 +41,7 @@ jQuery(document).ready(function()
 });
 </script>
 
-<div id="login_form">
+<div class="left" id="column_l">
 	
 	<% form_for :user, :url => users_path, :html => {:id => "register"} do |f| -%>
 	
@@ -109,4 +109,19 @@ jQuery(document).ready(function()
 	  </div>
 	
 	<% end %>
+</div>
+
+
+<div class="right" id="column_r">
+	<div style="margin:10px 0px 5px -20px;">
+		<img width="250" height="250" border="0" alt="" src="/images/child.jpg" id="Picture33"/>
+	</div>
+	<h2>Why Joining Matters</h2>
+	<ul>
+		<li>Consult for Teachers Without Borders projects to close the education divide.</li>
+		<li>Improve the chances for stability, democracy, hope, and participation in a global economy.</li>
+    <li>Help teachers gain access to a global network and clearinghouse of good ideas.</li>
+    <li>Ensure digital desegregation in a world increasingly dependent upon technology.</li>
+    <li>Enlarge attention to one of the most crucial issues of our time - education in an information age.</li>
+  </ul>
 </div>

@@ -13,6 +13,18 @@ class UserMailer < ActionMailer::Base
         #render :file => "user_mailer/signup_notification"
     end
 
+    def reset_notification(user)
+        setup_email(user)
+
+        # Email header info
+        @subject = "Your #{GlobalConfig.application_name} has not yet been activated"
+
+        # Email body substitutions
+        @body[:login] = "#{user.login}"
+        @body[:reset_url]  = "http://#{GlobalConfig.application_url}/reset_password"
+        @body[:activate_url]  = "http://#{GlobalConfig.application_url}/activate/#{user.activation_code}"
+    end
+    
     def activation(user)
         setup_email(user)
         @subject    = "Your #{GlobalConfig.application_name} account has been activated!"

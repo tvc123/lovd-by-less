@@ -9,8 +9,14 @@ class UserObserver < ActiveRecord::Observer
             #UserMailer.deliver_activation(user) if user.recently_activated? 
             UserMailer.deliver_activation(user) if user.pending?
         end
-        UserMailer.deliver_forgot_password(user) if user.recently_forgot_password?
-        UserMailer.deliver_reset_password(user) if user.recently_reset_password?
+
+        if user.recently_forgot_password? && !user.active?
+            UserMailer.deliver_reset_notification(user) # user never activated their account.  let them know so they can then reset their password.
+        else
+            UserMailer.deliver_forgot_password(user) if user.recently_forgot_password?
+            UserMailer.deliver_reset_password(user) if user.recently_reset_password?
+        end        
+        
     end
     
 end

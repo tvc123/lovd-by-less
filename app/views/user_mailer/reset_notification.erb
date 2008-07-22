@@ -1,11 +1,19 @@
-Hello <%= @user.login %>,
+Dear <%=h @user.login %>,
 
 You requested that your <%=GlobalConfig.application_name%> password be reset, but your account is not yet active.  
 Please visit the url below to activate your account:
 <%= @activate_url %>
 
-After that you can reset your password by visiting:
+For future reference, you are registered as:
+login name <%=h @user.login %>.
+
+After activating your account you can reset your password by visiting:
 <%= @reset_url %>
 
-Thank You
+Please do not hesitate to contact us at <%= GlobalConfig.support_email %> if you
+are having difficulty with our website.
+
+Best Regards,
+<%= GlobalConfig.emailed_by %>
+
 

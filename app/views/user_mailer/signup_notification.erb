@@ -1,8 +1,23 @@
-Your <%=GlobalConfig.application_name%> account has been created.
+Dear <%=h @user.login %>,
 
-  Username: <%= @user.login %>
+Thank you for creating an account on <%=GlobalConfig.application_name%>.
 
-Visit this url to activate your account:
+Please visit the following url to activate your account:
+<%= @url %>
 
-  <%= @url %>
+For future reference, you are registered as:
+login name <%=h @user.login %>.
+
+Please do not hesitate to contact us at <%= GlobalConfig.support_email %> if you
+are having difficulty with our website.
+
+Best Regards,
+<%= GlobalConfig.emailed_by %>
+
+
+
+
+
+
+
 

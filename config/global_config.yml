@@ -38,6 +38,12 @@ common:
     
 production:
 
+    # Text for emails - ie Sincerly, emailed_by
+    emailed_by: 'Teachers Without Borders'
+    
+    # email address for support requests
+    support_email: 'info@teacherswithoutborders.org'
+    
     # Source address for user emails
     email_from: 'info@teacherswithoutborders.org'
 
@@ -60,6 +66,12 @@ production:
     
 development:
 
+    # Text for emails - ie Sincerly, emailed_by
+    emailed_by: 'Teachers Without Borders' 
+        
+    # email address for support requests
+    support_email: 'info@teacherswithoutborders.org'
+        
     # Source address for user emails
     email_from: 'info@teacherswithoutborders.org'
 
@@ -81,6 +93,9 @@ development:
     
 test:
 
+    # email address for support requests
+    support_email: 'info@teacherswithoutborders.org'
+        
     # Source address for user emails
     email_from: 'info@teacherswithoutborders.org'
 

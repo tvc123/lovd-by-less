@@ -54,7 +54,7 @@ textarea,
 .row input.checkbox{border:solid 1px #000;}
 input.button{background:#666;color:#ddd;font-weight:bold;font-size:10px;width:auto;height:auto;padding:5px;}
 input.button:hover{background:#2ab769;}
-div.button{background:#1a1a1a;border-top:1px dotted #666;padding:10px;height:25px;margin-top:15px;}
+div.button{border-top:1px dotted #666;padding:10px;height:25px;margin-top:15px;}
 h1{font-size:28px;letter-spacing:-1.2pt;color:#000;font-weight:bold;margin:25px 0 20px 0;}
 h2{font-size:14px;color:#000;font-weight:bold;margin:0 0 10px 0;}
 form h2{margin:30px 0 10px 0;border-bottom:1px dotted #666;padding-bottom:7px;clear:both;}

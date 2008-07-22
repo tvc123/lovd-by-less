@@ -1,5 +1,16 @@
-
+Dear <%=h @user.login %>,
 
 <%= @inviter.f%> is now following you on <%= GlobalConfig.application_url_name %> (http://<%= GlobalConfig.application_url %>)
-    
+
 You can go view their profile here: <%= profile_url @inviter, :host=>GlobalConfig.application_url %>
+
+Best Regards,
+<%= GlobalConfig.emailed_by %>
+
+
+
+
+
+
+    
+

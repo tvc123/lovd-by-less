@@ -8,6 +8,10 @@ class SessionsController < ApplicationController
         render
     end
 
+    def show
+        redirect_to login_path
+    end
+    
     def create
         if using_open_id?
             begin

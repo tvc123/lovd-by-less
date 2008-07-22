@@ -96,7 +96,18 @@ class UsersController < ApplicationController
         if params[:user_login] && params[:user_login].length <= 0
             result = ''
         elsif !User.login_exists?(params[:user_login])
-            result = 'Username available'
+            
+            @user = User.new
+        	if !@user.validate_attributes(:only => [:login])
+        	    result = ''
+                @user.errors.full_messages.each do |message|
+                    if !message.include? 'blank'
+                        result += "#{message}<br />"
+                    end
+                end
+        	else
+        	    result = 'Username available'
+        	end
         end
         respond_to do |format|
             format.html { render :text => result}

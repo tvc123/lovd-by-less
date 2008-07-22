@@ -374,8 +374,8 @@ class User < ActiveRecord::Base
         sf_user.email = self.email
         sf_user.remote_id__c = self.id 
         sf_user.remote_login__c = self.login
-        sf_user.first_name = self.first_name if self.first_name
-        sf_user.last_name = self.last_name if self.last_name && !self.last_name.empty?
+        sf_user.first_name = self.first_name || 'not specified'
+        sf_user.last_name = self.last_name || 'not specified'
         sf_user.mailing_city = self.city
         sf_user.mailing_state = self.state.name
         sf_user.mailing_postal_code = self.zip
@@ -407,7 +407,11 @@ class User < ActiveRecord::Base
         # twb_canada__c: false, 
         # newsletter__c: false,
 
-        sf_user.save
+        begin
+            sf_user.save
+        rescue Exception => err
+            logger.error("Failed to sync with Salesforce: #{err.message}")
+        end
     end
     
     protected

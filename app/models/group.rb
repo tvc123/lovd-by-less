@@ -1,15 +1,11 @@
 # == Schema Information
-# Schema version: 20080717230806
+# Schema version: 20080715224909
 #
 # Table name: groups
 #
-#  id          :integer(11)   not null, primary key
-#  creator_id  :integer(11)   
-#  name        :string(255)   
-#  description :text          
-#  state       :string(255)   
-#  created_at  :datetime      
-#  updated_at  :datetime      
+#  id         :integer(11)   not null, primary key
+#  created_at :datetime      
+#  updated_at :datetime      
 #
 
 class Group < ActiveRecord::Base

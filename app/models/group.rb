@@ -24,8 +24,8 @@ class Group < ActiveRecord::Base
                        :order => 'last_name, first_name', 
                        :source => :user,
                        :conditions => "role_id = nil"
-       TODO change membership back to just have the role embedded - creator, manager, member then add the correct conditions here ie:
-       :conditions => "role = 'member'"
+    #   TODO change membership back to just have the role embedded - creator, manager, member then add the correct conditions here ie:
+     #  :conditions => "role = 'member'"
                        
     belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'   
     

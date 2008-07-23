@@ -15,26 +15,24 @@ class Group < ActiveRecord::Base
 
     has_many :membership_requests, :dependent => :destroy
     
+    belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'   
+    
     has_many :members, :through => :memberships, 
                        :dependent => :destroy,
                        :order => 'last_name, first_name', 
-                       :source => :user,
-                       :conditions => "role_id = nil"
-    #   TODO change membership back to just have the role embedded - creator, manager, member then add the correct conditions here ie:
-     #  :conditions => "role = 'member'"
+                       :source => :user do
+        def in_role(role)
+            find :all, :conditions => ['role = ?' , role]
+        end
+    end
                        
-    belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'   
-    
-    has_many :manager_roles, :through => :memberships, :source => :role, :class_name => 'Role', :conditions => "role_name = 'manager'"
-    
-    has_many :managers, :through => :manager_roles, :source => :user
-
     state :approved, :after => :notify_approve 
     state :banned, :after => :notify_ban
         
     event :approve do 
         transitions :to => :approved, :from => :banned  
-    end 
+    end
+     
     event :ban do 
         transitions :to => :banned, :from => :approved 
     end

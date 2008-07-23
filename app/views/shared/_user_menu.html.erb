@@ -31,6 +31,9 @@
 		<% is_controller? 'blogs' do -%>
 			<%= link_to 'Write a new post', new_user_blog_path(user) %>
   	<% end -%>
+		<% is_controller? 'groups' do -%>
+			<%= link_to 'Create a New Group', new_user_group_path(current_user) if current_user %>
+		<% end -%>
   </div>
 <% end -%>
 <% end -%>

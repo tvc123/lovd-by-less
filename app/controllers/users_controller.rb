@@ -97,7 +97,7 @@ class UsersController < ApplicationController
             result = ''
         elsif !User.login_exists?(params[:user_login])
             
-            @user = User.new
+            @user = User.new(:login => params[:user_login])
         	if !@user.validate_attributes(:only => [:login])
         	    result = ''
                 @user.errors.full_messages.each do |message|

@@ -1,8 +1,7 @@
 class HomeController < ApplicationController
     skip_before_filter :login_required	
 
-    def index 
-       
+    def index
         respond_to do |format|
             format.html {render}
             format.rss {render :partial =>  'profiles/newest_member', :collection => new_members}

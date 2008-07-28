@@ -13,22 +13,6 @@
 #  is_denied        :integer(11)   default(0), not null
 #  is_reviewed      :boolean(1)    
 #
-
-# == Schema Information
-# Schema version: 1
-#
-# Table name: comments
-#
-#  id               :integer(11)   not null, primary key
-#  comment          :text          
-#  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  profile_id       :integer(11)   
-#  commentable_type :string(255)   default(""), not null
-#  commentable_id   :integer(11)   not null
-#  is_denied        :integer(11)   default(0), not null
-#  is_reviewed      :boolean(1)    
-#
 class Comment < ActiveRecord::Base
 
     validates_presence_of :comment, :user

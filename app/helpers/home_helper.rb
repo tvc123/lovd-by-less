@@ -6,7 +6,7 @@ module HomeHelper
   
   
   def recent_comments limit = 10
-    Comment.find(:all, :order => 'created_at desc', :limit => limit, :conditions => "commentable_type='Profile'")
+    Comment.find(:all, :order => 'created_at desc', :limit => limit, :conditions => "commentable_type='User'")
   end
   
   def new_members(limit = 12)

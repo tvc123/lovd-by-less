@@ -65,7 +65,7 @@
 	<div id="group-officers" class="activity_box">
     <h2>Officers</h2>
 		<%= render :partial => 'groups/group_member', :object => @group.creator, :locals => {:caption => 'creator'} -%>
-		<%= render :partial => 'groups/group_member', :collection => @group.managers, :locals => {:caption => 'manager'} -%>
+		<%= render :partial => 'groups/group_member', :collection => @group.members.in_role('managers'), :locals => {:caption => 'manager'} -%>
   </div>
 	
 	<div class="clear"></div>

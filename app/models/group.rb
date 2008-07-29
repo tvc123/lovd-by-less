@@ -1,11 +1,15 @@
 # == Schema Information
-# Schema version: 20080715224909
+# Schema version: 20080717230806
 #
 # Table name: groups
 #
-#  id         :integer(11)   not null, primary key
-#  created_at :datetime      
-#  updated_at :datetime      
+#  id          :integer(11)   not null, primary key
+#  creator_id  :integer(11)   
+#  name        :string(255)   
+#  description :text          
+#  state       :string(255)   
+#  created_at  :datetime      
+#  updated_at  :datetime      
 #
 
 class Group < ActiveRecord::Base
@@ -17,6 +21,7 @@ class Group < ActiveRecord::Base
     
     belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'   
     
+    has_many :memberships
     has_many :members, :through => :memberships, 
                        :dependent => :destroy,
                        :order => 'last_name, first_name', 

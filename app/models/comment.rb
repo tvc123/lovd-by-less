@@ -1,4 +1,20 @@
 # == Schema Information
+# Schema version: 20080717230806
+#
+# Table name: comments
+#
+#  id               :integer(11)   not null, primary key
+#  comment          :text          
+#  created_at       :datetime      not null
+#  updated_at       :datetime      not null
+#  user_id          :integer(11)   
+#  commentable_type :string(255)   default(""), not null
+#  commentable_id   :integer(11)   not null
+#  is_denied        :integer(11)   default(0), not null
+#  is_reviewed      :boolean(1)    
+#
+
+# == Schema Information
 # Schema version: 20080715224909
 #
 # Table name: comments

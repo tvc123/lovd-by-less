@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080715224909
+# Schema version: 20080717230806
 #
 # Table name: plone_group_roles
 #

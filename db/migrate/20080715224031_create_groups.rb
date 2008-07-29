@@ -4,6 +4,7 @@ class CreateGroups < ActiveRecord::Migration
             t.integer   :creator_id
             t.string    :name
             t.text      :description
+            t.string    :icon
             t.string    :state
             t.timestamps
         end

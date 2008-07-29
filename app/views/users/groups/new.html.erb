@@ -2,21 +2,7 @@
 	<% custom_form_for :group, :url => user_groups_path(@user) do |f| -%>
     <h1>Create a New Group</h1>
 		<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
-		<%= f.error_messages %>
-	
-		<%= f.text_field :name, { :label => 'Group Name',
-															:extra_html => '<div id="group-availibility"></div>',
-															:tip => 'Select a descriptive name for your group.' } -%>
-
-		<%= f.text_field :tag_list, { :label => 'Group Tags',
-			 														:tip => 'Tags help other users find your group.  Use something descriptive.
-																						Example: Teachers, French - for a group of teachers interested in French.'} -%>
-									
-		<%= f.text_area :description, { :label => 'Group Description',
-			 															:tip => 'Describe your group.'} -%>
-	
-		<div class="clear"></div>
-	
+		<%= render :partial => 'groups/form', :locals => {:form => f} %>
 		<div class="button">
     	<%= f.submit "Create", :class => 'button' %>
 			<%= link_to 'Cancel', user_groups_path(@user), {:class => 'button'} %>

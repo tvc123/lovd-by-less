@@ -196,26 +196,26 @@ class UsersController < ApplicationController
         respond_to do |format|
             current_user.update_attribute :icon, nil
             format.js {render :update do |page| page.visual_effect 'Puff', 'user_icon_picture' end  }
-            end      
-        end
+        end      
+    end
 
-        protected 
+    protected 
 
-        def permission_denied      
-            respond_to do |format|
-                format.html do
-                    redirect_to user_path(current_user)
-                end
+    def permission_denied      
+        respond_to do |format|
+            format.html do
+                redirect_to user_path(current_user)
             end
         end
-
-        def setup_form_values
-            @states = State.find(:all, :order => "name" )
-            @countries = Country.find(:all, :order => "name" )
-            @grade_level_experiences = GradeLevelExperience.find(:all)
-            @languages = Language.find(:all, :order => "english_name")
-            @united_states_id = @countries.select {|country| country.name.include?('United States of America')}[0].id
-        end
-
     end
+
+    def setup_form_values
+        @states = State.find(:all, :order => "name" )
+        @countries = Country.find(:all, :order => "name" )
+        @grade_level_experiences = GradeLevelExperience.find(:all)
+        @languages = Language.find(:all, :order => "english_name")
+        @united_states_id = @countries.select {|country| country.name.include?('United States of America')}[0].id
+    end
+
+end
 

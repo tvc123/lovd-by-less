@@ -1,12 +1,40 @@
-<h1>Editing group</h1>
+<h1>Edit <%= @group.name -%></h1>
 
-<% form_for(@group) do |f| %>
-  <%= f.error_messages %>
+<div class="left half">
+	<div class="standard_form">
+		<% custom_form_for @group do |f| -%>
+			<%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
+			<%= render :partial => 'groups/form', :locals => {:form => f} %>
+			<div class="button">
+	    	<%= f.submit "Update", :class => 'button' %>
+				<%= link_to 'Cancel', groups_path, {:class => 'button'} %>
+			</div>
+		<% end -%>
+	</div>
+  <div class="clear"></div>
+</div>
 
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+<div class="right half">
+	<div id="upload_icon">
+	  <% form_for @group, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |f| %>
+	    <h2><%= "Upload Photo:" %></h2>
+	    <label>Upload a photo for <%= @group.name -%></label>
+	    <%= file_column_field( "group", "icon", :size => 15)%>
+	    <div class="clear"></div>
+	    <% unless @group.icon.blank? %>
+	    <div id="avatar_edit">
+	      <span id="group_icon_picture">
+	        <%= icon @group %>
+	        <%= link_to_remote 'delete icon', :url=>delete_icon_group_path(@user), :confirm => GlobalConfig.delete_confirm  %>
+	      </span>
+	    </div>
+	    <% end %>
 
-<%= link_to 'Show', @group %> |
-<%= link_to 'Back', groups_path %>
+	    <div class="row button">
+	    <%= f.submit 'Save', :class => 'button' %>
+	    </div>
+
+	    <input type="hidden" name="switch" value="image" />
+	  <% end %>
+	</div>
+</div>

@@ -7,6 +7,7 @@
 #  creator_id  :integer(11)   
 #  name        :string(255)   
 #  description :text          
+#  icon        :string(255)   
 #  state       :string(255)   
 #  created_at  :datetime      
 #  updated_at  :datetime      

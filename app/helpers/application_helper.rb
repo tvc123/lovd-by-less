@@ -6,24 +6,27 @@ module ApplicationHelper
     def icon object, size = :small, img_opts = {}
         return "" if object.nil?
         
+        options = {:size => size, :file_column_version => size }
+        
         if object.is_a?(User)
             img_opts = {:title => object.full_name, :alt => object.full_name, :class => size}.merge(img_opts)
             link_to(avatar_tag(object, {:size => size, :file_column_version => size }, img_opts), profile_path(object))
-        elsif object.is_a?(Group)
-        
-            options = {:size => size, :file_column_version => size }
-            field = options.delete(:file_column_field) || 'icon'
-            return nil if field.nil? || object.send(field).nil?
-            options = options[:file_column_version] || options
-            url = url_for_image_column(object, 'icon', options)
-            
-            
+        elsif object.is_a?(Group)                     
+            url = icon_url(object, options)
+            return '' if url.empty?
             html_options = {:title => object.name, :alt => object.name, :class => size}.merge(img_opts)
             link_to(image_tag(url, html_options), group_path(object))
         end
     
     end     
-      
+    
+    def icon_url(object, options)
+        field = options.delete(:file_column_field) || 'icon'
+        return '' if field.nil? || object.send(field).nil?
+        options = options[:file_column_version] || options
+        url_for_image_column(object, 'icon', options)
+    end
+          
     def is_me?(user)
         user == current_user
     end

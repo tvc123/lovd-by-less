@@ -1,8 +1,8 @@
 <%= render :partial => 'shared/user_menu', :locals => {:user => @user} %>
 <div class="left" id="column_l">	
 	<h1><%= @group.name %></h1>
-	
-	<div id="information" class="activity_box">
+
+  <div id="information" class="activity_box">
 		<h2>Information</h2>
 		<%= @group.description %>
 	</div>
@@ -53,6 +53,8 @@
 
 <div class="right" id="column_r">
   
+	<div><%= icon @group, :bigger -%></div>
+
 	<% if true -%>
 		<div id="group-administration" class=" activity_box">
 			<h2>Group Administration</h2>

@@ -3,6 +3,27 @@ module ApplicationHelper
     require 'net/http'
     require 'uri'
 
+    def icon object, size = :small, img_opts = {}
+        return "" if object.nil?
+        
+        if object.is_a?(User)
+            img_opts = {:title => object.full_name, :alt => object.full_name, :class => size}.merge(img_opts)
+            link_to(avatar_tag(object, {:size => size, :file_column_version => size }, img_opts), profile_path(object))
+        elsif object.is_a?(Group)
+            
+            # url_for_image_column @entry, "image", "640x480"
+            # 
+            # url_for_image_column @entry, "image", :size => "50x50", :crop => "1:1", :name => "thumb"
+            #   
+            #   avatar_tag(object, {:size => size, :file_column_version => size }, img_opts)
+
+            
+            img_opts = {:title => object.name, :alt => object.name, :class => size}.merge(img_opts)
+            link_to(avatar_tag(object, {:size => size, :file_column_version => size }, img_opts), group_path(object))
+        end
+    
+    end
+    
     def is_me?(user)
         user == current_user
     end

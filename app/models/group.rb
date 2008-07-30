@@ -45,6 +45,15 @@ class Group < ActiveRecord::Base
 
     validates_presence_of :name, :description
 
+    file_column :icon, :magick => {
+        :versions => { 
+            :bigger => {:crop => "1:1", :size => "200x200", :name => "bigger"},
+            :big => {:crop => "1:1", :size => "150x150", :name => "big"},
+            :medium => {:crop => "1:1", :size => "100x100", :name => "medium"},
+            :small => {:crop => "1:1", :size => "50x50", :name => "small"}
+        }
+    }
+    
     def notify_approve
     end
     

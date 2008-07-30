@@ -1,0 +1,14 @@
+<%= form.error_messages %>
+
+<%= form.text_field :name, { :label => 'Group Name',
+													:extra_html => '<div id="group-availibility"></div>',
+													:tip => 'Select a descriptive name for your group.' } -%>
+
+<%= form.text_field :tag_list, { :label => 'Group Tags',
+	 														:tip => 'Tags help other users find your group.  Use something descriptive.
+																				Example: Teachers, French - for a group of teachers interested in French.'} -%>
+							
+<%= form.text_area :description, { :label => 'Group Description',
+	 															:tip => 'Describe your group.'} -%>
+
+<div class="clear"></div>

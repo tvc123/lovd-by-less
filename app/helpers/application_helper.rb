@@ -10,20 +10,20 @@ module ApplicationHelper
             img_opts = {:title => object.full_name, :alt => object.full_name, :class => size}.merge(img_opts)
             link_to(avatar_tag(object, {:size => size, :file_column_version => size }, img_opts), profile_path(object))
         elsif object.is_a?(Group)
+        
+            options = {:size => size, :file_column_version => size }
+            field = options.delete(:file_column_field) || 'icon'
+            return nil if field.nil? || object.send(field).nil?
+            options = options[:file_column_version] || options
+            url = url_for_image_column(object, 'icon', options)
             
-            # url_for_image_column @entry, "image", "640x480"
-            # 
-            # url_for_image_column @entry, "image", :size => "50x50", :crop => "1:1", :name => "thumb"
-            #   
-            #   avatar_tag(object, {:size => size, :file_column_version => size }, img_opts)
-
             
-            img_opts = {:title => object.name, :alt => object.name, :class => size}.merge(img_opts)
-            link_to(avatar_tag(object, {:size => size, :file_column_version => size }, img_opts), group_path(object))
+            html_options = {:title => object.name, :alt => object.name, :class => size}.merge(img_opts)
+            link_to(image_tag(url, html_options), group_path(object))
         end
     
-    end
-    
+    end     
+      
     def is_me?(user)
         user == current_user
     end

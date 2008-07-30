@@ -64,7 +64,7 @@ h3{font-size:13px;margin-bottom:10px;}
 #change_passwords{padding-bottom:30px;}
 .instruction{padding:5px;font-weight:bold;}
 .half{width:46%;}
-#avatar_edit{padding:3px;background:black;border:1px solid #ddd;clear:both;margin:10px 0;}
+#avatar_edit{padding:3px;border:1px solid #ddd;clear:both;margin:10px 0;}
 #column_r{width:220px;padding:8px 0 0 0;}
 #column_l{width:555px;}
 #column_r li a{font-size:20px;text-transform:capitalize;display:block;}
@@ -209,3 +209,5 @@ div.form-item select{width:170px;}
 .active{background:#E9EFD5 none repeat scroll 0%;}
 #availibility{font-size:1.4em;padding:2px 0;color:#b30e01;font-weight:bold;}
 form em{color:#b61e12;font-style:normal;}
+
+.group{border:solid 1px #555555;width:100px;height:150px;float:left;margin:10px;}

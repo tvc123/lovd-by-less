@@ -25,7 +25,7 @@
 	    <div id="avatar_edit">
 	      <span id="group_icon_picture">
 	        <%= icon @group %>
-	        <%= link_to_remote 'delete icon', :url=>delete_icon_group_path(@user), :confirm => GlobalConfig.delete_confirm  %>
+	        <%= link_to_remote 'delete group photo', :url => delete_icon_group_path(@group), :confirm => GlobalConfig.delete_confirm  %>
 	      </span>
 	    </div>
 	    <% end %>

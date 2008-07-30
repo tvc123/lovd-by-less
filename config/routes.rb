@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :profiles, :collection => { :search => :get }
     
     # groups
-    map.resources :groups
+    map.resources :groups, :member => { :delete_icon => :post }
         
     # sessions
     map.resource :session

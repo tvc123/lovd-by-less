@@ -33,6 +33,9 @@ common:
     groups_website: "groups.teacherswithoutborders.org"
     
     integrate_plone: true
+    use_plone_contact_us: true
+    plone_site: 'http://courses.teacherswithoutborders.org'
+    contact_us_url: 'http://courses.teacherswithoutborders.org/feedback'
     
     integrate_salesforce: true
     

@@ -1,5 +1,9 @@
 <div class="text_c" style="padding-top: 20px;">
- 	<a href="/contact">Contact Us</a> | <a href="http://www.<%= GlobalConfig.application_base_url %>/news" target="_blank">News</a>
+	<% if GlobalConfig.use_plone_contact_us -%>
+	  <a href="<%=GlobalConfig.contact_us_url%>">Contact Us</a>	
+	<% else -%>
+ 		<a href="/contact">Contact Us</a> 
+	<% end -%> | <a href="http://www.<%= GlobalConfig.application_base_url %>/news" target="_blank">News</a>
 </div>
 <div id="message" class="fixed"></div>
 

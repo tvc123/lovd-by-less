@@ -12,15 +12,16 @@ set :repository,  "git://github.com/tvc123/lovd-by-less.git"
 set :scm, :git
 default_run_options[:pty] = true # or else you'll get "sorry, you must have a tty to run sudo" 
 
-role :app, "twb1.enpraxis.net"
-role :web, "twb1.enpraxis.net"
-role :db,  "twb1.enpraxis.net", :primary => true
+role :app, "yfh.enpraxis.net"
+role :web, "yfh.enpraxis.net"
+role :db,  "yfh.enpraxis.net", :primary => true
 
 ssh_options[:port] = 2224
 
 set :user, "git"
 set :deploy_to, "/var/www/#{application}"
 set :deploy_via, :export
+set :branch, "yfh"
 
 desc "create symlinks from rails dir into project"
 task :create_sym do

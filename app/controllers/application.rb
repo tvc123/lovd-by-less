@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     #include ExceptionNotifiable
     include AuthenticatedSystem
 
+    protect_from_forgery :secret => 'da56e521f44e4e1eb16014fa16ea952a36390580debcc3a5e7cd14936eb736b384aee794aade7e5e36c1f4d4035426763b13d40608cf143618c36381dec88a06'
+
     filter_parameter_logging "password"
 
     before_filter :login_from_cookie, :login_required, :setup_paging

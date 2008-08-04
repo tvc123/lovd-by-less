@@ -34,7 +34,7 @@ return unless photos_empty && friends_empty && messages_empty && profile_empty &
 		<%- if friends_empty -%>
 		<div class="blurp">
 			<img src="/images/blurp_friends.png" class="png left" title="Friend Icon" alt="Friend Icon" />
-			<strong>Groups</strong>
+			<strong><%= link_to 'Groups', groups_path -%></strong>
 			Search for others with common interests.
 			<div class="clear"></div>
 		</div>

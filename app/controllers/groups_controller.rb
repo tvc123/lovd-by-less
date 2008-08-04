@@ -2,8 +2,9 @@ class GroupsController < ApplicationController
     
     skip_filter :login_required, :only => [:index, :show]
     
-    def index        
-        @groups = Group.find(:all).paginate(:page => @page, :per_page => @per_page)
+    # if a user exists in the request show groups for that user.  If not then show all groups
+    def index
+        @groups = Groups.find(:all).paginate(:page => @page, :per_page => @per_page)
         respond_to do |format|
             format.html # index.html.erb
             format.xml  { render :xml => @groups }

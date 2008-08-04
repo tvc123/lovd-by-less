@@ -62,6 +62,7 @@ class UsersControllerTest < Test::Unit::TestCase
         setup { create_user :password_confirmation => nil }
         should_respond_with :success
         should_render_template :new
+        
         should "assign an error to the password confirmation field" do
             assert assigns(:user).errors.on(:password_confirmation) 
         end                                       

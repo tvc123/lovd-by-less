@@ -1,6 +1,6 @@
 class Admin::RolesController < ApplicationController
 
-    before_filter :check_administrator_role
+    before_filter :login_required,:is_admin?
 
     def index
         @user = User.find(params[:user_id])
@@ -23,7 +23,7 @@ class Admin::RolesController < ApplicationController
         respond_to do |format|
             if @role.save
                 flash[:notice] = 'Role was successfully created.'
-                format.html { redirect_to(@role) }
+                format.html { redirect_to(admin_roles_path(@role)) }
                 format.xml  { render :xml => @role, :status => :created, :location => @role }
             else
                 format.html { render :action => "new" }

@@ -43,6 +43,7 @@ Rails::Initializer.run do |config|
     config.gem 'test-spec', :lib => 'test/spec', :version => '0.9.0'
     config.gem 'RedCloth', :lib => 'redcloth', :version => '3.0.4'
     config.gem 'activerecord-activesalesforce-adapter', :lib => 'active_record', :version => '2.0.0'
+    config.gem 'memcache-client', :lib => 'memcache'
     
 end
 

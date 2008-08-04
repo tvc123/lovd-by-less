@@ -33,6 +33,9 @@ common:
     groups_website: "groups.teacherswithoutborders.org"
     
     integrate_plone: true
+    use_plone_contact_us: true
+    plone_site: 'http://courses.teacherswithoutborders.org'
+    contact_us_url: 'http://courses.teacherswithoutborders.org/feedback'
     
     integrate_salesforce: true
     
@@ -92,7 +95,9 @@ development:
     plone_xmlrpc_server: "groups.teacherswithoutborders.org"
     
 test:
-
+    # Text for emails - ie Sincerly, emailed_by
+    emailed_by: 'Teachers Without Borders' 
+        
     # email address for support requests
     support_email: 'info@teacherswithoutborders.org'
         
@@ -104,8 +109,17 @@ test:
 
     # Sent in emails to users
     application_url: 'localhost:3000'
-    
+
     mailer_to_address: 'info@teacherswithoutborders.org'
+    
+    # for cookies that need to work across all subdomains (the plone site)
+    application_base_url: 'localhost:3000'
+    
+    # configuration for plone xml rpc call that creates user folders
+    plone_xmlrpc_port: 80
+    plone_xmlrpc_path: '/RPC2'
+    plone_xmlrpc_server: "groups.teacherswithoutborders.org"
+    
     
 
     

@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
     before_filter :search_results, :except => [:destroy]
-
+    before_filter :login_required,:is_admin?
     def index
         render
     end

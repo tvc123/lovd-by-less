@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
     # if a user exists in the request show groups for that user.  If not then show all groups
     def index
         
-        @groups = @user.groups.paginate(:page => @page, :per_page => @per_page)
+        @groups = Groups.find(:all).paginate(:page => @page, :per_page => @per_page)
         
         respond_to do |format|
             format.html # index.html.erb
